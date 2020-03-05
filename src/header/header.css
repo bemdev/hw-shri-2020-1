@@ -1,0 +1,20 @@
+.header {
+    padding: var(--indentation-xxxl) var(--gap);
+    
+}
+
+.header-content {
+    /* width: 1280px; */
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.header .header-logo {
+    width: 179px;
+    height: 34px;
+    background: var(--text-primary);
+}

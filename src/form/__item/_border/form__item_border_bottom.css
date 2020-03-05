@@ -1,0 +1,4 @@
+.form__item_border_bottom {
+    border-bottom: solid;
+    border-color: var(--border-bg-color);
+}

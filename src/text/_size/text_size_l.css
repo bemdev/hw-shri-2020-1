@@ -1,0 +1,4 @@
+.text_size_l {
+    height: var(--text-l);
+    /* margin: var(--interval-s) 0; */
+}

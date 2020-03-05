@@ -1,0 +1,13 @@
+.theme_space_default {
+    --indentation-xxxs: 3px;
+    --indentation-xxs: 6px;
+    --indentation-xs: 9px;
+    --indentation-s: 15px;
+    --indentation-m: 18px;
+    --indentation-l: 24px;
+    --indentation-xl: 27px;
+    --indentation-xxl: 36px;
+    --indentation-xxxl: 45px;
+    --indentation-xxxxl: 51px;
+    --indentation-xxxxxl: 72px;
+}

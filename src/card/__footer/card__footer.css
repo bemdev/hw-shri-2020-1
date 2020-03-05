@@ -1,0 +1,12 @@
+.card__footer {
+    position: absolute;
+    bottom: 0;
+}
+
+.card__footer .text {
+    /* margin-top: 16px; */
+}
+
+.card__footer .text:nth-child(2) {
+    margin: 15px 0 5px;
+}

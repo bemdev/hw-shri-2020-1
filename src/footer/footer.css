@@ -1,0 +1,23 @@
+.footer {
+    background-color: var(--accent-bg-color);
+}
+
+.footer-content {
+    /* width: 1280px; */
+    margin: 0 auto;
+    padding: 14px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.footer-item {
+    display: flex;
+}
+
+.footer-item .link {
+    padding-left: 8px;
+}

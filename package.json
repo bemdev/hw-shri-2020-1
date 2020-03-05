@@ -1,0 +1,32 @@
+{
+  "name": "hw-shri-2020-1",
+  "version": "0.0.1",
+  "description": "(весна 2020, Москва)",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ],
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "make": "gulp build",
+    "start": "NODE_ENV=production gulp build",
+    "dev": "gulp build && gulp watcher"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bemdev/hw-shri-2020-1"
+  },
+  "author": "Aleksey Kazantcev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bemdev/hw-shri-2020-1/issues",
+    "email": "mediaforge1@yandex.ru"
+  },
+  "homepage": "https://github.com/bemdev/hw-shri-2020-1#readme"
+}

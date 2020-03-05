@@ -1,0 +1,13 @@
+.theme_size_default {
+    --text-s: 8px;
+    --text-m: 10px;
+    --text-l: 11px;
+    --text-xl: 13px;
+    --text-xxl: 16px;
+
+    --interval-s: 21px;
+    --interval-m: 25px;
+    --interval-l: 28px;
+    --interval-xl: 34px;
+    --interval-xxl: 38px;
+}

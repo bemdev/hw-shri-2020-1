@@ -1,0 +1,37 @@
+.grid-fraction_position_center {
+    text-align: center;
+    margin: 0 auto;
+    width: 220px;
+    padding: 220px 0;
+}
+
+.section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 {
+    grid-template-rows: 81px 226px 99px 70px;
+    display: grid;
+}
+
+.section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 .text-word {
+    margin: 7px 0 8px;
+}
+
+.section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 .text_type_h1 {
+    margin: 19px 0;
+}
+
+.section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 .text_type_h2 {
+    margin: 45px 0;
+}
+
+@media only screen and (max-width: 800px) {
+    .section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 {
+        grid-template-rows: 73px 251px 99px 74px;
+        display: grid;
+    }
+    .section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 .text_type_h1 {
+        margin: 11px 0;
+    }
+    
+    .section_indent-b_xxxxl .grid-fraction.grid-fraction_m-col_8 .text_type_h2 {
+        margin: 45px 0;
+    }
+}

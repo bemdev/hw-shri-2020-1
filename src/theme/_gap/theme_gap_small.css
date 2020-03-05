@@ -1,0 +1,9 @@
+.theme_gap_small {
+    --gap: var(--indentation-xl);
+}
+
+@media (max-width: 1024px) { 
+    .theme_gap_small {
+        --gap: var(--indentation-s)
+    }
+}

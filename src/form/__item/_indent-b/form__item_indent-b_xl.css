@@ -1,0 +1,7 @@
+.form__item_indent-b_xl {
+    margin-bottom: var(--indentation-xl);
+}
+
+.form__item_indent-b_xl:last-child {
+    margin-bottom: 0;
+}

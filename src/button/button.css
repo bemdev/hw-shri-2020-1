@@ -1,0 +1,15 @@
+.button {
+    /* width: 200px; */
+    background: var(--accent-bg-color);
+    font-size: 16px;
+    padding: 7px 22px;
+    border-radius: 8px;
+    box-shadow: 0;
+    border: 0;
+}
+
+.button_with_icon {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+}

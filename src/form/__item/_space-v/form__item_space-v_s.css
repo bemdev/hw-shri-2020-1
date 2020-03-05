@@ -1,0 +1,4 @@
+.form__item_space-v_s {
+    padding-top: var(--indentation-s);
+    padding-bottom: var(--indentation-s);
+}
