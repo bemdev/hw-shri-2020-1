@@ -1,55 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title></title>
-    <link rel="stylesheet" href="build/style.css" type="text/css" media="screen" charset="utf-8"/>
-  </head>
-  <body>
-        <div class='page theme_color_project-default'>
-          <div class="header">
-            <div class="header-content">
-              <div class="brand-logo brand-logo_size_l theme_color_project-default">
-                School CI server
-              </div>
-              <button class="button button_with_icon theme_color_project-default">
-                <div class="icon icon_fa_cogs"></div>
-                Settings
-              </button>
-            </div>
-          </div>
-          <section class="section">
-            <div class="grid grid_m-columns_12">
-              <div class="grid-fraction">
-                <h1>Settings</h1>
-                <p class="text">Configure repository connection and synchronization settings</p>
-                <form action="" class="form">
-                  <label for="input">GitHub repository</label>
-                  <input type="text" class="input" placeholder="user-name/repo-name">
-                  <label for="input">Build command</label>
-                  <input type="text" class="input" placeholder="yarn start">
-                  <label for="input">Main brach</label>
-                  <input type="text" class="input" placeholder="master">
-                  <input type="text" class="input" placeholder="20">
-                </form>
-                <button class="button button_view_active">Save</button>
-                <button class="button">Cancel</button>
-              </div>
-            </div>
-          </section>
-          <div class="footer">
-            <div class="footer-content">
-              <div class="footer-item">
-                <div class="text">Support</div>
-                <a class='link'>Learning</a>
-              </div>
-              <div class="footer-item">
-                <div class="copyright">
-                  @ 2020 Aleksey Kazancev
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title></title>
+		<link
+			rel="stylesheet"
+			href="build/style.css"
+			type="text/css"
+			media="screen"
+			charset="utf-8"
+		/>
+	</head>
+	<body>
+		<div
+			class="page theme_gap_small theme_space_default theme_size_default theme_color_project-default"
+		>
+			<div class="header">
+				<div class="header-content">
+					<h1
+						class="header-logo brand-logo brand-logo_size_l theme_color_project-inverse"
+					>
+						School CI server
+					</h1>
+					<button class="button button_with_icon theme_color_project-default">
+						<div class="icon icon_fa_cogs"></div>
+						Settings
+					</button>
+				</div>
+			</div>
+			<section class="layout">
+				<div class="layout-container layout-container_align_center">
+					<div class="title">
+						<h2 class="text text_type_h2">Settings</h2>
+						<div class="title-subtitle">
+							<h3 class="text text_type_h3">
+								Configure repository connection and synchronization settings
+							</h3>
+						</div>
+					</div>
+					<form action="" class="form">
+						<label for="input">GitHub repository</label>
+						<input
+							type="text"
+							class="input input_width_full"
+							placeholder="user-name/repo-name"
+						/>
+						<label for="input">Build command</label>
+						<input
+							type="text"
+							class="input input_width_full"
+							value="yarn start"
+						/>
+						<label for="input">Main brach</label>
+						<input type="text" class="input input_width_full" value="master" />
+						<div class="input input_with_add-ons">
+							<div class="input-addon">Synchronize every</div>
+							<input type="text" class="input input-field" value="10" />
+							<div class="input-addon">minutes</div>
+						</div>
+					</form>
+					<button class="button button_view_active">Save</button>
+					<button class="button">Cancel</button>
+				</div>
+			</section>
+			<div class="footer">
+				<div class="footer-content">
+					<div class="footer-item">
+						<div class="text">Support</div>
+						<a class="link" href="#">Learning</a>
+					</div>
+					<div class="footer-item">
+						<div class="copyright">
+							@ 2020 Aleksey Kazancev
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

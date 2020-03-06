@@ -1,4 +1,3 @@
 .text_size_xxl {
-    height: var(--text-xxl);
-    /* margin: var(--interval-s) 0; */
+	font-size: var(--text-xxl);
 }

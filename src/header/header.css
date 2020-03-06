@@ -1,20 +1,25 @@
 .header {
-    padding: var(--indentation-xxxl) var(--gap);
-    
 }
 
 .header-content {
-    /* width: 1280px; */
-    margin: 0 auto;
-
-    display: flex;
-    justify-content: space-between;
+	width: var(--full-width);
+	margin: 0 auto;
+	padding: var(--indentation-xs) var(--gap);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
+.header-control {
+	display: flex;
+	justify-content: space-between;
+}
 
+.header-control .button:first-child {
+	margin: 0 10px 0 0;
+}
 
 .header .header-logo {
-    width: 179px;
-    height: 34px;
-    background: var(--text-primary);
+	/* background: var(--text-primary); */
+	margin: 0;
 }

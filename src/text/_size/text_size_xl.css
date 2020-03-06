@@ -1,4 +1,3 @@
 .text_size_xl {
-    height: var(--text-xl);
-    /* margin: var(--interval-xl) 0; */
+	font-size: var(--text-xl);
 }

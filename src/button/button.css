@@ -1,15 +1,28 @@
 .button {
-    /* width: 200px; */
-    background: var(--accent-bg-color);
-    font-size: 16px;
-    padding: 7px 22px;
-    border-radius: 8px;
-    box-shadow: 0;
-    border: 0;
+	/* width: 200px; */
+	background: var(--accent-bg-color);
+	font-size: 15px;
+	padding: 5px 18px;
+	border-radius: 4px;
+	box-shadow: 0;
+	border: 0;
+	outline: 0;
+}
+
+.button .icon {
+	padding: 0;
+}
+
+.button:hover {
+	cursor: pointer;
 }
 
 .button_with_icon {
-    display: flex;
-    align-items: center;
-    justify-self: center;
+	display: flex;
+	align-items: center;
+	justify-self: center;
+}
+
+.button_with_icon-one {
+	padding: 0 0 0 11px;
 }

@@ -1,4 +1,3 @@
 .text_size_m {
-    height: var(--text-m);
-    /* margin: var(--interval-s) 0; */
+	font-size: var(--text-s);
 }

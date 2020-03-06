@@ -1,2 +1,6 @@
 .layout {
+	height: 100%;
+	padding: 0 var(--gap);
+	margin: 0 auto;
+	width: var(--full-width);
 }
