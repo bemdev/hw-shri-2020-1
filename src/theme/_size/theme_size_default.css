@@ -1,9 +1,10 @@
 .theme_size_default {
-	--text-s: 8px;
-	--text-m: 10px;
-	--text-l: 11px;
-	--text-xl: 13px;
-	--text-xxl: 26px;
+	--text-s: 9px;
+	--text-m: 11px;
+	--text-l: 13px;
+	--text-xl: 15px;
+	--text-xxl: 16px;
+	--text-xxxl: 24px;
 
 	--interval-s: 21px;
 	--interval-m: 25px;
@@ -12,4 +13,10 @@
 	--interval-xxl: 38px;
 
 	--full-width: 1024px;
+}
+
+@media only screen and (max-width: 790px) {
+	.theme_size_default {
+		--full-width: 100%;
+	}
 }

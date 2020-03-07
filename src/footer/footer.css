@@ -1,8 +1,8 @@
 .footer {
 	width: 100%;
 	background-color: var(--accent-bg-color);
-	position: absolute;
-	bottom: 0;
+	/* position: absolute; */
+	/* bottom: 0; */
 }
 
 .footer-content {

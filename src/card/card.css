@@ -1,17 +1,19 @@
 .card {
 	position: relative;
-	padding: 25px;
+	padding: 12px 24px;
 	margin: 0 0 14px;
 }
 
 .card a {
 	text-decoration: none;
 	color: var(--text-secondary);
+	font-size: var(--text-l);
 }
 
 .card-text {
 	display: flex;
 	align-items: center;
+	line-height: 28px;
 }
 
 .card-subtext {
@@ -28,6 +30,21 @@
 
 .card-subtext .icon {
 	background-position: 5px;
+}
+
+.card_view_full .card-info {
+	display: flex;
+	border-top: 1px solid var(--border-bg-color);
+	margin-top: 5px;
+}
+
+.card_view_full .card-content {
+	grid-template-columns: 33px 9fr;
+}
+
+.card_view_full .card-info .card-date,
+.card_view_full .card-info .card-time {
+	margin: 7px 10px 0 0;
 }
 
 .card-date,

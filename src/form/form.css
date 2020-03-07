@@ -1,5 +1,6 @@
 .form {
 	line-height: 33px;
+	font-size: var(--text-l);
 }
 
 .form .text_size_xxl {

@@ -19,7 +19,7 @@ input.input {
 
 .input_with_add-ons input {
 	width: 45px;
-	text-align: center;
+	text-align: right;
 	margin: 10px;
 }
 /* 

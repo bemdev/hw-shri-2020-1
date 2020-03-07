@@ -1,14 +1,21 @@
 .card_border_all {
 	border-bottom: 1px solid;
 	border-color: var(--border-bg-color);
-	border-radius: 4px;
+	border-radius: 6px;
 	/* box-shadow: -1px 1px 1px var(--border-bg-color); */
 	transition: box-shadow 0.2s ease-out;
 }
 
 .card_border_all:hover {
-	border-radius: 4px;
+	border-radius: 6px;
 	box-shadow: -2px 2px 5px var(--border-bg-color);
 	transform: scale(1.01);
 	cursor: pointer;
+}
+
+.card_view_full.card_border_all:hover {
+	border-radius: 6px;
+	transform: none;
+	box-shadow: none;
+	cursor: inherit;
 }

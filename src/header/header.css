@@ -7,7 +7,7 @@
 	padding: var(--indentation-xs) var(--gap);
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	/* align-items: center; */
 }
 
 .header-control {
