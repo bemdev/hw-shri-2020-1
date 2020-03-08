@@ -1,0 +1,8 @@
+.footer__item {
+	display: flex;
+    padding-bottom: 4px;
+}
+
+.footer__item .link {
+	padding-right: 8px;
+}

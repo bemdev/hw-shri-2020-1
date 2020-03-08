@@ -1,0 +1,15 @@
+.card__text {
+	display: flex;
+    max-width: 100%;
+	align-items: center;
+	line-height: 28px;
+}
+
+.card__text .text {
+    width: 210px;
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Запрещаем перенос строк */
+}
+
+

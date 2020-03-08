@@ -1,0 +1,7 @@
+.card__status_view_text {
+	font-size: var(--text-xxl);
+    font-family: 'YS Text Bold';
+	padding: 0 10px 0 0;
+}
+
+

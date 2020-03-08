@@ -1,0 +1,6 @@
+.card__date {
+	display: flex;
+	color: var(--text-secondary);
+}
+
+

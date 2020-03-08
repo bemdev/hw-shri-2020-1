@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Settings | School CI Server</title>
+		<link
+			rel="stylesheet"
+			href="style.css"
+			type="text/css"
+			media="screen"
+			charset="utf-8"
+		/>
+	</head>
+	<body>
+		<div
+			class="page theme_gap_small theme_space_default theme_size_default theme_color_project-default"
+		>
+			<div class="header">
+				<div class="header__content">
+					<h1
+						class="header__logo text_size_xxxl theme_color_project-inverse"
+					>
+						School CI server
+					</h1>
+					<button
+						class="button button_size_l button_with_icon theme_color_project-default"
+					>
+						<div class="icon icon_fa_cogs"></div>
+						<div class="button-text">Settings</div>
+					</button>
+				</div>
+			</div>
+			<section class="layout">
+				<div class="layout-container layout-container_align_center">
+					<div class="title">
+						<h2 class="text text_type_h2 text_size_xxl">Settings</h2>
+						<div class="title-subtitle">
+							<h3 class="text text_type_h3 text_size_l">
+								Configure repository connection and synchronization settings
+							</h3>
+						</div>
+					</div>
+					<form action="" class="form">
+                        <div class="input input_width_full">
+                            <div class="input__label">GitHub repository</div>
+                            <input
+                                type="text"
+                                class="input__control"
+                                placeholder="user-name/repo-name"
+                            />
+                        </div>
+                        <div class="input input_width_full input_has_close">
+                            <div class="input__label">Build command</div>
+                            <input
+                                type="text"
+                                class="input__control"
+                                value="yarn start"
+                            />
+                            <div class="input__close"></div>
+                        </div>
+                        <div class="input input_width_full input_has_close">
+                            <div class="input__label">Main branch</div>
+                            <input
+                                type="text"
+                                class="input__control"
+                                value="master"
+                            />
+                            <div class="input__close"></div>
+                        </div>
+						<div class="input input_with_add-ons">
+							<div class="input__addon">Synchronize every</div>
+							<input maxlength="3" class="input__control input__field" value="10" />
+							<div class="input__addon">minutes</div>
+						</div>
+                        <button
+                            class="button button_width_full button_size_xl button_view_active"
+                            >
+                            Save
+                        </button>
+                        <button class="button button_width_full button_size_xl">
+                            Cancel
+                        </button>
+					</form>
+				</div>
+			</section>
+			<div class="footer">
+				<div class="footer__content">
+					<div class="footer__item">
+						<a class="link" href="#">Support</a>
+						<a class="link" href="#">Learning</a>
+					</div>
+					<div class="footer__item">
+						<div class="copyright">
+							@ 2020 Aleksey Kazancev
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

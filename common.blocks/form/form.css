@@ -1,0 +1,17 @@
+.form {
+	line-height: 30px;
+	font-size: var(--text-l);
+}
+
+.form .text_size_xxl {
+	margin: 8px 0 14px;
+}
+
+.form .text_size_l {
+	height: 13px;
+	padding: 0 0 2px;
+}
+
+.form .button {
+    margin-right: 10px;
+}

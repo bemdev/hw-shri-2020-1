@@ -7,12 +7,12 @@
     "last 2 versions",
     "not ie <= 10"
   ],
-  "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-concat": "^2.6.1"
+  "dependencies": {},
+  "devDependencies": {
+      "gulp": "^4.0.2",
+      "gulp-autoprefixer": "^7.0.1",
+      "gulp-concat": "^2.6.1"
   },
-  "devDependencies": {},
   "scripts": {
     "make": "gulp build",
     "start": "NODE_ENV=production gulp build",

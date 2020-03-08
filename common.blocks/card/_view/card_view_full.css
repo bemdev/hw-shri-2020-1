@@ -1,0 +1,16 @@
+.card_view_full .card__info {
+	display: flex;
+	border-top: 1px solid var(--border-bg-color);
+	margin-top: 5px;
+}
+
+.card_view_full .card__content {
+	grid-template-columns: 33px 9fr;
+}
+
+.card_view_full .card__info .card__date,
+.card_view_full .card__info .card__time {
+	margin: 10px 10px 0 0;
+}
+
+

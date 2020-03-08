@@ -3,10 +3,10 @@ const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 
 function css() {
-    return src(['src/**/*.css', 'src/*.css'])
+    return src(['common.blocks/**/*.css', 'common.blocks/*.css'])
         .pipe(concat('style.css'))
         .pipe(autoprefixer())
-        .pipe(dest('pages/build'))
+        .pipe(dest('build'))
 }
 
 async function build() {
@@ -14,7 +14,7 @@ async function build() {
 };
 
 async function watcher () {
-    return watch(['src/**/*.css', 'src/*.css'], parallel(css));
+    return watch(['common.blocks/**/*.css', 'common.blocks/*.css'], parallel(css));
 }
 
 exports.css = css;

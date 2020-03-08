@@ -1,0 +1,14 @@
+.card__subtext {
+	display: flex;
+	align-items: center;
+}
+
+.card__subtext a {
+    padding: 0 4px;
+}
+
+.card__subtext .icon {
+	background-position: 3px;
+}
+
+
