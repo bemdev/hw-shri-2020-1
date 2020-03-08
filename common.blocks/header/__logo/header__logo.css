@@ -1,5 +1,6 @@
 .header__logo {
     margin: 0;
+    padding-right: 10px;
     color: var(--text-primary);
     font-family: 'YS Text Bold';
 }
