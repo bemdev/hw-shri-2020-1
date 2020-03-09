@@ -1,0 +1,5 @@
+.input_required .input__label:after {
+    content: '*';
+    color: #E00000;
+    padding-left: 5px;
+}
