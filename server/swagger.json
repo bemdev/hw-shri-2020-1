@@ -1,0 +1,36 @@
+{
+  "swagger": "2.0",
+  "host": "localhost:3000",
+  "basePath": "/",
+  "info": {
+    "description": "Пример для ШРИ",
+    "version": "1.0.0",
+    "title": "ШРИ",
+    "contact": { "email": "kolhoz-feedback@yandex-team.ru" }
+  },
+  "paths": {
+    "/counter": {
+      "post": {
+        "summary": "Задает значение счетчика",
+        "description": "Задает значение счетчика через метод POST",
+        "consumes": "application/json",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "default": "{\"value\":-5}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "text/html": "-5"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
