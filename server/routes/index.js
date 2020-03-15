@@ -1,30 +1,33 @@
-// GET /api/settings — получение сохраненных настроек
-// POST /api/settings - cохранение настроек
-// GET  /api/builds - получение списка сборок
-// POST /api/builds/:commitHash - добавление сборки в очередь
-// GET  /api/builds/:buildId - получение информации о конкретной сборке
-// GET  /api/builds/:buildId/logs - получение логов билда (сплошной текст)
-// _______________________________________________________________________
+const { 
+    getBuildList,
+    sendBuild,
+    getBuildById,
+    getBuildLogs,
+    addBuildToTurn,
+    startBuild,
+    finishBuild,
+    cancelBuild,
+    getSettings,
+    saveSettings,
+    removeSettings
+} = require('../controllers');
 
 const initializeEntrypoints = (app) => {
-    app.get('/api/settings', (req, res) => {
-        res.end('ok');
-    });
-    app.post('/api/settings', (req, res) => {
-        res.end('ok');
-    });
-    app.get('/api/builds', (req, res) => {
-        res.end('ok');
-    });
-    app.post('/api/builds/:commitHash', (req, res) => {
-        res.end('ok');
-    });
-    app.get('/api/builds/:buildId', (req, res) => {
-        res.end('ok');
-    });
-    app.get('/api/builds/:buildId/logs', (req, res) => {
-        res.end('ok');
-    });
+
+    app.get('/api/builds/list', getBuildList)
+    // app.post('/api/builds/:commitHash', sendBuild);
+    app.get('/api/builds/:buildId', getBuildById);
+    app.get('/api/builds/:buildId/logs', getBuildLogs);
+
+    app.post('/api/build/request', addBuildToTurn);
+    app.post('/api/build/start', startBuild);
+    app.post('/api/build/finish', finishBuild);
+    app.post('/api/build/cancel', cancelBuild);
+
+    app.route('/api/settings')
+        .get(getSettings)
+        .post(saveSettings)
+        .delete(removeSettings);
 };
 
 module.exports = initializeEntrypoints;
