@@ -31,7 +31,7 @@ async function cloneRepo (settings) {
     return new Promise(resolve => {
         fs.exists(path.resolve(__dirname, '../../', pathToRepo), (match) => {
             if (!match) {
-                const gc = spawn('git', ['clone', `https://github.com/bemdev/${settings.repoName}`, pathToRepo]);
+                const gc = spawn('git', ['clone', `https://github.com/${settings.repoName}`, pathToRepo]);
                 gc.on('close', () => {
                     resolve({
                         ...settings,
