@@ -3,18 +3,23 @@
 
 ___
 **Установить зависимости**
+
 `yarn install` or `npm install`
 
 **Запустить сервер вместе с "build-agent" (нужны первоначальные настройки профиля)**
+
 `yarn start`
 
 **Запустить сервер в режиме dev**
+
 `yarn server:dev`
 
 **Запустить сервер в режиме production**
+
 `yarn server:prod`
 
 **Запустить build-agent отдельно**
+
 `yarn build-agent`
 
 **Где указать токен для api?**
@@ -23,6 +28,7 @@ ___
 ___
 
 **Где посмотреть документацию по api**
+
 `http://localhost:3000/api-docs`
 ___
 
@@ -60,17 +66,17 @@ server
 
 ```json
 "dependencies": {
-    "axios": "^0.19.2", //для отправки запросов
-    "dotenv": "^8.2.0", //для загрузки конфига .env
-    "express": "^4.17.1" //сервер nodejs
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
 },
     "devDependencies": {
-    "gulp": "^4.0.2", //сборщик front части проекта
-    "gulp-autoprefixer": "^7.0.1", //вспомогательный плагин для сборки
-    "gulp-concat": "^2.6.1", //вспомогательный плагин для сборки
-    "memory-cache": "^0.2.0", //для кеширование запроса лога
-    "nodemon": "^2.0.2", //для перезапуска сервера в режиме разработчика
-    "npm-run-all": "^4.1.5", //для запуска сервера и build-agent параллейно
-    "swagger-ui-express": "^4.1.3" //автодокументация по api
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "memory-cache": "^0.2.0",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "swagger-ui-express": "^4.1.3"
 }
 ```
