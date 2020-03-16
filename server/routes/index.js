@@ -1,6 +1,5 @@
 const { 
     getBuildList,
-    sendBuild,
     getBuildById,
     getBuildLogs,
     addBuildToTurn,
@@ -12,12 +11,32 @@ const {
     removeSettings
 } = require('../controllers');
 
+const mcache = require('memory-cache');
+
+const cacheMiddleware = (duration) => {
+    return (req, res, next) => {
+        const key = '__express__' + req.originalUrl || req.url;
+        let cachedBody = mcache.get(key);
+        if (cachedBody) {
+            res.send(cachedBody);
+            return
+        } else {
+            res.sendResponse = res.send;
+            res.send = (body) => {
+                mcache.put(key, body, duration * 60000);
+                res.sendResponse(body);
+            }
+        }
+        next();
+    }
+}
+
 const initializeEntrypoints = (app) => {
 
     app.get('/api/builds/list', getBuildList)
     // app.post('/api/builds/:commitHash', sendBuild);
     app.get('/api/builds/:buildId', getBuildById);
-    app.get('/api/builds/:buildId/logs', getBuildLogs);
+    app.get('/api/builds/:buildId/logs', cacheMiddleware(15), getBuildLogs);
 
     app.post('/api/build/request', addBuildToTurn);
     app.post('/api/build/start', startBuild);

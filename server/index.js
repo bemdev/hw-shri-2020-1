@@ -16,4 +16,3 @@ entrypoints(app);
 app.listen(3000, (server) => {
     console.log('CI Server start on 3000 port');
 });
-
