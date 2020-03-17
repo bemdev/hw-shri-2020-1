@@ -3,7 +3,7 @@ const { get, post, remove, cloneRepo, checkRepo, initBuildWorker } = require('..
 function getBuildList (req, res) {
     return new Promise(resolve => {
         const { limit, offset } = req.query;
-        get(`https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${offset ? offest : 0}`)
+        get(`https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${offset ? offest : 0}`) //need fix this but it work
             .then(response => {
                 if(res) {
                     res.send(response.data);
@@ -41,7 +41,7 @@ function getBuildLogs (req, res) {
 }
 
 function addBuildToTurn (context, req, res) {
-    post('https://hw.shri.yandex/api/build/request', context ? context : req.body)
+    post('https://hw.shri.yandex/api/build/request', context ? context : req.body) //need fix this but it work
         .then((response) => {
             if (res) res.send('Build waiting');
         })
@@ -54,6 +54,8 @@ function startBuild (build) {
     return post('https://hw.shri.yandex/api/build/start', {
         buildId: build.id,
         dateTime: build.start,
+    }).catch(err => {
+        if (err) throw err;
     });
 }
 
@@ -63,12 +65,16 @@ function finishBuild (build) {
         duration: 0,
         success: true,
         buildLog: 'string'
+    }).catch(err => {
+        if (err) throw err;
     });
 }
 
-function cancelBuild (build) {
+function cancelBuild (build) { //return 500 error ? dont cancel build plz
     post('https://hw.shri.yandex/api/build/cancel', {
         buildId: build.id,
+    }).catch(err => {
+        if (err) throw err;
     });
 }
 
@@ -92,7 +98,7 @@ function saveSettings (req, res) {
             cloneRepo(req.body)
                 .then(checkRepo)
                 .then(infoCommits => {
-                    const firstCommit = infoCommits.commits[0];
+                    const firstCommit = infoCommits.commits[0]; //fix this [0][2]
                     addBuildToTurn({
                         commitMessage: firstCommit[3],
                         commitHash: firstCommit[0],

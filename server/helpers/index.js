@@ -53,15 +53,28 @@ async function cloneRepo (settings) {
 async function checkRepo (repo) {
     return new Promise(resolve => {
         const commits = [];
-        const gl = spawn('git', ['-C', repo.pathToRepo, 'log', repo.mainBranch, '--format=%h,%an,%ai,%s']);
-        gl.stdout.on('data', (data) => {
-            commits.push(String(data));
-        });
-        gl.on('close', () => {
-            resolve({ 
-                ...repo,
-                commits: commits
-                    .map(commitLine => commitLine.split(','))
+        const gpull = spawn('git', ['-C', repo.pathToRepo, 'pull']);
+        gpull.stdout.on('data', (data) => {
+            // console.log(String(data));
+            const gl = spawn('git',
+                [
+                    '-C',
+                    repo.pathToRepo,
+                    'log',
+                    repo.mainBranch, '--format=%h,%an,%ai,%s'
+                ]
+            );
+
+            gl.stdout.on('data', (data) => {
+                // console.log(String(data));
+                commits.push(String(data));
+            });
+            gl.on('close', () => {
+                resolve({ 
+                    ...repo,
+                    commits: commits
+                        .map(commitLine => commitLine.split(','))
+                });
             });
         });
     })
