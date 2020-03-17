@@ -15,6 +15,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Get all builds",
         "parameters": [
           {
             "name": "offset",
@@ -64,6 +65,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Get build log (cached)",
         "parameters": [
           {
             "name": "buildId",
@@ -86,6 +88,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Get single build",
         "parameters": [
           {
             "name": "buildId",
@@ -125,6 +128,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Add single build",
         "requestBody": {
           "content": {
             "application/json": {
@@ -156,6 +160,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Start single build",
         "requestBody": {
           "content": {
             "application/json": {
@@ -187,6 +192,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Finish single build",
         "requestBody": {
           "content": {
             "application/json": {
@@ -218,6 +224,7 @@
         "tags": [
           "Build"
         ],
+        "summary": "Cancel single build",
         "requestBody": {
           "content": {
             "application/json": {
@@ -249,6 +256,7 @@
         "tags": [
           "BuildConfiguration"
         ],
+        "summary": "Get settings user",
         "responses": {
           "200": {
             "description": "Success",
@@ -276,6 +284,7 @@
         "tags": [
           "BuildConfiguration"
         ],
+        "summary": "Set settings user",
         "requestBody": {
           "content": {
             "application/json": {
@@ -305,6 +314,7 @@
         "tags": [
           "BuildConfiguration"
         ],
+        "summary": "Remove settings user",
         "responses": {
           "200": {
             "description": "Success"
