@@ -1,6 +1,6 @@
 # SHRI2020 - Home work #1/3 (NodeJS)
 
-![Иллюстрация к проекту](https://github.com/bemdev/hw-shri-2020-1/tree/with-server/build/images/ci-server.jpg)
+![Иллюстрация к проекту](https://github.com/bemdev/hw-shri-2020-1/tree/with-server/build/images/ci-server.png)
 
 В данном репозитории находятся файлы третьего домашнего задания "ШРИ - 2020 / NodeJS"
 
