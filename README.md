@@ -1,4 +1,7 @@
 # SHRI2020 - Home work #1/3 (NodeJS)
+
+![Иллюстрация к проекту](https://github.com/bemdev/hw-shri-2020-1/with-server/build/images/ci-server.jpg)
+
 В данном репозитории находятся файлы третьего домашнего задания "ШРИ - 2020 / NodeJS"
 
 ___
@@ -72,7 +75,7 @@ server
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
 },
-    "devDependencies": {
+"devDependencies": {
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
