@@ -1,0 +1,13 @@
+* {
+	font-family: 'YS Text Lights';
+	font-size: var(--text-l);
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+
+.page {
+}

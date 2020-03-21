@@ -7,12 +7,12 @@ const swaggerConfig = require('./swagger.json');
 const app = express();
 
 app.use(express.json());
-app.use(express.static(path.resolve(__dirname, '../build')))
+app.use(express.static(path.resolve(__dirname, '../examples')))
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 entrypoints(app);
 
-app.listen(3000, (server) => {
+app.listen(3010, (server) => {
     console.log('CI Server start on 3000 port');
 });

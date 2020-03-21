@@ -14,7 +14,7 @@ getSettings()
                             data.period = 10;
                             console.log('Build Worker idle...zz');
                         }
-                        
+
                         turnWaiters.forEach((build, index) => {
                             if (build.status === 'InProgress') {
                                 setTimeout(() => {
