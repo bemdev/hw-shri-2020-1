@@ -1,13 +1,19 @@
 import * as React from 'react';
+import Link from '../Link/Link.js';
+
 import './Menu.css';
+import './__item/menu__item.css';
 
 const Menu = ({items}) => {
     return (
         <ul className='Menu'>
-            {items.map(item => {
+            {items.map((item, index) => {
                 return (
-                    <li className='menu__item'>
-                        {item.title}
+                    <li
+                        className='menu__item'
+                        key={index}
+                    >
+                        <Link href={item.href} title={item.title} />
                     </li>
                 )
             })}

@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Menu from '../../Menu/Menu.js';
 import Copyright from '../../Copyright/Copyright.js';
 

@@ -1,5 +1,31 @@
 # SHRI2020 - Home work #1/3 (NodeJS)
 
+/*
+Даны 3 асинхронные функции со случайным setTimeout
+Нужно написать код, который выведет в консоль:
+A
+B
+C
+*/
+
+function foo(callback) {
+    setTimeout(function() {
+        callback('A');
+    }, Math.random()*100);
+}
+
+function bar(callback) {
+    setTimeout(function() {
+        callback('B');
+    }, Math.random()*100);
+}
+
+function baz(callback) {
+    setTimeout(function() {
+        callback('C');
+    }, Math.random()*100);
+}
+
 ![Иллюстрация к проекту](https://www.alexadevops.com/assets/images/DevOps_crop.png)
 
 В данном репозитории находятся файлы третьего домашнего задания "ШРИ - 2020 / NodeJS"
