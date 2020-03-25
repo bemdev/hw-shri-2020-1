@@ -1,14 +1,14 @@
-.button_view_active {
+.button.button_view_active {
 	background: #fc0;
-    border: 2px solid #fc0;
+	border: 2px solid #fc0;
 }
 
-.button_view_active:hover {
+.button.button_view_active:hover {
 	background: #f2c200;
-    border: 2px solid #f2c200;
+	border: 2px solid #f2c200;
 }
 
-.button_view_active:focus {
+.button.button_view_active:focus {
 	background: #f2c200;
 	border: 2px solid #b38f00;
 }

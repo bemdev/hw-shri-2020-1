@@ -1,28 +1,52 @@
-import * as React from 'react';
-import Page from '../AppPage/AppPage.js';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Loadable from 'react-loadable';
 
-import Grid from '../Grid/Grid.js';
-import Button from '../AppButton/AppButton.js';
+import routes from '../../routes';
 
-import '../theme/theme.css';
-import '../theme/_size/theme_size_default.css';
-import '../theme/_space/theme_space_default.css';
-import '../theme/_color/theme_color_project-default.css';
-import '../theme/_color/theme_color_project-inverse.css';
-import '../theme/_gap/theme_gap_small.css';
+const rootReducer = state => {
+	return (state = routes.map(route => {
+		if (route.loadData) {
+			return {
+				data: route.loadData ? route.loadData() : [],
+				title: route.title ? route.title() : 'School CI server'
+			};
+		}
+		return {
+			data: [],
+			title: 'School CI server'
+		};
+	}));
+};
+const store = createStore(rootReducer);
+
+function fakeLoading() {
+	return <></>;
+}
+
+const LoadableComponent = Loadable({
+	loader: () => import('../AppPage/AppPage'),
+	loading: fakeLoading
+});
 
 const App = () => {
-    return (
-        <Page>
-            <section>
-                <Grid cols='12'>
-                    {/* <Icon /> */}
-                    {/* <Text /> */}
-                    <Button />
-                </Grid>
-            </section>
-        </Page>
-    );
+	return (
+		<BrowserRouter>
+			<Provider store={store}>
+				<Switch>
+					{routes.map((route, index) => {
+						return (
+							<Route key={index} exact={index === 0} {...route}>
+								<LoadableComponent view={route.view} />
+							</Route>
+						);
+					})}
+				</Switch>
+			</Provider>
+		</BrowserRouter>
+	);
 };
 
 export default App;
