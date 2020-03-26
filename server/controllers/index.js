@@ -40,7 +40,7 @@ function getBuildById(req, res) {
 }
 
 function getBuildLogs(req, res) {
-	const { buildId } = req.query;
+	const { buildId } = req.params;
 	get(`https://hw.shri.yandex/api/build/log?buildId=${buildId}`)
 		.then(response => {
 			res.send(response.data);

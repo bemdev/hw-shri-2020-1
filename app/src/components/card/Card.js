@@ -6,7 +6,7 @@ import Text from '../text/Text';
 
 import './card.css';
 
-const Card = ({ item, children }) => {
+const Card = ({ item, children, view }) => {
 	let types;
 
 	switch (item.status) {
@@ -24,7 +24,7 @@ const Card = ({ item, children }) => {
 	}
 
 	return (
-		<div className={cn('card')({ border: 'all' })}>
+		<div className={cn('card')({ view: view, border: 'all' })}>
 			<div className={cn('card', 'content')()}>
 				<div className={cn('card', 'status')({ type: types })}>
 					<AppIcon fa={types} />

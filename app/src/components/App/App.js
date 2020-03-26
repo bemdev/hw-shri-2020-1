@@ -1,50 +1,39 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+// import { Provider } from 'react-redux';
+// import { createStore } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Loadable from 'react-loadable';
 
 import routes from '../../routes';
+import Page from '../AppPage/AppPage.js';
 
-const rootReducer = state => {
-	return (state = routes.map(route => {
-		if (route.loadData) {
-			return {
-				data: route.loadData ? route.loadData() : [],
-				title: route.title ? route.title() : 'School CI server'
-			};
-		}
-		return {
-			data: [],
-			title: 'School CI server'
-		};
-	}));
-};
-const store = createStore(rootReducer);
+// const initialState = {
+//     title: 'School CI server'
+// };
 
-function fakeLoading() {
-	return <></>;
-}
+// const rootReducer = (state = [], action) => {
+//     return state;
+// };
 
-const LoadableComponent = Loadable({
-	loader: () => import('../AppPage/AppPage'),
-	loading: fakeLoading
-});
+// const store = createStore(rootReducer, initialState);
 
 const App = () => {
 	return (
 		<BrowserRouter>
-			<Provider store={store}>
-				<Switch>
-					{routes.map((route, index) => {
-						return (
-							<Route key={index} exact={index === 0} {...route}>
-								<LoadableComponent view={route.view} />
-							</Route>
-						);
-					})}
-				</Switch>
-			</Provider>
+            {/* <Provider store={store}> */}
+                <Switch>
+                    {routes.map((route, index) => {
+                        return (
+                            <Route key={index} exact={index === 0} {...route}>
+                                <Page
+                                    view={route.view}
+                                    data={route.loadData && route.loadData()}
+                                    title={route.title && route.title()}
+                                />
+                            </Route>
+                        );
+                    })}
+                </Switch>
+            {/* </Provider> */}
 		</BrowserRouter>
 	);
 };
