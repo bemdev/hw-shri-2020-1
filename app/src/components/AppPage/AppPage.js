@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import cn from '../../libs/names/index.js';
 
 import Header from '../AppHeader/AppHeader.js';
@@ -11,6 +12,7 @@ import Text from '../text/Text.js';
 import History from '../History/History.js';
 import Form from '../form/Form.js';
 import Title from '../title/Title.js';
+import Modal from '../modal/Modal.js';
 
 import './AppPage.css';
 import '../layout/layout.css';
@@ -30,12 +32,14 @@ const Theme = cn('theme')({
 
 const blockName = cn('page')() + ` ${Theme}`;
 
-const Page = ({ view, children, data, title }) => {
+const Page = ({ view, children, data, title, modalOpen, modal }) => {
 	switch (view) {
 		case 'index':
 			return (
 				<div className={blockName}>
-					<Header title={title} />
+					<Header title={title}>
+						<Button size='l' hasIcon='cogs' text='Settings' />
+					</Header>
 					<section>
 						<Grid cols='12'>
 							<Icon fa='configure' big />
@@ -58,10 +62,21 @@ const Page = ({ view, children, data, title }) => {
 		case 'history':
 			return (
 				<div className={blockName}>
-					<Header title={title} />
+					<Modal active={modal && modal.active} />
+					<Header title={title} color='default'>
+						<Button
+							onClick={() => {
+								modalOpen(<Form type='build' />);
+							}}
+							size='l'
+							hasIcon='play'
+							text='Run build'
+						/>
+						<Button size='l' hasIcon='cogs' />
+					</Header>
 					<section>
 						<div className='layout'>
-                            <History items={data} />
+							<History items={data} />
 						</div>
 					</section>
 					<Footer />
@@ -73,22 +88,28 @@ const Page = ({ view, children, data, title }) => {
 					<Header title={title} />
 					<section>
 						<div className='layout'>
-                            <Title text='Settings' subtitle='Configure repository connection and synchronization settings' />
-                            <Form />
+							<Title
+								text='Settings'
+								subtitle='Configure repository connection and synchronization settings'
+							/>
+							<Form />
 						</div>
 					</section>
 					<Footer />
 				</div>
 			);
-        case 'detail':
+		case 'detail':
 			return (
 				<div className={blockName}>
-					<Header title={title} />
-                    <section>
-                        <div className='layout'>
-                            <History view='detail' items={data}/>
-                        </div>
-                    </section>
+					<Header title={title} color='default'>
+						<Button size='l' hasIcon='rebuild' text='Rebuild' />
+						<Button size='l' hasIcon='cogs' />
+					</Header>
+					<section>
+						<div className='layout'>
+							<History view='detail' items={data} />
+						</div>
+					</section>
 					<Footer />
 				</div>
 			);
@@ -103,4 +124,20 @@ const Page = ({ view, children, data, title }) => {
 	}
 };
 
-export default Page;
+const mapStateToProps = (state = {}) => {
+	return {
+		modal: state.modal
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		modalOpen: component =>
+			dispatch({
+				type: 'MODAL_OPEN',
+				payload: component
+			})
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

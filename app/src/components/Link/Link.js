@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './Link.css';
+import './link.css';
 
 const Link = ({ href, title }) => {
 	return (

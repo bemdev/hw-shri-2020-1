@@ -4,24 +4,23 @@ import cn from '../../libs/names/index.js';
 import Content from './__content/AppHeader__content.js';
 import Logo from './__logo/AppHeader__logo.js';
 
-import Button from '../AppButton/AppButton.js';
-
 const blockName = cn('header')();
 
-const Header = (props) => {
-    const [title, setTitle] = useState();
+const Header = props => {
+	const [title, setTitle] = useState();
 
-    useEffect(() => {
-        props.title && props.title.then(result => {
-            setTitle(result.data.repoName);
-        });
-    }, [props.title]);
+	useEffect(() => {
+		props.title &&
+			props.title.then(result => {
+				setTitle(result.data.repoName);
+			});
+	}, [props.title]);
 
 	return (
 		<header className={blockName}>
 			<Content>
-				<Logo title={title} />
-				<Button size='l' hasIcon='cogs' text='Settings' />
+				<Logo title={title} color={props.color || 'inverse'} />
+				<div className={cn('header', 'control')()}>{props.children}</div>
 			</Content>
 		</header>
 	);

@@ -16,6 +16,9 @@ const Card = ({ item, children, view }) => {
 		case 'InProgress':
 			types = 'clock';
 			break;
+		case 'Waiting':
+			types = 'clock';
+			break;
 		case 'Cancel':
 			types = 'warning';
 			break;
@@ -46,16 +49,18 @@ const Card = ({ item, children, view }) => {
 						<Text content={item.authorName} />
 					</div>
 				</div>
-				<div className={cn('card', 'info')()}>
-					<div className={cn('card', 'date')()}>
-						<AppIcon fa='calendar' />
-						<Text content={new Date(item.start).toLocaleDateString()} />
+				{item.start && (
+					<div className={cn('card', 'info')()}>
+						<div className={cn('card', 'date')()}>
+							<AppIcon fa='calendar' />
+							<Text content={new Date(item.start).toLocaleDateString()} />
+						</div>
+						<div className={cn('card', 'time')()}>
+							<AppIcon fa='clock' />
+							<Text content={item.duration} />
+						</div>
 					</div>
-					<div className={cn('card', 'time')()}>
-						<AppIcon fa='clock' />
-						<Text content={item.duration} />
-					</div>
-				</div>
+				)}
 			</div>
 		</div>
 	);

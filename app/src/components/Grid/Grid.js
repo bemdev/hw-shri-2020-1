@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './Grid.css';
+import './grid.css';
 import './__fraction/grid__fraction.css';
 
 const Grid = ({ cols, children }) => {

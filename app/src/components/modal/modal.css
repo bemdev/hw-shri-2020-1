@@ -1,0 +1,23 @@
+.modal {
+	position: absolute;
+}
+
+.modal_active {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.9);
+	z-index: 2;
+}
+
+.modal__content {
+	position: relative;
+	top: -100%;
+}
+
+.modal_active .modal__content {
+	top: 15%;
+	margin: 25px;
+	padding: 25px;
+	background: #fff;
+	transition: top 0.2s ease-in-out;
+}
