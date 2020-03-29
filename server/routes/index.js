@@ -43,7 +43,7 @@ const initializeEntrypoints = (app) => {
     app.post('/api/build/cancel', cancelBuild);
 
     app.route('/api/settings')
-        .get(getSettings)
+        .get(cacheMiddleware(30), getSettings)
         .post(saveSettings)
         .delete(removeSettings);
 };

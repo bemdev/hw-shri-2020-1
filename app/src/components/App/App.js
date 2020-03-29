@@ -1,51 +1,21 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import rootReducer from '../../redusers';
 
 import routes from '../../routes';
-import Page from '../AppPage/AppPage.js';
+import Switch from '../Switch/Switch.js';
 
-const initialState = {
-	title: 'School CI server'
-};
-
-const rootReducer = (state = [], action) => {
-	switch (action.type) {
-		case 'MODAL_OPEN':
-			return {
-				...state,
-				modal: {
-					active: true,
-					content: action.payload
-				}
-			};
-		default:
-			return state;
-	}
-};
-
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer);
 
 const App = () => {
 	return (
-		<BrowserRouter>
-			<Provider store={store}>
-				<Switch>
-					{routes.map((route, index) => {
-						return (
-							<Route key={index} exact={route.exact} {...route}>
-								<Page
-									view={route.view}
-									data={route.loadData && route.loadData()}
-									title={route.title && route.title()}
-								/>
-							</Route>
-						);
-					})}
-				</Switch>
-			</Provider>
-		</BrowserRouter>
+        <Provider store={store}>
+            <Switch
+                config={routes}
+                href={window.location.pathname}
+            />
+        </Provider>
 	);
 };
 

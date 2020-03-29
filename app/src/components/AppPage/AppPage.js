@@ -15,13 +15,6 @@ import Title from '../title/Title.js';
 import Modal from '../modal/Modal.js';
 
 import './AppPage.css';
-import '../layout/layout.css';
-import '../theme/theme.css';
-import '../theme/_size/theme_size_default.css';
-import '../theme/_space/theme_space_default.css';
-import '../theme/_color/theme_color_project-default.css';
-import '../theme/_color/theme_color_project-inverse.css';
-import '../theme/_gap/theme_gap_small.css';
 
 const Theme = cn('theme')({
 	gap: 'small',
@@ -32,12 +25,12 @@ const Theme = cn('theme')({
 
 const blockName = cn('page')() + ` ${Theme}`;
 
-const Page = ({ view, children, data, title, modalOpen, modal }) => {
+const Page = ({ view, settings, data, modalToggle, modalClose, modal, children }) => {
 	switch (view) {
 		case 'index':
 			return (
 				<div className={blockName}>
-					<Header title={title}>
+					<Header title={settings}>
 						<Button size='l' hasIcon='cogs' text='Settings' />
 					</Header>
 					<section>
@@ -63,10 +56,10 @@ const Page = ({ view, children, data, title, modalOpen, modal }) => {
 			return (
 				<div className={blockName}>
 					<Modal active={modal && modal.active} />
-					<Header title={title} color='default'>
+					<Header title={settings} color='default'>
 						<Button
 							onClick={() => {
-								modalOpen(<Form type='build' />);
+								modalToggle(<Form settings={settings} type='build' modalClose={modalClose} />);
 							}}
 							size='l'
 							hasIcon='play'
@@ -85,14 +78,14 @@ const Page = ({ view, children, data, title, modalOpen, modal }) => {
 		case 'settings':
 			return (
 				<div className={blockName}>
-					<Header title={title} />
+					<Header title={settings} />
 					<section>
 						<div className='layout'>
 							<Title
 								text='Settings'
 								subtitle='Configure repository connection and synchronization settings'
 							/>
-							<Form />
+							<Form settings={settings} />
 						</div>
 					</section>
 					<Footer />
@@ -101,7 +94,22 @@ const Page = ({ view, children, data, title, modalOpen, modal }) => {
 		case 'detail':
 			return (
 				<div className={blockName}>
-					<Header title={title} color='default'>
+					<Header title={settings} color='default'>
+						<Button size='l' hasIcon='rebuild' text='Rebuild' />
+						<Button size='l' hasIcon='cogs' />
+					</Header>
+					<section>
+						<div className='layout'>
+							<History view='detail' items={data} />
+						</div>
+					</section>
+					<Footer />
+				</div>
+			);
+        case 'detail-log':
+			return (
+				<div className={blockName}>
+					<Header title={settings} color='default'>
 						<Button size='l' hasIcon='rebuild' text='Rebuild' />
 						<Button size='l' hasIcon='cogs' />
 					</Header>
@@ -132,10 +140,20 @@ const mapStateToProps = (state = {}) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		modalOpen: component =>
+		modalToggle: component =>
 			dispatch({
-				type: 'MODAL_OPEN',
-				payload: component
+				type: 'MODAL_TOGGLE',
+                payload: {
+                    active: true,
+                    content: component
+                }
+            }),
+        modalClose: component =>
+			dispatch({
+				type: 'MODAL_TOGGLE',
+                payload: {
+                    active: false,
+                }
 			})
 	};
 };

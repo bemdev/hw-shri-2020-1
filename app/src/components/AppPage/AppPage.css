@@ -11,4 +11,15 @@ body {
 }
 
 .page {
+    /* position: relative; */
 }
+
+@import url( '../layout/layout.css');
+@import url( '../theme/theme.css');
+@import url( '../theme/_size/theme_size_default.css');
+@import url( '../theme/_space/theme_space_default.css');
+@import url( '../theme/_color/theme_color_project-default.css');
+@import url( '../theme/_color/theme_color_project-inverse.css');
+@import url( '../theme/_gap/theme_gap_small.css');
+
+

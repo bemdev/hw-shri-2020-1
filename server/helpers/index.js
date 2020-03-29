@@ -12,7 +12,8 @@ const options = {
 		rejectUnauthorized: false
 	}),
 	headers: {
-		Authorization: 'Bearer ' + process.env.TOKEN
+        Authorization: 'Bearer ' + process.env.TOKEN,
+        // 'Content-Type': 'application/json;charset=utf-8'
 	}
 };
 
@@ -27,6 +28,22 @@ function post(url, data) {
 function remove(url) {
 	return axios.delete(url, options);
 }
+
+async function startBuildRepo(settings) {
+    const truePath = path.resolve(__dirname, '../../', settings.pathToRepo);
+    console.log(truePath);
+
+    return new Promise(resolve => {
+        const yb = spawn('yarn', ['build'], { cwd: truePath, checkCWD: true } )
+        yb.stdout.on('data', data => {
+            console.log(String(data));
+        });
+
+        yb.stderr.on('data', data => {
+            console.log(String(data));
+        });
+    })
+};
 
 async function cloneRepo(settings) {
 	const pathToRepo = `./repos/${settings.repoName}`;
@@ -60,7 +77,6 @@ async function checkRepo(repo) {
 		const commits = [];
 		const gpull = spawn('git', ['-C', repo.pathToRepo, 'pull']);
 		gpull.stdout.on('data', data => {
-			// console.log(String(data));
 			const gl = spawn('git', [
 				'-C',
 				repo.pathToRepo,
@@ -73,6 +89,7 @@ async function checkRepo(repo) {
 				// console.log(String(data));
 				commits.push(String(data));
 			});
+
 			gl.on('close', () => {
 				resolve({
 					...repo,
@@ -88,5 +105,6 @@ module.exports = {
 	post: post,
 	remove: remove,
 	cloneRepo: cloneRepo,
-	checkRepo: checkRepo
+    checkRepo: checkRepo,
+    startBuildRepo: startBuildRepo
 };

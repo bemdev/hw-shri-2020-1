@@ -2,13 +2,6 @@ import React from 'react';
 import cn from '../../libs/names';
 
 import './input.css';
-import './_required/input_required.css';
-
-import './_size/input_size_s.css';
-import './_size/input_size_m.css';
-import './_size/input_size_l.css';
-import './_size/input_size_xl.css';
-import './_size/input_size_xxl.css';
 
 const Input = props => {
 	return (
@@ -24,6 +17,7 @@ const Input = props => {
 				<>
 					<div className={cn('input', 'addon')()}>Synchronize</div>
 					<input
+                        onChange={props.onChange}
 						name={props.name}
 						value={props.value}
 						placeholder={props.placeholder}
@@ -39,8 +33,9 @@ const Input = props => {
 				</>
 			) : (
 				<>
-					<div className={cn('input', 'label')()}>{props.label}</div>
+                    <div className={cn('input', 'label')()}>{props.label}</div>
 					<input
+                        onChange={props.onChange}
 						name={props.name}
 						value={props.value}
 						placeholder={props.placeholder}

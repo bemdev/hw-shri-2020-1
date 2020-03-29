@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.input__label {
+    padding: 0 0 10px;
+}
+
 .input .input__control {
 	width: 100%;
 	border: 2px var(--border-bg-color) solid;
@@ -35,3 +39,12 @@
 	text-align: right;
 	margin: 10px;
 }
+
+@import url('./_required/input_required.css');
+@import url('./_size/input_size_s.css');
+@import url('./_size/input_size_m.css');
+@import url('./_size/input_size_l.css');
+@import url('./_size/input_size_xl.css');
+@import url('./_size/input_size_xxl.css');
+
+

@@ -3,42 +3,50 @@ import { getBuildList, getSettings, getBuildSingle } from '../controllers';
 const routes = [
 	{
 		path: '/',
+        view: 'index',
 		exact: true,
-		title: async () => {
+		settings: async () => {
 			return {
 				data: {
 					repoName: 'School CI Server'
 				}
 			};
-		},
-		view: 'index'
+		}
 	},
 	{
 		path: '/history',
-		title: getSettings,
-		view: 'history',
-		loadData: getBuildList
+        view: 'history',
+        settings: getSettings,
+		data: getBuildList
 	},
 	{
 		path: '/settings',
-		title: async () => {
+        view: 'settings',
+		settings: async () => {
 			return {
 				data: {
 					repoName: 'School CI Server'
 				}
 			};
 		},
-		view: 'settings',
-		loadData: getSettings
+		data: getSettings
 	},
 	{
 		path: '/detail/:buildId',
-		title: getSettings,
-		view: 'detail',
-		loadData: async () => {
-			return getBuildSingle(window.location.pathname.replace('/detail/', ''));
+        view: 'detail',
+		settings: getSettings,
+		data: ({buildId}) => {
+			return getBuildSingle(buildId);
 		}
-	}
+    },
+    {
+        path: '/detail/:buildId/log',
+        view: 'detail-log',
+		settings: getSettings,
+		data: ({buildId}) => {
+			return getBuildSingle(buildId);
+		}
+    }
 ];
 
 export default routes;

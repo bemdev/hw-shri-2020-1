@@ -1,55 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from '../../libs/names/index.js';
+import { saveSettings, buildRequest } from '../../controllers/';
+
+import './form.css';
 
 import Button from '../AppButton/AppButton.js';
+import Text from '../text/Text.js';
 import Input from '../input/Input.js';
 
 import './form.css';
 
-const Form = ({ items, type }) => {
+const Form = ({ items, type, settings, modalClose }) => {
+
+    const [ values, setValues ] = useState(
+        {
+            commitHash: '',
+            repoName: '',
+            buildCommand: '',
+            mainBranch: '',
+            period: ''
+        }
+    );
+
+    const [disabled, setDisabled] = useState(false);
+
+    const handleChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+    };
+
+    const doStart = (e) => {
+        e.preventDefault();
+        Promise.resolve(settings)
+            .then(({data}) => {
+                buildRequest(data, values.commitHash)
+                    .then(res => modalClose())
+            });
+    };
+
+    const setSettings = (e) => {
+        e.preventDefault();
+        setDisabled(true);
+        saveSettings({ ...values })
+            .then(result => setDisabled(false))
+            .catch(err => console.log(err))
+    };
+
 	switch (type) {
 		case 'build':
 			return (
-				<form className={cn('form')({ type: type })}>
+				<form onSubmit={doStart} className={cn('form')({ type: type })}>
+                    <Text size='xxl' content='New Build' />
 					<Input
-						placeholder='8a66797'
-						label='Enter commit hash'
-						name='hash'
+                        placeholder='Commit hash'
+						value={values.commitHash}
+						label='Enter the commit hash which you want to build.'
+						name='commitHash'
 						width='full'
 						required={true}
+                        onChange={handleChange}
+                        has={'close'}
 					/>
-					<Button size='xl' view='active' text='Start build' />
-					<Button size='xl' text='Cancel build' />
+					<Button disabled={disabled} size='xl' view='active' text='Run build' />
+                    <Button onClick={() => { modalClose() }} disabled={disabled} size='xl' text='Cancel' />
 				</form>
 			);
 
 		default:
 			return (
-				<form className={cn('form')()}>
+				<form onSubmit={setSettings} className={cn('form')()}>
 					<Input
-						placeholder='bemdev/aef'
+						placeholder='bemdev/ci-server'
 						label='GitHub repository'
-						name='repoName'
+						value={values.repoName}
+                        name='repoName'
 						width='full'
 						required={true}
+                        onChange={handleChange}
 					/>
 					<Input
-						value='yarn start'
+						placeholder='yarn dev'
+						value={values.buildCommand}
 						label='Build command'
 						name='buildCommand'
 						width='full'
 						has={'close'}
+                        onChange={handleChange}
 					/>
 					<Input
+						placeholder='master'
 						name='mainBranch'
-						value='main'
+						value={values.mainBranch}
 						label='Main branch'
 						width='full'
 						has={'close'}
+                        onChange={handleChange}
 					/>
-					<Input name='period' value={10} with={'add-ons'} />
-					<Button size='xl' view='active' text='Save settings' />
-					<Button size='xl' text='Cancel settings' />
+					<Input placeholder={10} onChange={handleChange} name='period' value={values.period} with={'add-ons'} />
+					<Button disabled={disabled} size='xl' view='active' text='Save settings' />
+					<Button disabled={disabled} size='xl' text='Cancel settings' />
 				</form>
 			);
 	}

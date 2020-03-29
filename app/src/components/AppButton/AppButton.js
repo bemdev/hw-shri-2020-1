@@ -6,7 +6,7 @@ import './AppButton.css';
 import Icon from '../AppIcon/AppIcon.js';
 import Text from '../text/Text.js';
 
-const Button = ({ size, hasIcon, text, view, width, onClick }) => {
+const Button = ({ size, hasIcon, text, view, width, disabled, onClick }) => {
 	const blockName = cn('button')({
 		size: size,
 		view: view ? view : null,
@@ -17,7 +17,7 @@ const Button = ({ size, hasIcon, text, view, width, onClick }) => {
 	const theme = cn('theme')({ color: 'project-default' });
 
 	return (
-		<button onClick={onClick} className={`${blockName} ${theme} `}>
+		<button disabled={disabled} onClick={onClick} className={`${blockName} ${theme} `}>
 			{hasIcon ? <Icon fa={hasIcon} /> : null}
 			{text ? (
 				<div className={elemName}>

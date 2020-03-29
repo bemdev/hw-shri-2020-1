@@ -8,9 +8,55 @@ export const getSettings = () => {
 	return fetch('http://localhost:3010/api/settings').then(res => res.json());
 };
 
+export const saveSettings = (settings) => {
+    const { repoName, mainBranch, buildCommand, period } = settings;
+    return fetch('http://localhost:3010/api/settings', {
+        mode: 'cors',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(
+            { repoName: repoName, mainBranch: mainBranch, buildCommand: buildCommand, period: Number(period) }
+        )
+    }).then(res => 'ok');
+};
+
 export const getBuildSingle = (buildId) => {
     return fetch('http://localhost:3010/api/builds/{buildId}?buildId=' + buildId)
         .then(res => {
             return res.json();
         });
+};
+
+export const getBuildLog = (buildId) => {
+    return fetch('http://localhost:3010/api/builds/{buildId}?buildId=' + buildId + '/log')
+        .then(res => {
+            return res.json();
+        });
+};
+
+export const buildRequest = (buildParams, hash) => {
+    return new Promise(resolve => {
+        const { commits, mainBranch } = buildParams;
+        return commits.some(commit => {
+            if (commit[0] === hash) {
+                fetch('http://localhost:3010/api/build/request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(
+                        {
+                            commitMessage: commit[3],
+                            commitHash: commit[0],
+                            branchName: mainBranch,
+                            authorName: commit[1]
+                        }
+                    )
+                }).then(res => resolve(res));
+            }
+            return false;
+        })
+    })
 };
