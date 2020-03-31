@@ -29,6 +29,17 @@ export const getBuildSingle = (buildId) => {
         });
 };
 
+export const getBuildSingleWithLog = async (buildId) => {
+    const buildFetch = await fetch('http://localhost:3010/api/builds/{buildId}?buildId=' + buildId);
+    const build = await buildFetch.json();
+
+    const buildLogFetch = await fetch('http://localhost:3010/api/builds/{buildId}/logs?buildId=' + buildId);
+    const log = await buildLogFetch.text();
+    build.data.log = log;
+
+    return build;
+};
+
 export const getBuildLog = (buildId) => {
     return fetch('http://localhost:3010/api/builds/{buildId}?buildId=' + buildId + '/log')
         .then(res => {

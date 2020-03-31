@@ -10,12 +10,10 @@
 	border-radius: 6px;
 	box-shadow: -2px 2px 5px var(--border-bg-color);
 	transform: scale(1.01);
-	cursor: pointer;
 }
 
 .card_view_full.card_border_all:hover {
 	border-radius: 6px;
 	transform: none;
-	cursor: inherit;
     box-shadow: 0px 1px 1px rgba(67, 68, 69, 0.3), 0px 0px 1px rgba(67, 68, 69, 0.3);
 }

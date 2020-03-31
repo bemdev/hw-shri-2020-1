@@ -1,4 +1,4 @@
-import { getBuildList, getSettings, getBuildSingle } from '../controllers';
+import { getBuildList, getSettings, getBuildSingleWithLog } from '../controllers';
 
 const routes = [
 	{
@@ -31,20 +31,20 @@ const routes = [
 		},
 		data: getSettings
 	},
-	{
-		path: '/detail/:buildId',
-        view: 'detail',
-		settings: getSettings,
-		data: ({buildId}) => {
-			return getBuildSingle(buildId);
-		}
-    },
+	// {
+	// 	path: '/detail/:buildId',
+        // view: 'detail',
+	// 	settings: getSettings,
+	// 	data: ({buildId}) => {
+	// 		return getBuildSingle(buildId);
+	// 	}
+    // },
     {
         path: '/detail/:buildId/log',
         view: 'detail-log',
 		settings: getSettings,
 		data: ({buildId}) => {
-			return getBuildSingle(buildId);
+			return getBuildSingleWithLog(buildId);
 		}
     }
 ];

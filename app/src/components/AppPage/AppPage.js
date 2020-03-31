@@ -91,21 +91,21 @@ const Page = ({ view, settings, data, modalToggle, modalClose, modal, children }
 					<Footer />
 				</div>
 			);
-		case 'detail':
-			return (
-				<div className={blockName}>
-					<Header title={settings} color='default'>
-						<Button size='l' hasIcon='rebuild' text='Rebuild' />
-						<Button size='l' hasIcon='cogs' />
-					</Header>
-					<section>
-						<div className='layout'>
-							<History view='detail' items={data} />
-						</div>
-					</section>
-					<Footer />
-				</div>
-			);
+		// case 'detail':
+		// 	return (
+		// 		<div className={blockName}>
+		// 			<Header title={settings} color='default'>
+		// 				<Button size='l' hasIcon='rebuild' text='Rebuild' />
+		// 				<Button size='l' hasIcon='cogs' />
+		// 			</Header>
+		// 			<section>
+		// 				<div className='layout'>
+		// 					<History view='detail' items={data} />
+		// 				</div>
+		// 			</section>
+		// 			<Footer />
+		// 		</div>
+		// 	);
         case 'detail-log':
 			return (
 				<div className={blockName}>
