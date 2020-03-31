@@ -29,19 +29,38 @@ function remove(url) {
 	return axios.delete(url, options);
 }
 
-async function startBuildRepo(settings) {
+function installDependencys (truePath) {
+    return new Promise(resolve => {
+        fs.exists(path.resolve(truePath, 'node_modules'), exist => {
+            if (!exist) {
+                const yi = spawn('yarn', ['install'], { cwd: truePath, checkCWD: true });
+                yi.on('close', () => {
+                    resolve('install done')
+                });
+            } else {
+                resolve('modules allready install');
+            }
+        });
+    })
+};
+
+function startBuildRepo(settings) {
     const truePath = path.resolve(__dirname, '../../', settings.pathToRepo);
-    console.log(truePath);
+    let log = '';
 
     return new Promise(resolve => {
-        const yb = spawn('yarn', ['build'], { cwd: truePath, checkCWD: true } )
-        yb.stdout.on('data', data => {
-            console.log(String(data));
-        });
+        installDependencys(truePath)
+            .then(() => {
+                const yb = spawn('yarn', ['build'], { cwd: truePath, checkCWD: true } )
 
-        yb.stderr.on('data', data => {
-            console.log(String(data));
-        });
+                yb.stdout.on('data', data => {
+                    log = String(data);
+                });
+
+                yb.on('close', () => {
+                    resolve(log);
+                });
+            })
     })
 };
 

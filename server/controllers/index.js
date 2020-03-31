@@ -64,25 +64,27 @@ function addBuildToTurn(req, res) {
 }
 
 function startBuild(build, settings) {
-    startBuildRepo(settings)
-        .then(result => {
-            console.log(result);
+    return new Promise(resolve => {
+        post('https://hw.shri.yandex/api/build/start', {
+            buildId: build.id,
+            dateTime: build.start
         })
+            .then(() => {
+                startBuildRepo(settings).then(log => resolve(log));
+            })
+            .catch(err => {
+                if (err) throw err;
+            });
+    })
 
-	// return post('https://hw.shri.yandex/api/build/start', {
-	// 	buildId: build.id,
-	// 	dateTime: build.start
-	// }).catch(err => {
-	// 	if (err) throw err;
-	// });
 }
 
-function finishBuild(build) {
-	post('https://hw.shri.yandex/api/build/finish', {
+function finishBuild(build, log) {
+	return post('https://hw.shri.yandex/api/build/finish', {
 		buildId: build.id,
 		duration: 0,
 		success: true,
-		buildLog: 'string'
+		buildLog: log
 	}).catch(err => {
 		if (err) throw err;
 	});
