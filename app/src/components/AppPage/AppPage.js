@@ -38,8 +38,21 @@ const Page = ({
         case 'index':
             return (
                 <div className={blockName}>
+                    <Modal active={modal && modal.active} />
                     <Header title={settings}>
-                        <Button size="l" hasIcon="cogs" text="Settings" />
+                        <Button
+                            onClick={() => {
+                                modalToggle(
+                                    <Form
+                                        settings={settings}
+                                        modalClose={modalClose}
+                                    />,
+                                );
+                            }}
+                            size="l"
+                            hasIcon="cogs"
+                            text="Settings"
+                        />
                     </Header>
                     <section>
                         <Grid cols="12">
@@ -50,6 +63,8 @@ const Page = ({
                                 content="Configure repository connection and synchronization settings"
                             />
                             <Button
+                                variant="link"
+                                href="/settings"
                                 width="full"
                                 size="xl"
                                 view="active"
@@ -79,7 +94,18 @@ const Page = ({
                             hasIcon="play"
                             text="Run build"
                         />
-                        <Button size="l" hasIcon="cogs" />
+                        <Button
+                            onClick={() => {
+                                modalToggle(
+                                    <Form
+                                        settings={settings}
+                                        modalClose={modalClose}
+                                    />,
+                                );
+                            }}
+                            size="l"
+                            hasIcon="cogs"
+                        />
                     </Header>
                     <section>
                         <div className="layout">

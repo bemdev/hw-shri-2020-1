@@ -6,26 +6,57 @@ import './AppButton.css';
 import Icon from '../AppIcon/AppIcon.js';
 import Text from '../text/Text.js';
 
-const Button = ({ size, hasIcon, text, view, width, disabled, onClick }) => {
-	const blockName = cn('button')({
-		size: size,
-		view: view ? view : null,
-		width: width ? width : null,
-		with: hasIcon ? 'icon' : null
-	});
-	const elemName = cn('button', 'text')();
-	const theme = cn('theme')({ color: 'project-default' });
+const Button = ({
+    type,
+    size,
+    hasIcon,
+    text,
+    view,
+    width,
+    disabled,
+    onClick,
+    variant,
+    href,
+}) => {
+    const blockName = cn('button')({
+        size: size,
+        view: view ? view : null,
+        width: width ? width : null,
+        with: hasIcon ? 'icon' : null,
+        variant: variant,
+    });
+    const elemName = cn('button', 'text')();
+    const theme = cn('theme')({ color: 'project-default' });
 
-	return (
-		<button disabled={disabled} onClick={onClick} className={`${blockName} ${theme} `}>
-			{hasIcon ? <Icon fa={hasIcon} /> : null}
-			{text ? (
-				<div className={elemName}>
-					<Text content={text} />
-				</div>
-			) : null}
-		</button>
-	);
+    switch (variant) {
+        case 'link':
+            return (
+                <a
+                    href={href}
+                    type={type}
+                    disabled={disabled}
+                    onClick={onClick}
+                    className={`${blockName} ${theme} `}>
+                    {hasIcon && <Icon fa={hasIcon} />}
+                    {text}
+                </a>
+            );
+        default:
+            return (
+                <button
+                    type={type}
+                    disabled={disabled}
+                    onClick={onClick}
+                    className={`${blockName} ${theme} `}>
+                    {hasIcon ? <Icon fa={hasIcon} /> : null}
+                    {text ? (
+                        <div className={elemName}>
+                            <Text content={text} />
+                        </div>
+                    ) : null}
+                </button>
+            );
+    }
 };
 
 export default Button;

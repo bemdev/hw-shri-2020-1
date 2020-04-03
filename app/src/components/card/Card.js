@@ -4,6 +4,7 @@ import cn from '../../libs/names/index.js';
 import AppIcon from '../AppIcon/AppIcon';
 import Text from '../text/Text';
 import Log from '../log/Log.js';
+import Loader from '../Loader/Loader.js';
 
 import './card.css';
 
@@ -26,6 +27,25 @@ const Card = ({ item, children, view }) => {
         default:
             break;
     }
+
+    //fix NaN
+    if (typeof item.duration !== 'string' && item.duration > 0) {
+        if (item.duration < 60000) {
+            //if no min get sec
+            item.duration = item.duration / 1000 + ' сек';
+        } else {
+            item.duration = item.duration / 60000 + ' мин';
+        }
+    }
+
+    const timeOptions = {
+        month: 'short',
+        day: 'numeric',
+        timezone: 'UTC',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+    };
 
     return (
         <>
@@ -63,14 +83,15 @@ const Card = ({ item, children, view }) => {
                                 <div className={cn('card', 'date')()}>
                                     <AppIcon fa="calendar" />
                                     <Text
+                                        size="m"
                                         content={new Date(
                                             item.start,
-                                        ).toLocaleDateString()}
+                                        ).toLocaleString('ru', timeOptions)}
                                     />
                                 </div>
                                 <div className={cn('card', 'time')()}>
                                     <AppIcon fa="clock" />
-                                    <Text content={item.duration} />
+                                    <Text size="m" content={item.duration} />
                                 </div>
                             </div>
                         )}
@@ -79,48 +100,72 @@ const Card = ({ item, children, view }) => {
             ) : (
                 <div className={cn('card')({ view: view, border: 'all' })}>
                     <div className={cn('card', 'content')()}>
-                        <div className={cn('card', 'status')({ type: types })}>
-                            <AppIcon fa={types} />
-                        </div>
-                        <div className={cn('card', 'description')()}>
-                            <div className={cn('card', 'text')()}>
+                        {item.buildNumber ? (
+                            <>
                                 <div
                                     className={cn('card', 'status')({
-                                        view: 'text',
                                         type: types,
                                     })}>
-                                    #{item.buildNumber}
+                                    <AppIcon fa={types} />
                                 </div>
-                                <div className={cn('card', 'text')()}>
-                                    {item.commitMessage}
-                                </div>
-                            </div>
-                            <div className={cn('card', 'subtext')()}>
-                                <AppIcon fa="code-commit" />
-                                <Text content={item.branchName} />
-                                <a href={`/detail/${item.id}/log`}>
-                                    {item.commitHash}
-                                </a>
-                                <AppIcon fa="user" />
-                                <Text content={item.authorName} />
-                            </div>
-                            {item.start && (
-                                <div className={cn('card', 'info')()}>
-                                    <div className={cn('card', 'date')()}>
-                                        <AppIcon fa="calendar" />
-                                        <Text
-                                            content={new Date(
-                                                item.start,
-                                            ).toLocaleDateString()}
-                                        />
+                                <div className={cn('card', 'description')()}>
+                                    <div className={cn('card', 'text')()}>
+                                        <div
+                                            className={cn('card', 'status')({
+                                                view: 'text',
+                                                type: types,
+                                            })}>
+                                            #{item.buildNumber}
+                                        </div>
+                                        <div className={cn('card', 'text')()}>
+                                            {item.commitMessage}
+                                        </div>
                                     </div>
-                                    <div className={cn('card', 'time')()}>
-                                        <AppIcon fa="clock" />
-                                        <Text content={item.duration} />
+                                    <div className={cn('card', 'subtext')()}>
+                                        <AppIcon fa="code-commit" />
+                                        <Text content={item.branchName} />
+                                        <a href={`/detail/${item.id}/log`}>
+                                            {item.commitHash}
+                                        </a>
+                                        <AppIcon fa="user" />
+                                        <Text content={item.authorName} />
                                     </div>
+                                    {item.start && (
+                                        <div className={cn('card', 'info')()}>
+                                            <div
+                                                className={cn(
+                                                    'card',
+                                                    'date',
+                                                )()}>
+                                                <AppIcon fa="calendar" />
+                                                <Text
+                                                    size="m"
+                                                    content={new Date(
+                                                        item.start,
+                                                    ).toLocaleString(
+                                                        'ru',
+                                                        timeOptions,
+                                                    )}
+                                                />
+                                            </div>
+                                            <div
+                                                className={cn(
+                                                    'card',
+                                                    'time',
+                                                )()}>
+                                                <AppIcon fa="clock" />
+                                                <Text
+                                                    size="m"
+                                                    content={item.duration}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
+                            </>
+                        ) : (
+                            <Loader />
+                        )}
                     </div>
                 </div>
             )}

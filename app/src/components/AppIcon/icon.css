@@ -1,14 +1,14 @@
 .icon {
-	width: 23px;
-	height: 23px;
-	background-repeat: no-repeat;
-	background-position: center top;
+    width: 23px;
+    height: 23px;
+    background-repeat: no-repeat;
+    /* background-position: center top; */
 }
 
 .icon_big {
-	width: 144px;
-	height: 144px;
-	background-position: center;
+    width: 144px;
+    height: 144px;
+    background-position: center;
 }
 
 @import url('./_fa/icon_fa_cogs.css');
