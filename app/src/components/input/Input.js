@@ -3,21 +3,21 @@ import cn from '../../libs/names';
 
 import './input.css';
 
-const Input = props => {
+const Input = (props) => {
 	return (
 		<div
 			className={cn('input')({
 				with: props.with,
 				width: props.width,
 				required: props.required,
-				has: props.has
+				has: props.has,
 			})}
 		>
 			{props.with === 'add-ons' ? (
 				<>
 					<div className={cn('input', 'addon')()}>Synchronize</div>
 					<input
-                        onChange={props.onChange}
+						onChange={props.onChange}
 						name={props.name}
 						value={props.value}
 						placeholder={props.placeholder}
@@ -26,16 +26,16 @@ const Input = props => {
 							'control'
 						)({
 							width: props.width,
-							required: props.required
+							required: props.required,
 						})}
 					/>
 					<div className={cn('input', 'addon')()}>minutes</div>
 				</>
 			) : (
 				<>
-                    <div className={cn('input', 'label')()}>{props.label}</div>
+					<div className={cn('input', 'label')()}>{props.label}</div>
 					<input
-                        onChange={props.onChange}
+						onChange={props.onChange}
 						name={props.name}
 						value={props.value}
 						placeholder={props.placeholder}
@@ -44,7 +44,7 @@ const Input = props => {
 							'control'
 						)({
 							width: props.width,
-							required: props.required
+							required: props.required,
 						})}
 					/>
 				</>

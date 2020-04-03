@@ -1,7 +1,7 @@
 import * as React from 'react';
 import cn from '../../libs/names/index.js';
 
-import Card from '../card/Card.js';
+import Card from '../Card/Card.js';
 
 import './list.css';
 

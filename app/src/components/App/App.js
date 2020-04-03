@@ -10,12 +10,9 @@ const store = createStore(rootReducer);
 
 const App = () => {
 	return (
-        <Provider store={store}>
-            <Switch
-                config={routes}
-                href={window.location.pathname}
-            />
-        </Provider>
+		<Provider store={store}>
+			<Switch config={routes} href={window.location.pathname} />
+		</Provider>
 	);
 };
 

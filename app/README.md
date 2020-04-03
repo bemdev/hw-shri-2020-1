@@ -1,4 +1,5 @@
 # Клиентская часть приложения
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Как запустить?
@@ -24,9 +25,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Разобрать приложение
 
 **Note: это операция односторонняя. Если Вы сделали `eject`, обратного пути уже нет**
-___
+
+---
 
 #### Какие роуты (entrypoints) используются?
+
 ```
 '/' - стартовая страница приложения
 '/settings' - страница настроек приложения
@@ -35,6 +38,13 @@ ___
 ```
 
 ## Структура проекта
+
+Компонента имеющая JS представление с большой буквы
+`Example - ExampleContent`
+
+Компонента имеющая только CSS представление с маленькой буквы
+`example - example__content`
+
 ```
 ./app/src
 ├── components //тут все компоненты (желательно переписать в одном стиле)

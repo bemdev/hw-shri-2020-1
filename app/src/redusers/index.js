@@ -5,8 +5,8 @@ const rootReducer = (state = [], action) => {
 				...state,
 				modal: {
 					active: action.payload.active,
-					content: action.payload.content
-				}
+					content: action.payload.content,
+				},
 			};
 		default:
 			return state;

@@ -5,13 +5,18 @@ import Convert from 'ansi-to-html';
 import './log.css';
 
 const convert = new Convert({
-    fg: '#000',
-    newline: true,
-    escapeXML: true
+	fg: '#000',
+	newline: true,
+	escapeXML: true,
 });
 
 const Log = ({ text }) => {
-    return <div className={cn('log')()} dangerouslySetInnerHTML={{__html: convert.toHtml(text)}}></div>
+	return (
+		<div
+			className={cn('log')()}
+			dangerouslySetInnerHTML={{ __html: convert.toHtml(text) }}
+		></div>
+	);
 };
 
 export default Log;
