@@ -17,32 +17,29 @@ getSettings().then(({ data }) => {
                     );
 
                     if (turnWaiters.length === 0) {
-                        data.period = 10;
+                        data.period = data.period * 10;
                         console.log('Build Worker idle...zz');
                     }
 
                     turnWaiters.forEach((build, index) => {
-                        if (build.status === 'InProgress') {
-                            // setTimeout(() => {
-                            //     finishBuild(build);
-                            //     console.log(`Build Worker finish ${build.commitHash}`);
-                            // }, 3000 * index)
-                        } else {
-                            setTimeout(() => {
-                                console.log(
-                                    `Build Worker start ${build.commitHash}`,
-                                );
-                                startBuild(build, settings).then(log => {
-                                    finishBuild(build, log).then(result => {
-                                        console.log(
-                                            `Build Worker finish ${
-                                                build.commitHash
-                                            }`,
-                                        );
-                                    });
+                        setTimeout(() => {
+                            console.log(
+                                `Build Worker start ${build.commitHash}`,
+                            );
+                            startBuild(build, settings).then(data => {
+                                finishBuild(
+                                    build,
+                                    data.log,
+                                    data.startTime,
+                                ).then(result => {
+                                    console.log(
+                                        `Build Worker finish ${
+                                            build.commitHash
+                                        }`,
+                                    );
                                 });
-                            }, 4000 * index);
-                        }
+                            });
+                        }, 4000 * index);
                     });
                 },
             );

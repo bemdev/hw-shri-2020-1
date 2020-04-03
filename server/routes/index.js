@@ -12,6 +12,7 @@ const {
     removeSettings,
 } = require('../controllers');
 
+//Cacheware - if u want change memory cache but he removable
 const cacheMiddleware = duration => {
     return (req, res, next) => {
         const key = '__express__' + req.originalUrl || req.url;
@@ -32,7 +33,6 @@ const cacheMiddleware = duration => {
 
 const initializeEntrypoints = app => {
     app.get('/api/builds/list', getBuildList);
-    // app.post('/api/builds/:commitHash', sendBuild); ??
     app.get('/api/builds/:buildId', getBuildById);
     app.get('/api/builds/:buildId/logs', cacheMiddleware(15), getBuildLogs);
 
