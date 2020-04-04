@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const fetch = () => {};
-
 export const getBuildList = () => {
 	return axios
 		.get('http://localhost:3000/api/builds/list?limit=25')
