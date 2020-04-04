@@ -38,7 +38,7 @@ const Page = ({
 		case 'index':
 			return (
 				<div className={blockName}>
-					<Modal active={modal && modal.active} />
+					<Modal active={modal.active} />
 					<Header title={settings}>
 						<Button
 							onClick={() => {
@@ -151,9 +151,11 @@ const Page = ({
 	}
 };
 
-const mapStateToProps = (state = {}) => {
+const mapStateToProps = (state) => {
 	return {
 		modal: state.modal,
+		data: state.data,
+		settings: state.setting,
 	};
 };
 
@@ -172,6 +174,7 @@ const mapDispatchToProps = (dispatch) => {
 				type: 'MODAL_TOGGLE',
 				payload: {
 					active: false,
+					content: null,
 				},
 			}),
 	};

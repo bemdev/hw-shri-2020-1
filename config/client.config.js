@@ -28,18 +28,14 @@ module.exports = {
 				test: /\.css$/,
 				use: [
 					MiniCssExtractPlugin.loader,
-					{ loader: 'css-loader', options: { minimize: true } },
-					{
-						loader: 'postcss-loader',
-						options: {
-							plugins: [
-								autoprefixer({
-									browsers: ['ie >= 8', 'last 4 version'],
-								}),
-							],
-							sourceMap: true,
-						},
-					},
+					{ loader: 'css-loader' },
+					// {
+					// 	loader: 'postcss-loader',
+					// 	options: {
+					// 		plugins: [autoprefixer()],
+					// 		sourceMap: true,
+					// 	},
+					// },
 				],
 			},
 		],

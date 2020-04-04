@@ -16,6 +16,7 @@ const routes = [
 				},
 			};
 		},
+		data: [],
 	},
 	{
 		path: '/history',

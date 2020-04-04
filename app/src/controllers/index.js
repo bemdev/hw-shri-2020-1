@@ -1,16 +1,22 @@
-export const getBuildList = async () => {
-	const fd = await fetch('http://localhost:3010/api/builds/list?limit=25');
-	const fdJson = await fd.json();
-	return fdJson;
+import axios from 'axios';
+
+const fetch = () => {};
+
+export const getBuildList = () => {
+	return axios
+		.get('http://localhost:3000/api/builds/list?limit=25')
+		.then((response) => response.data);
 };
 
 export const getSettings = () => {
-	return fetch('http://localhost:3010/api/settings').then((res) => res.json());
+	return axios
+		.get('http://localhost:3000/api/settings')
+		.then((response) => response.data);
 };
 
 export const saveSettings = (settings) => {
 	const { repoName, mainBranch, buildCommand, period } = settings;
-	return fetch('http://localhost:3010/api/settings', {
+	return fetch('http://localhost:3000/api/settings', {
 		mode: 'cors',
 		method: 'POST',
 		headers: {
@@ -25,35 +31,19 @@ export const saveSettings = (settings) => {
 	}).then((res) => 'ok');
 };
 
-export const getBuildSingle = (buildId) => {
-	return fetch(
-		'http://localhost:3010/api/builds/{buildId}?buildId=' + buildId
-	).then((res) => {
-		return res.json();
-	});
-};
-
 export const getBuildSingleWithLog = async (buildId) => {
-	const buildFetch = await fetch(
-		'http://localhost:3010/api/builds/{buildId}?buildId=' + buildId
-	);
-	const build = await buildFetch.json();
+	const build = await axios
+		.get('http://localhost:3000/api/builds/{buildId}?buildId=' + buildId)
+		.then((response) => response.data);
 
-	const buildLogFetch = await fetch(
-		'http://localhost:3010/api/builds/{buildId}/logs?buildId=' + buildId
-	);
-	const log = await buildLogFetch.text();
-	build.data.log = log;
-
+	build.data.log = await getBuildLog(buildId);
 	return build;
 };
 
 export const getBuildLog = (buildId) => {
-	return fetch(
-		'http://localhost:3010/api/builds/{buildId}?buildId=' + buildId + '/log'
-	).then((res) => {
-		return res.json();
-	});
+	return axios
+		.get('http://localhost:3000/api/builds/{buildId}/logs?buildId=' + buildId)
+		.then((response) => response.data);
 };
 
 export const buildRequest = (buildParams, hash) => {
@@ -61,7 +51,7 @@ export const buildRequest = (buildParams, hash) => {
 		const { commits, mainBranch } = buildParams;
 		return commits.some((commit) => {
 			if (commit[0] === hash) {
-				fetch('http://localhost:3010/api/build/request', {
+				fetch('http://localhost:3000/api/build/request', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json;charset=utf-8',

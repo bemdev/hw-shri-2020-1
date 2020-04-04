@@ -22,7 +22,7 @@ const Modal = ({ active, content, closeModal }) => {
 
 const mapStateToProps = (state = []) => {
 	return {
-		content: state.modal && state.modal.content,
+		content: state.modal.content,
 	};
 };
 
@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
 				type: 'MODAL_TOGGLE',
 				payload: {
 					active: false,
+					content: null,
 				},
 			}),
 	};

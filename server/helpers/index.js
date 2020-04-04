@@ -128,6 +128,24 @@ async function checkRepo(repo) {
 	});
 }
 
+function statsToAssets({ entrypoints }) {
+	return Object.keys(entrypoints).reduce((map, key) => {
+		if (!map[key]) {
+			map[key] = {};
+		}
+
+		entrypoints[key].assets.forEach((file) => {
+			let ext = file.split('.').pop();
+
+			if (!map[key][ext]) {
+				map[key][ext] = file;
+			}
+		});
+
+		return map;
+	}, {});
+}
+
 module.exports = {
 	get: get,
 	post: post,
@@ -135,4 +153,5 @@ module.exports = {
 	cloneRepo: cloneRepo,
 	checkRepo: checkRepo,
 	startBuildRepo: startBuildRepo,
+	statsToAssets: statsToAssets,
 };
