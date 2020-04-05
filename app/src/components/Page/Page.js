@@ -128,9 +128,32 @@ const Page = ({
 		case 'detail-log':
 			return (
 				<div className={blockName}>
+					<Modal active={modal && modal.active} />
 					<Header title={settings} color='default'>
-						<Button size='l' hasIcon='rebuild' text='Rebuild' />
-						<Button size='l' hasIcon='cogs' />
+						<Button
+							onClick={() => {
+								modalToggle(
+									<Form
+										settings={settings}
+										type='rebuild'
+										modalClose={modalClose}
+										items={data}
+									/>
+								);
+							}}
+							size='l'
+							hasIcon='rebuild'
+							text='Rebuild'
+						/>
+						<Button
+							onClick={() => {
+								modalToggle(
+									<Form settings={settings} modalClose={modalClose} />
+								);
+							}}
+							size='l'
+							hasIcon='cogs'
+						/>
 					</Header>
 					<section>
 						<div className='layout'>

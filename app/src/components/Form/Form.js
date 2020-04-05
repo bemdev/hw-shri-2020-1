@@ -30,9 +30,11 @@ const Form = ({ items, type, settings, modalClose }) => {
 	};
 
 	const doStart = (e) => {
-		Promise.resolve(settings).then(({ data }) => {
-			buildRequest(data, values.commitHash).then((res) => modalClose());
-		});
+		buildRequest(settings, values.commitHash).then((res) => modalClose());
+	};
+
+	const doStartRebuild = () => {
+		buildRequest(settings, items.commitHash).then((res) => modalClose());
 	};
 
 	const setSettings = (e) => {
@@ -63,6 +65,26 @@ const Form = ({ items, type, settings, modalClose }) => {
 						size='xl'
 						view='active'
 						text='Run build'
+					/>
+					<Button
+						onClick={modalClose}
+						disabled={disabled}
+						size='xl'
+						text='Cancel'
+					/>
+				</form>
+			);
+
+		case 'rebuild':
+			return (
+				<form onSubmit={handleSubmit} className={cn('form')({ type: type })}>
+					<Text size='xxl' content='Do you really want to run rebuild?' />
+					<Button
+						onClick={doStartRebuild}
+						disabled={disabled}
+						size='xl'
+						view='active'
+						text='Rebuild'
 					/>
 					<Button
 						onClick={modalClose}

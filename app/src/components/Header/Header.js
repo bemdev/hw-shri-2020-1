@@ -4,13 +4,17 @@ import cn from '../../libs/names/index.js';
 import Content from './__content/HeaderContent.js';
 import Logo from './__logo/HeaderLogo.js';
 
+import './header.css';
+
 const blockName = cn('header')();
 
 const Header = ({ title, color, children }) => {
 	return (
 		<header className={blockName}>
 			<Content>
-				<Logo title={title.repoName} color={color || 'inverse'} />
+				<a href='/'>
+					<Logo title={title.repoName} color={color || 'inverse'} />
+				</a>
 				<div className={cn('header', 'control')()}>{children}</div>
 			</Content>
 		</header>
