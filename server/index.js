@@ -20,8 +20,8 @@ let allowCrossDomain = function (req, res, next) {
 };
 
 app.use(allowCrossDomain);
-
 app.use(morgan('dev'));
+
 app.use(express.json());
 app.use(express.static(resolve(__dirname, '../public/client/')));
 
@@ -46,7 +46,7 @@ compilers.hooks.done.tap('Dev Server', (stats) => {
 //Swagger docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
-//all server entry apply to app
+//all server api entry apply to app
 entrypoints(app);
 
 //Use REACT middleware
@@ -64,7 +64,7 @@ app.use((req, res, next) => {
 	}
 });
 
-let serverWatch = compilers.watch({ aggregateTimeout: 200 }, (err, stats) => {
+let serverWatch = compilers.watch({ aggregateTimeout: 0 }, (err, stats) => {
 	if (err) {
 		console.log(err);
 	}

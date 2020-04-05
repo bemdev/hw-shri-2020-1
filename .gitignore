@@ -1,5 +1,6 @@
 .env
 repos
 node_modules
+public/server
 main.css
 main.js
