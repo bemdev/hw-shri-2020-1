@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { Router } from 'express';
 
 import { matchRoutes } from './libs/router';
+import { pseudoThunk } from './libs/thunk';
 
 import routes from './routes';
 import Switch from './components/Switch/Switch';
@@ -12,56 +13,42 @@ import pageTemplate from '../../config/template';
 import store from './store';
 
 export default function createMiddleware({ assets }) {
-	async function renderHtml(req) {
-		const { settings, data } = matchRoutes(routes, req.url);
+    async function renderHtml(req, res) {
+        const { settings, data } = matchRoutes(routes, req.url);
+        let serverData;
 
-		let serverData;
-		let setting;
+        serverData = await Promise.all([
+            pseudoThunk(data, req.params),
+            pseudoThunk(settings, req.params, true),
+        ]);
 
-		try {
-			typeof data === 'function'
-				? (serverData = await data(req.params))
-				: (serverData = await data);
+        serverData = {
+            ...serverData[0],
+            ...serverData[1],
+        };
 
-			typeof settings === 'function'
-				? (setting = await settings())
-				: (setting = await settings);
-			setting = setting.data;
-		} catch (error) {
-			console.log(error);
-		}
+        //if we no have settings go to set
+        if (!serverData.settings) return res.redirect('/');
 
-		const content = renderToString(
-			<Provider store={store({ ...serverData, setting })}>
-				<Switch config={routes} href={req.url} />
-			</Provider>
-		);
+        const content = renderToString(
+            <Provider store={store({ ...serverData })}>
+                <Switch config={routes} href={req.url} />
+            </Provider>,
+        );
 
-		return pageTemplate({
-			css: assets.main.css,
-			js: assets.main.js,
-			body: content,
-			data: JSON.stringify({ ...serverData, setting }),
-		});
-	}
+        return pageTemplate({
+            css: assets.main.css,
+            js: assets.main.js,
+            body: content,
+            data: JSON.stringify({ ...serverData }),
+        });
+    }
 
-	let appRouter = Router();
+    let appRouter = Router();
 
-	appRouter.get('/', (req, res) => {
-		renderHtml(req).then((page) => res.send(page));
-	});
+    appRouter.get(routes.map(r => r.path), (req, res) => {
+        renderHtml(req, res).then(page => res.send(page));
+    });
 
-	appRouter.get('/settings', (req, res) => {
-		renderHtml(req).then((page) => res.send(page));
-	});
-
-	appRouter.get('/history', (req, res) => {
-		renderHtml(req).then((page) => res.send(page));
-	});
-
-	appRouter.get('/detail/:buildId/log', (req, res) => {
-		renderHtml(req).then((page) => res.send(page));
-	});
-
-	return appRouter;
+    return appRouter;
 }
