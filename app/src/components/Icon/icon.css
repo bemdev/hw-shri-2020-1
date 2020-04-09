@@ -1,0 +1,23 @@
+.icon {
+    width: 23px;
+    height: 23px;
+    background-repeat: no-repeat;
+    /* background-position: center top; */
+}
+
+.icon_big {
+    width: 144px;
+    height: 144px;
+    background-position: center;
+}
+
+@import url('./_fa/icon_fa_cogs.css');
+@import url('./_fa/icon_fa_done.css');
+@import url('./_fa/icon_fa_play.css');
+@import url('./_fa/icon_fa_user.css');
+@import url('./_fa/icon_fa_clock.css');
+@import url('./_fa/icon_fa_rebuild.css');
+@import url('./_fa/icon_fa_warning.css');
+@import url('./_fa/icon_fa_calendar.css');
+@import url('./_fa/icon_fa_configure.css');
+@import url('./_fa/icon_fa_code-commit.css');

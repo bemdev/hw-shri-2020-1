@@ -1,0 +1,4 @@
+.card__content {
+    display: grid;
+    grid-template-columns: 33px 9fr 130px;
+}

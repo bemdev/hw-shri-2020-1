@@ -1,0 +1,34 @@
+.form {
+	line-height: 30px;
+	font-size: var(--text-l);
+}
+
+.form .text_size_xxl {
+	margin: 8px 0 14px;
+}
+
+.form .text_size_l {
+	height: 13px;
+	padding: 0 0 2px;
+}
+
+.form .button {
+	margin-right: 10px;
+}
+
+@import url('./_border/form_border_all.css');
+@import url('./_view/form_view_default.css');
+@import url('./__control/form__control.css');
+
+@import url('./__item/form__item.css');
+
+@import url('./__item/_border/form__item_border_bottom.css');
+@import url('./__item/_distribute/form__item_distribute_between.css');
+
+@import url('./__item/_indent-b/form__item_indent-b_s.css');
+@import url('./__item/_indent-b/form__item_indent-b_m.css');
+@import url('./__item/_indent-b/form__item_indent-b_l.css');
+@import url('./__item/_indent-b/form__item_indent-b_xl.css');
+@import url('./__item/_indent-b/form__item_indent-b_xxl.css');
+@import url('./__item/_indent-b/form__item_indent-b_xxxl.css');
+@import url('./__item/_indent-b/form__item_indent-b_xxxxl.css');

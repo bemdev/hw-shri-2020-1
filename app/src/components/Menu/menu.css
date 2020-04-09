@@ -1,0 +1,6 @@
+.Menu {
+	list-style-type: none;
+	display: flex;
+	padding: 0;
+	margin: 0;
+}

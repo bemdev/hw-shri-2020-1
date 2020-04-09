@@ -1,0 +1,49 @@
+* {
+    font-family: 'YS Text Lights';
+    font-size: var(--text-l);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #000;
+    overflow-x: hidden;
+}
+
+.page {
+    position: relative;
+    min-height: 100vh;
+}
+
+@import url('../layout/layout.css');
+@import url('../section/section.css');
+@import url('../theme/theme.css');
+@import url('../theme/_size/theme_size_default.css');
+@import url('../theme/_space/theme_space_default.css');
+@import url('../theme/_color/theme_color_project-default.css');
+@import url('../theme/_color/theme_color_project-inverse.css');
+@import url('../theme/_gap/theme_gap_small.css');
+
+@font-face {
+    font-family: 'YS Text Lights';
+    src: url('/fonts/PyVcRbwHetz0gOVWLonWH7Od8zM.woff2') format('woff2'),
+        url('/fonts/bIx8jOfCEfR-mECoDUEZywDBuHA.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'YS Text Semi';
+    src: url('/fonts/7_GKBdKFbUPzKlghJRv55xgz0FQ.woff2') format('woff2'),
+        url('/fonts/SmqPmIMEXrW4lOY8QrhTUVDbrro.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'YS Text Bold';
+    src: url('/fonts/6Roy0LCd05cK4nNCipgzheYcNVU.woff2') format('woff2'),
+        url('/fonts/KtHQR1erf3spayoIM4M4ngg0e2E.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}

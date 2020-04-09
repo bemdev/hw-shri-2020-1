@@ -1,0 +1,24 @@
+.text {
+	/* display: flex; */
+	/* flex-wrap: wrap; */
+	line-height: 20px;
+}
+
+@import url('./_size/text_size_s.css');
+@import url('./_size/text_size_m.css');
+@import url('./_size/text_size_l.css');
+@import url('./_size/text_size_xl.css');
+@import url('./_size/text_size_xxl.css');
+@import url('./_size/text_size_xxxl.css');
+
+@import url('./_type/text_type_p.css');
+@import url('./_type/text_type_h1.css');
+@import url('./_type/text_type_h2.css');
+@import url('./_type/text_type_h3.css');
+
+@import url('./_view/text_view_ghost.css');
+@import url('./_view/text_view_link.css');
+@import url('./_view/text_view_primary.css');
+@import url('./_view/text_view_secondary.css');
+
+@import url('./_align/text_align_center.css');

@@ -1,0 +1,45 @@
+.card {
+	position: relative;
+	padding: 12px 24px;
+	margin: 0 0 14px;
+	box-shadow: 0px 1px 1px rgba(67, 68, 69, 0.3),
+		0px 0px 1px rgba(67, 68, 69, 0.3);
+}
+
+.card a {
+	text-decoration: none;
+	color: var(--text-secondary);
+	font-size: var(--text-m);
+}
+
+@import url('./__content/card__content.css');
+@import url('./__content/_distribute/card__content_distribute_center.css');
+
+@import url('./__content/_space-a/card__content_space-a_m.css');
+@import url('./__content/_space-a/card__content_space-a_l.css');
+@import url('./__content/_space-a/card__content_space-a_xl.css');
+@import url('./__content/_space-a/card__content_space-a_xxl.css');
+@import url('./__content/_space-a/card__content_space-a_xxxl.css');
+
+@import url('./__content/_vertical-align/card__content_vertical-align_center.css');
+
+@import url('./__date/card__date.css');
+
+@import url('./__footer/_distribute/card__footer_distribute_between.css');
+@import url('./__footer/_distribute/card__footer_distribute_center.css');
+@import url('./__footer/_distribute/card__footer_distribute_right.css');
+
+@import url('./__status/card__status.css');
+@import url('./__status/_view/card__status_view_text.css');
+@import url('./__status/_type/card__status_type_clock.css');
+@import url('./__status/_type/card__status_type_done.css');
+@import url('./__status/_type/card__status_type_warning.css');
+
+@import url('./__subtext/card__subtext.css');
+@import url('./__text/card__text.css');
+@import url('./__time/card__time.css');
+
+@import url('./_border/card_border_all.css');
+
+@import url('./_view/card_view_default.css');
+@import url('./_view/card_view_full.css');
