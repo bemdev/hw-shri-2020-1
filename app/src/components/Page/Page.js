@@ -23,8 +23,6 @@ const Theme = cn('theme')({
     color: 'project-default',
 });
 
-const blockName = cn('page')() + ` ${Theme}`;
-
 const Page = ({
     view,
     settings,
@@ -34,6 +32,9 @@ const Page = ({
     modal,
     children,
 }) => {
+
+    const blockName = cn('page')({ view: view }) + ` ${Theme}`;
+
     switch (view) {
         case 'index':
             return (

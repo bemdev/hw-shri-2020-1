@@ -11,21 +11,25 @@ import './card.css';
 const Card = ({ item, children, view }) => {
 	let types;
 
-	switch (item.status) {
-		case 'Success':
-			types = 'done';
-			break;
-		case 'InProgress':
-			types = 'clock';
-			break;
-		case 'Waiting':
-			types = 'clock';
-			break;
-		case 'Cancel':
-			types = 'warning';
-			break;
-		default:
-			break;
+	if (item.status) {
+		switch (item.status) {
+			case 'Success':
+				types = 'done';
+				break;
+			case 'InProgress':
+				types = 'clock';
+				break;
+			case 'Waiting':
+				types = 'clock';
+				break;
+			case 'Cancel':
+				types = 'warning';
+				break;
+			default:
+				break;
+		}
+	} else {
+		item.status = 'Waiting'
 	}
 
 	//fix NaN

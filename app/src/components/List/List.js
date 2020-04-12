@@ -8,7 +8,7 @@ import './list.css';
 const List = ({ items, children }) => {
 	return (
 		<div className={cn('list')()}>
-			{items.map((item, index) => {
+			{items && items.map((item, index) => {
 				return <Card item={item} key={index} />;
 			})}
 		</div>

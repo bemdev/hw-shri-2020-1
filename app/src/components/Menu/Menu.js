@@ -7,7 +7,7 @@ import './__item/menu__item.css';
 const Menu = ({ items }) => {
 	return (
 		<ul className='Menu'>
-			{items.map((item, index) => {
+			{items && items.map((item, index) => {
 				return (
 					<li className='menu__item' key={index}>
 						<Link href={item.href} title={item.title} />
