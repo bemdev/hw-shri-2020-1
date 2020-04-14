@@ -12,11 +12,11 @@ const { statsToAssets } = require('./helpers/');
 const app = express();
 
 //We need crossdomain set headers for this work
-let allowCrossDomain = function (req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Headers', '*');
-	res.header('Access-Control-Allow-Methods', 'GET POST DELETE OPTIONS');
-	next();
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', '*');
+    res.header('Access-Control-Allow-Methods', 'GET POST DELETE OPTIONS');
+    next();
 };
 
 app.use(allowCrossDomain);
@@ -38,9 +38,9 @@ let serverAssetsMap;
 const compilers = webpack([clientConfig, serverConfig]);
 
 //Wait webpack hooks done and save assets
-compilers.hooks.done.tap('Dev Server', (stats) => {
-	clientAssetsMap = statsToAssets(stats.stats[0].toJson());
-	serverAssetsMap = statsToAssets(stats.stats[1].toJson());
+compilers.hooks.done.tap('Dev Server', stats => {
+    clientAssetsMap = statsToAssets(stats.stats[0].toJson());
+    serverAssetsMap = statsToAssets(stats.stats[1].toJson());
 });
 
 //Swagger docs
@@ -51,33 +51,33 @@ entrypoints(app);
 
 //Use REACT middleware
 app.use((req, res, next) => {
-	const serverBundle = require(join(
-		serverConfig.output.path,
-		serverAssetsMap.main.js
-	));
-	try {
-		let middleware = serverBundle.default({ assets: clientAssetsMap });
-		middleware(req, res, next);
-	} catch (err) {
-		console.log(err);
-		res.status(500).end();
-	}
+    const serverBundle = require(join(
+        serverConfig.output.path,
+        serverAssetsMap.main.js,
+    ));
+    try {
+        let middleware = serverBundle.default({ assets: clientAssetsMap });
+        middleware(req, res, next);
+    } catch (err) {
+        console.log(err);
+        res.status(500).end();
+    }
 });
 
 let serverWatch = compilers.watch({ aggregateTimeout: 0 }, (err, stats) => {
-	if (err) {
-		console.log(err);
-	}
+    if (err) {
+        console.log(err);
+    }
 });
 
 let server = app.listen(config.port, () => {
-	console.log(`Server started at http://localhost:${config.port}`);
+    console.log(`Server started at http://localhost:${config.port}`);
 });
 
-['SIGINT', 'SIGTERM'].forEach(function (sig) {
-	process.on(sig, function () {
-		serverWatch.close();
-		server.close();
-		process.exit();
-	});
+['SIGINT', 'SIGTERM'].forEach(function(sig) {
+    process.on(sig, function() {
+        serverWatch.close();
+        server.close();
+        process.exit();
+    });
 });

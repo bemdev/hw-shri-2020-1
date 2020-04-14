@@ -2,5 +2,7 @@
 repos
 node_modules
 public/server
+public/client/*.js
+public/client/*.css
 main.css
 main.js

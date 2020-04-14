@@ -9,11 +9,11 @@ import Switch from '../Switch/Switch.js';
 const store = createStore(rootReducer);
 
 const App = () => {
-	return (
-		<Provider store={store}>
-			<Switch config={routes} href={window.location.pathname} />
-		</Provider>
-	);
+    return (
+        <Provider store={store}>
+            <Switch config={routes} href={window.location.pathname} />
+        </Provider>
+    );
 };
 
 export default App;
