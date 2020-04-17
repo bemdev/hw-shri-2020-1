@@ -66,8 +66,8 @@
         "ssr-dev": "nodemon --icu-data-dir=node_modules/full-icu --ignore ./public/ server/index.js",
         "ssr-prod": "NODE_ENV=production node --icu-data-dir=node_modules/full-icu server/index.js",
 
-        "build-server": "nodemon ./build-server/index.js",
-        "build-agent": "nodemon ./build-agent/index.js",
+        "build-server": "nodemon --ignore ./repos/ ./build-server/index.js",
+        "build-agent": "nodemon --ignore ./repos/ ./build-agent/index.js",
 
         "make-server": "webpack-cli --config ./config/server.config.js",
         "make-client": "webpack-cli --config ./config/client.config.js"

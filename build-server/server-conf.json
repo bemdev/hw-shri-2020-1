@@ -1,5 +1,5 @@
 {
     "port": 3001,
-    "apiBaseUrl": "http://localhost:3000",
-    "apiToken": "asdfgh"
+    "apiBaseUrl": "https://hw.shri.yandex/api/",
+    "apiToken": "enter u toke here"
 }

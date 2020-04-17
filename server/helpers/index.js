@@ -13,7 +13,6 @@ const options = {
     }),
     headers: {
         Authorization: 'Bearer ' + process.env.TOKEN,
-        // 'Content-Type': 'application/json;charset=utf-8'
     },
 };
 

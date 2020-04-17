@@ -16,6 +16,7 @@ app.post('/notify-agent', (req, res) => {
 
 //сохранить результаты сборки. В параметрах — id сборки, статус, лог (stdout и stderr процесса).
 app.post('/notify-build-result', notifyBuildResult);
+
 app.all('*', (req, res) => res.send(404));
 
 app.listen(port, () => {
@@ -25,6 +26,6 @@ app.listen(port, () => {
 let interval = setInterval(() => {
     if (agents.length > 0) {
         clearInterval(interval);
-        checkTask(agents);
-    };
+        checkTask(agents)
+    }
 }, 3000);

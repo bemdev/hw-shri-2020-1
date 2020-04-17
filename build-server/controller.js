@@ -1,3 +1,18 @@
+require('dotenv').config();
+
+const cfg = require('./server-conf.json');
+const https = require('https');
+const axios = require('axios');
+
+const options = {
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+    }),
+    headers: {
+        Authorization: 'Bearer ' + process.env.TOKEN,
+    },
+};
+
 const notifyAgent = (port, host, agents) => {
     const newAgent = {
         agentNumber: agents.length + 1,
@@ -13,8 +28,17 @@ const notifyAgent = (port, host, agents) => {
 };
 
 const notifyBuildResult = (req, res) => {
-    const { buildId, buildStatus, buildLog } = req.body;
-    res.send('build really done ?');
+    const { id, log } = req.body;
+    // console.log(id)
+
+    axios.post(`${cfg.apiBaseUrl}build/finish`, {
+        "buildId": id,
+        "duration": 0,
+        "success": true,
+        "buildLog": log
+    }, options).then(result => {
+        res.send('ok');
+    });
 };
 
 module.exports = {
