@@ -14,7 +14,7 @@ function getBuildList(req, res) {
         const { limit, offset } = req.query;
         get(
             `https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${
-                offset ? offest : 0
+                offset ? offset : 0
             }`,
         ) //need fix this but it work
             .then(response => {

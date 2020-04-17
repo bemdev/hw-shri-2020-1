@@ -61,14 +61,16 @@
         "test:h": "hermione",
         "test:watch": "jest --watch",
         "test:coverage": "jest --collectCoverage",
+
         "start": "npm-run-all -p ssr-prod build-agent",
         "ssr-dev": "nodemon --icu-data-dir=node_modules/full-icu --ignore ./public/ server/index.js",
         "ssr-prod": "NODE_ENV=production node --icu-data-dir=node_modules/full-icu server/index.js",
-        "build-agent": "node ./build-agent.node.js",
-        "server:dev": "nodemon -L ./server/index.js",
-        "server:prod": "node ./server/index.js",
-        "build-server": "webpack-cli --config ./config/server.config.js",
-        "build-client": "webpack-cli --config ./config/client.config.js"
+
+        "build-server": "nodemon ./build-server/index.js",
+        "build-agent": "nodemon ./build-agent/index.js",
+
+        "make-server": "webpack-cli --config ./config/server.config.js",
+        "make-client": "webpack-cli --config ./config/client.config.js"
     },
     "repository": {
         "type": "git",
