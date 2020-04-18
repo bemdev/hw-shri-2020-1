@@ -15,12 +15,13 @@ const options = {
 
 const notifyAgent = (port, host, agents) => {
     const newAgent = {
-        agentNumber: agents.length + 1,
+        agentNumber: agents.length > 0 ? agents.length : agents.length + 1,
         agentActive: true,
         port: port,
         host: host,
     };
 
+    agents = agents.filter(a => a.port !== newAgent.port)
     agents.push(newAgent);
     console.log(`New agent-${newAgent.agentNumber} connected`);
 
@@ -31,14 +32,14 @@ const notifyBuildResult = (req, res) => {
     const { id, log } = req.body;
     // console.log(id)
 
-    axios.post(`${cfg.apiBaseUrl}build/finish`, {
+    return axios.post(`${cfg.apiBaseUrl}build/finish`, {
         "buildId": id,
         "duration": 0,
         "success": true,
         "buildLog": log
-    }, options).then(result => {
-        res.send('ok');
-    });
+    }, options).then(({data}) => {
+        console.log('Build id done');
+    }).catch(err => console.log('Some trouble with finish build'));
 };
 
 module.exports = {

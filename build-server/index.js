@@ -25,7 +25,8 @@ app.listen(port, () => {
 
 let interval = setInterval(() => {
     if (agents.length > 0) {
-        clearInterval(interval);
-        checkTask(agents)
+        checkTask(agents, interval)
+    } else {
+        console.log('We no have agents or tasks, sorry man.');
     }
-}, 3000);
+}, 5000 * (agents.length + 1));

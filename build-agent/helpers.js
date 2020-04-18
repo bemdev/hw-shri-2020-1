@@ -16,7 +16,10 @@ const agentReady = (port, host) => {
             console.log('Agent connected');
         })
         .catch(err => {
-            console.log('We have some trouble with connect to server');
+            console.log(`${cfg.serverHost}:${cfg.serverPort} lost`);
+            setTimeout(() => {
+                agentReady(port, host);
+            }, 1000);
         });
 };
 
