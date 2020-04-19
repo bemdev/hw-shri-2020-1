@@ -1,21 +1,45 @@
 version: '3'
+
 services:
-    selenium-hub:
-        image: selenium/hub
-        container_name: selenium-hub
-        ports:
-            - '4444:4444'
-    chrome:
-        image: selenium/node-chrome
+    server:
+        network_mode: host
+        build: 
+            context: ./build-server/
+        environment: 
+            - TOKEN=${TOKEN}
+    agent:
+        restart: always
+        network_mode: host
         depends_on:
-            - selenium-hub
-        environment:
-            - HUB_PORT_4444_TCP_ADDR=selenium-hub
-            - HUB_PORT_4444_TCP_PORT=4444
-    firefox:
-        image: selenium/node-firefox
-        depends_on:
-            - selenium-hub
-        environment:
-            - HUB_PORT_4444_TCP_ADDR=selenium-hub
-            - HUB_PORT_4444_TCP_PORT=4444
+            - server
+        build: 
+            context: ./build-agent/
+        environment: 
+            - PORT=3002
+    # agent2:
+    #     restart: always
+    #     network_mode: host
+    #     depends_on:
+    #         - server
+    #     build: 
+    #         context: ./build-agent/
+    #     environment: 
+    #         - PORT=3004
+    # agent3:
+    #     restart: always
+    #     network_mode: host
+    #     depends_on:
+    #         - server
+    #     build: 
+    #         context: ./build-agent/
+    #     environment: 
+    #         - PORT=3005
+    # agent4:
+    #     restart: always
+    #     network_mode: host
+    #     depends_on:
+    #         - server
+    #     build: 
+    #         context: ./build-agent/
+    #     environment: 
+    #         - PORT=3006

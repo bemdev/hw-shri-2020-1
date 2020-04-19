@@ -8,11 +8,11 @@ import './header.css';
 
 const blockName = cn('header')();
 
-const Header = ({ title, color, children }) => {
+const Header = ({ title, color, children, href }) => {
 	return (
 		<header className={blockName}>
 			<Content>
-				<a href='/'>
+				<a href={href}>
 					<Logo title={title.repoName} color={color || 'inverse'} />
 				</a>
 				<div className={cn('header', 'control')()}>{children}</div>

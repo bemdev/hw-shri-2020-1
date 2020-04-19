@@ -29,4 +29,4 @@ let interval = setInterval(() => {
     } else {
         console.log('We no have agents or tasks, sorry man.');
     }
-}, 5000 * (agents.length + 1));
+}, 10000 * (agents.length + 1));

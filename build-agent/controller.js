@@ -24,12 +24,13 @@ const agentReady = (port, host) => {
 };
 
 const agentStartBuild = (req, res) => {
-    const settings = { id, pathToRepo, commitHash, buildCommand, mainBranch } = req.body;
-
-    cloneRepo(settings)
+    const settings = { id, pathToRepo, commitHash, buildCommand, mainBranch, duration} = req.body;
+    console.log(`'Agent start work with ${commitHash}'`)
+    return cloneRepo(settings)
         .then(checkRepo)
         .then(startBuildRepo)
-        .then(saveBuild);
+        .then(saveBuild)
+        .then(() => res.send('ok'));
 };
 
 //Clone git repos to local repo to 'repos' folder
@@ -107,8 +108,9 @@ function installDependencys(pathToRepo) {
 }
 
 //Really start build command remote repos
-function startBuildRepo({pathToRepo, buildCommand, id}) {
+function startBuildRepo({pathToRepo, buildCommand, id, duration}) {
     let log = '';
+
     return new Promise(resolve => {
         installDependencys(pathToRepo).then(() => {
             const yb = spawn('yarn', [buildCommand], {
@@ -128,6 +130,7 @@ function startBuildRepo({pathToRepo, buildCommand, id}) {
                 resolve({
                     id: id,
                     log: log,
+                    duration: duration
                 });
             });
         }).catch(err => console.log(err));
@@ -138,11 +141,9 @@ function saveBuild (build) {
     return axios
         .post(`${cfg.serverHost}:${cfg.serverPort}/notify-build-result`, build)
         .then(result => {
-            console.log(result);
+            return result
         })
-        .catch(err => {
-            console.log(err);
-        });
+        .catch(err => console.log(err));
 }
 
 module.exports = {

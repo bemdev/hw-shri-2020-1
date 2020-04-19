@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const cfg = require('./server-conf.json');
 const https = require('https');
 const axios = require('axios');
@@ -15,7 +13,7 @@ const options = {
 
 const notifyAgent = (port, host, agents) => {
     const newAgent = {
-        agentNumber: agents.length > 0 ? agents.length : agents.length + 1,
+        agentNumber: agents.length + 1,
         agentActive: true,
         port: port,
         host: host,
@@ -23,22 +21,25 @@ const notifyAgent = (port, host, agents) => {
 
     agents = agents.filter(a => a.port !== newAgent.port)
     agents.push(newAgent);
-    console.log(`New agent-${newAgent.agentNumber} connected`);
+    console.log(`New agent connected`);
 
     return agents;
 };
 
 const notifyBuildResult = (req, res) => {
-    const { id, log } = req.body;
-    // console.log(id)
+    const { id, log, duration} = req.body;
 
-    return axios.post(`${cfg.apiBaseUrl}build/finish`, {
+    const end = Date.now();
+    const elaps = end - duration;
+
+    axios.post(`${cfg.apiBaseUrl}build/finish`, {
         "buildId": id,
-        "duration": 0,
+        "duration": elaps,
         "success": true,
         "buildLog": log
     }, options).then(({data}) => {
         console.log('Build id done');
+        res.send('ok');
     }).catch(err => console.log('Some trouble with finish build'));
 };
 

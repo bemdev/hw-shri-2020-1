@@ -40,7 +40,7 @@ const Page = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal.active} />
-                    <Header title={settings}>
+                    <Header href='/history' title={settings}>
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -80,7 +80,7 @@ const Page = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal && modal.active} />
-                    <Header title={settings} color="default">
+                    <Header href='/history' title={settings} color="default">
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -119,7 +119,7 @@ const Page = ({
         case 'settings':
             return (
                 <div className={blockName}>
-                    <Header title={settings} />
+                    <Header href='/' title={settings} />
                     <section>
                         <div className="layout">
                             <Title
@@ -136,7 +136,7 @@ const Page = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal && modal.active} />
-                    <Header title={settings} color="default">
+                    <Header href='/history' title={settings} color="default">
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -176,7 +176,7 @@ const Page = ({
         default:
             return (
                 <div className={blockName}>
-                    <Header />
+                    <Header href='/' />
                     {children}
                     <Footer />
                 </div>

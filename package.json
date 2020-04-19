@@ -68,9 +68,13 @@
 
         "build-server": "nodemon --ignore ./repos/ ./build-server/index.js",
         "build-agent": "nodemon --ignore ./repos/ ./build-agent/index.js",
+        "build-agent-2": "nodemon --ignore ./repos/ ./build-agent-2/index.js",
 
         "make-server": "webpack-cli --config ./config/server.config.js",
-        "make-client": "webpack-cli --config ./config/client.config.js"
+        "make-client": "webpack-cli --config ./config/client.config.js",
+
+        "docker-start": "docker-compose up -d",
+        "docker-stop": "docker-compose down"
     },
     "repository": {
         "type": "git",

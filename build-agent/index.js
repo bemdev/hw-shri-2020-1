@@ -1,6 +1,5 @@
 const express = require('express');
-const { port } = require('./agent-conf.json');
-const { agentReady, agentStartBuild } = require('./helpers.js');
+const { agentReady, agentStartBuild } = require('./controller.js');
 
 const app = express();
 app.use(express.json());
@@ -9,9 +8,9 @@ app.use(express.json());
 app.post('/build', agentStartBuild);
 
 app.all('*', (req, res) => res.send(404));
-app.listen(port, () => {
-    console.log(`Build Server start on ${port}.`);
+app.listen(process.env.PORT, () => {
+    console.log(`Build Server start on ${process.env.PORT}.`);
 });
 
 //отправить статус готовности билд агента
-agentReady(port, 'http://localhost');
+agentReady(process.env.PORT, 'http://localhost');

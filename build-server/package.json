@@ -1,0 +1,16 @@
+{
+  "name": "build-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "dotenv": "^8.2.0"
+  },
+  "scripts": {
+    "server": "node ./index.js"
+  },
+  "author": "bemdev",
+  "license": "ISC"
+}
