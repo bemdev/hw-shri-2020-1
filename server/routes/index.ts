@@ -1,5 +1,6 @@
-const mcache = require('memory-cache');
-const {
+import mcache from 'memory-cache';
+
+import {
     getBuildList,
     getBuildById,
     getBuildLogs,
@@ -10,7 +11,7 @@ const {
     getSettings,
     saveSettings,
     removeSettings,
-} = require('../controllers');
+} from '../controllers';
 
 //Cacheware - if u want change memory cache but he removable
 const cacheMiddleware = duration => {
@@ -47,4 +48,4 @@ const initializeEntrypoints = app => {
         .delete(removeSettings);
 };
 
-module.exports = initializeEntrypoints;
+export default initializeEntrypoints;

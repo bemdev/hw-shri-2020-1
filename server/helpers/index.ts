@@ -1,11 +1,11 @@
 require('dotenv').config();
 
-const fs = require('fs');
-const path = require('path');
-const { spawn } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { spawn } from 'child_process';
 
-const https = require('https');
-const axios = require('axios');
+import https from 'https';
+import axios from 'axios';
 
 const options = {
     httpsAgent: new https.Agent({
@@ -127,7 +127,7 @@ async function checkRepo(repo) {
     });
 }
 
-function statsToAssets({ entrypoints }) {
+export function statsToAssets({ entrypoints }) {
     return Object.keys(entrypoints).reduce((map, key) => {
         if (!map[key]) {
             map[key] = {};

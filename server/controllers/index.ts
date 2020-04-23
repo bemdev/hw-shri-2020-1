@@ -1,4 +1,4 @@
-const {
+import {
     get,
     post,
     remove,
@@ -6,7 +6,7 @@ const {
     checkRepo,
     startBuildRepo,
     initBuildWorker,
-} = require('../helpers');
+} from '../helpers'
 
 //Get a list of all builds
 function getBuildList(req, res) {
