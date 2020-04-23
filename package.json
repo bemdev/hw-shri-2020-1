@@ -76,7 +76,7 @@
         "test:watch": "jest --watch",
         "test:coverage": "jest --collectCoverage",
         "start": "npm-run-all -p ssr-prod build-agent",
-        "ssr-dev": "TS_NODE_FILE=1 nodemon --icu-data-dir=node_modules/full-icu -r ts-node/register --ignore ./public/ server/index.js",
+        "ssr-dev": "nodemon -r ts-node/register --ignore ./public/ server/index.ts",
         "ssr-prod": "NODE_ENV=production node --icu-data-dir=node_modules/full-icu server/index.js",
         "build-server": "nodemon --ignore ./repos/ ./build-server/index.js",
         "build-agent": "nodemon --ignore ./repos/ ./build-agent/index.js",
