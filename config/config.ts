@@ -14,7 +14,7 @@ export default function commonConfig() {
     };
 };
 
-export function createTarget(target: string) {
+export function createTarget(target: string):any { //WTG CONFIGURE ? Configuration ? root ?
 
     let { publicPath } = commonConfig();
 
