@@ -7,7 +7,7 @@ const cfg = createTarget('client');
 
 const filter = (arr: [string]) => arr.filter(Boolean);
 
-module.exports = {
+export default {
 	...cfg.webpack,
 
 	entry: {

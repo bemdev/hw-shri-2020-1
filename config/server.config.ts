@@ -1,7 +1,7 @@
 import { createTarget } from './config';
 const cfg = createTarget('client');
 
-module.exports = {
+export default {
 	...cfg.webpack,
 
 	node: {
