@@ -6,7 +6,7 @@ import entrypoints from './routes';
 import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from './swagger.json';
 
-import webpack from 'webpack';
+import webpack, { Stats } from 'webpack'; //stats fix
 import { statsToAssets } from './helpers/'
 
 const app = express();
@@ -31,14 +31,14 @@ import clientConfig from '../config/client.config';
 import serverConfig from '../config/server.config';
 
 //Create var to assets
-let clientAssetsMap;
-let serverAssetsMap;
+let clientAssetsMap: {};
+let serverAssetsMap: { main?: { js: string } };
 
 //Start dua compilers
 const compilers = webpack([clientConfig, serverConfig]);
 
 //Wait webpack hooks done and save assets
-compilers.hooks.done.tap('Dev Server', stats => {
+compilers.hooks.done.tap('Dev Server', (stats: any) => { //WTF Stat ? fix this
     clientAssetsMap = statsToAssets(stats.stats[0].toJson());
     serverAssetsMap = statsToAssets(stats.stats[1].toJson());
 });
@@ -51,25 +51,24 @@ entrypoints(app);
 
 //Use REACT middleware
 app.use((req, res, next) => {
-    const serverBundle = require(join(
-        serverConfig.output.path,
-        serverAssetsMap.main.js,
-    ));
-    try {
-        let middleware = serverBundle.default({ assets: clientAssetsMap });
-        middleware(req, res, next);
-    } catch (err) {
-        console.log(err);
-        res.status(500).end();
+    if (serverAssetsMap.main) {
+        const serverBundle = require(join(
+            serverConfig.output.path,
+            serverAssetsMap.main.js,
+        ));
+        try {
+            let middleware = serverBundle.default({ assets: clientAssetsMap });
+            middleware(req, res, next);
+        } catch (err) {
+            console.log(err);
+            res.status(500).end();
+        }
     }
 });
 
-let serverWatch = compilers.watch({ aggregateTimeout: 0 }, (err, stats) => {
-    if (err) {
-        console.log(err);
-    }
-});
-
-let server = app.listen(config.port, () => {
-    console.log(`Server started at http://localhost:${config.port}`);
+compilers.watch({ aggregateTimeout: 0 }, (err: {}) => {
+    if (err) throw err;
+    app.listen(config().port, () => {
+        console.log(`Server started at http://localhost:${config().port}`);
+    });
 });
