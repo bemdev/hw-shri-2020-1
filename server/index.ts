@@ -1,5 +1,5 @@
 import { resolve, join } from 'path'
-import express, { Request, Response, NextFunction } from 'express';
+import express, { NextFunction, Response } from 'express';
 import morgan from 'morgan';
 import entrypoints from './routes';
 
@@ -11,15 +11,11 @@ import statsToAssets from './helpers/'
 
 const app = express();
 
-//We need crossdomain set headers for this work
-let allowCrossDomain = function(req: Request, res: Response, next: NextFunction) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Allow-Methods', 'GET POST DELETE OPTIONS');
-    next();
-};
 
-app.use(allowCrossDomain);
+type CrossRequest = {};
+type CrossResponse = { header(access: string, value: string): string } | Response;
+type CrossNext = NextFunction;
+
 app.use(morgan('dev'));
 
 app.use(express.json());

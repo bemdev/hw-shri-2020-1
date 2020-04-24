@@ -1,5 +1,5 @@
 import mcache from 'memory-cache';
-import { Request, Response, NextFunction, Application } from 'express';
+import { NextFunction, Application } from 'express';
 
 import {
     getBuildList,
@@ -12,22 +12,26 @@ import {
     removeSettings,
 } from '../controllers';
 
-type cacheResponseType = { send: (cache: []) => void, sendResponse: any } | any;
+type cacheResponseType = { send: (cache: []) => void, sendResponse(body:[]): void };
+type requestCache = { originalUrl?: string,  url: string };
+
 //Cacheware - if u want change memory cache but he removable
-const cacheMiddleware = (duration:number) => {
-    return (req: { originalUrl?: string,  url: string }, res:cacheResponseType, next:NextFunction) => {
+const cacheMiddleware = (duration:number)=> {
+    return (req: requestCache, res: cacheResponseType, next: NextFunction) => {
         const key = '__express__' + req.originalUrl || req.url;
-        let cachedBody = mcache.get(key);
+
+        let cachedBody:[] = mcache.get(key);
+
         if (cachedBody) {
             res.send(cachedBody);
             return;
         } else {
-            res.sendResponse = res.send;
             res.send = (body: []) => {
                 mcache.put(key, body, duration * 60000);
                 res.sendResponse(body);
             };
         }
+
         next();
     };
 };
@@ -35,7 +39,7 @@ const cacheMiddleware = (duration:number) => {
 const initializeEntrypoints = (app:Application) => {
     app.get('/api/builds/list', getBuildList);
     app.get('/api/builds/:buildId', getBuildById);
-    app.get('/api/builds/:buildId/logs', cacheMiddleware(15), getBuildLogs);
+    app.get('/api/builds/:buildId/logs', getBuildLogs); //cacheMiddleware(15)
 
     app.post('/api/build/request', addBuildToTurn);
     app.post('/api/build/cancel', cancelBuild);

@@ -9,14 +9,11 @@ type responseBuild = { send: (data: [] | string) => void; };
 type buildType = { query: { buildId: string } };
 
 //Get a list of all builds
-export function getBuildList(req: buildListType, res:responseBuild) {
+export function getBuildList(req: buildListType, res:responseBuild)  {
     return new Promise(resolve => {
         const { limit, offset } = req.query;
-        get(
-            `https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${
-                offset ? offset : 0
-            }`,
-        ) //need fix this but it work
+
+        get(`https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${offset}`)
             .then(response => {
                 if (res) {
                     res.send(response.data);
@@ -25,6 +22,7 @@ export function getBuildList(req: buildListType, res:responseBuild) {
                 }
             })
             .catch(err => {
+                console.log(err.response.status)
                 if (err) res.send([]);
             });
     });
@@ -92,8 +90,8 @@ export function getSettings(req: any, res:responseBuild) {
 //Multi save settings - clone check and add to turn - mb ref this
 export function saveSettings(req: { body: [] }, res:responseBuild) {
     post('https://hw.shri.yandex/api/conf', req.body)
-        .then(response => {
-            // const firstCommit = infoCommits.commits[0]; //fix this [0][2]
+        .then(({ data }) => {
+            // const firstCommit = data.commits[0]; //fix this [0][2]
             // addBuildToTurn({
             //     body: {
             //         commitMessage: firstCommit[3],

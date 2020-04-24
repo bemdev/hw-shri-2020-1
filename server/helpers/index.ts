@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import https from 'https';
 import axios from 'axios';
 
@@ -11,7 +13,7 @@ const options = {
 };
 
 //Some wrappers axios - get - post - remove
-export function get(url: string) {
+export function get(url:string) {
     return axios.get(url, options);
 }
 
