@@ -11,6 +11,6 @@ const redusers = combineReducers({
     modal,
 });
 
-export default initialState => {
+export default (initialState:{}) => {
     return createStore(redusers, { ...initialState }, composeWithDevTools());
 };

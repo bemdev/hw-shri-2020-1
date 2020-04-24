@@ -40,7 +40,7 @@ const routes = [
         path: '/detail/:buildId/log',
         view: 'detail-log',
         settings: getSettings,
-        data: ({ buildId }) => {
+        data: ({ buildId }: { buildId: Build }) => {
             return getBuildSingleWithLog(buildId);
         },
     },
