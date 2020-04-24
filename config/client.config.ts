@@ -28,13 +28,6 @@ export default {
 				use: [
 					MiniCssExtractPlugin.loader,
 					{ loader: 'css-loader' },
-					// {
-					// 	loader: 'postcss-loader',
-					// 	options: {
-					// 		plugins: [autoprefixer()],
-					// 		sourceMap: true,
-					// 	},
-					// },
 				],
 			},
 		],

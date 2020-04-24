@@ -1,7 +1,7 @@
 import { join } from 'path';
 import webpack from 'webpack';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
-// import WebpackLoggerPlugin from 'webpack-logger-plugin';
+// import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
+import WebpackLoggerPlugin from 'webpack-logger-plugin';
 
 const { NODE_ENV = 'development' } = process.env;
 
@@ -38,8 +38,8 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
      */
     let name = IS_DEVELOPMENT ? '[name].js' : '[hash:16].js';
 
-    let IS_SERVER = target === 'server';
-    let IS_CLIENT = target === 'client';
+    // let IS_SERVER = target === 'server';
+    // let IS_CLIENT = target === 'client';
 
     return {
         root,
@@ -51,7 +51,7 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
         webpack: {
             name: target,
             target: 'node',
-            entry: join(src, target + '.js'),
+            entry: join(src, target + '.ts'),
             devtool: IS_DEVELOPMENT ? 'cheap-module-eval-source-map' : false,
             mode: NODE_ENV,
             // watch: IS_DEVELOPMENT,
@@ -69,7 +69,7 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
 
             resolve: {
                 modules: ['node_modules', 'src/components'],
-                extensions: ['.js', '.jsx', '.json'],
+                extensions: ['.ts', '.tsx', '.js', '.jsx', ],
             },
 
             module: {
@@ -88,6 +88,10 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
                             },
                         },
                     },
+                    {
+                        test: /\.tsx?$/,
+                        loader: 'awesome-typescript-loader',
+                    },
                 ],
             },
 
@@ -104,7 +108,7 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
 
                 // ...(IS_DEVELOPMENT ? [] : [new UglifyJSPlugin()]),
 
-                // new WebpackLoggerPlugin(),
+                new WebpackLoggerPlugin(),
             ],
         },
     };
