@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerConfig from './swagger.json';
 
 import webpack, { Stats } from 'webpack'; //stats fix
-import { statsToAssets } from './helpers/'
+import statsToAssets from './helpers/'
 
 const app = express();
 
