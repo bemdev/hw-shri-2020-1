@@ -1,5 +1,5 @@
 import { createTarget } from './config';
-const cfg = createTarget('client');
+const cfg = createTarget('server');
 
 export default {
 	...cfg.webpack,

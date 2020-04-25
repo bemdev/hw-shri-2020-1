@@ -6,9 +6,9 @@ import {
 
 const routes = [
     {
-        path: '/',
+        route: '/',
         view: 'index',
-        exact: true,
+        isExact: true,
         settings: async () => {
             return {
                 data: {
@@ -19,25 +19,19 @@ const routes = [
         data: [],
     },
     {
-        path: '/settings',
+        route: '/settings',
         view: 'settings',
-        settings: async () => {
-            return {
-                data: {
-                    repoName: 'School CI Server',
-                },
-            };
-        },
+        settings: getSettings,
         data: [],
     },
     {
-        path: '/history',
+        route: '/history',
         view: 'history',
         settings: getSettings,
         data: getBuildList,
     },
     {
-        path: '/detail/:buildId/log',
+        route: '/detail/:buildId/log',
         view: 'detail-log',
         settings: getSettings,
         data: ({ buildId }: { buildId: Build }) => {

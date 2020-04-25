@@ -16,7 +16,7 @@ const restoredData = (function clientRestoreData() {
 	}
 })();
 
-function removeElement(elementId) {
+function removeElement(elementId:string) {
 	var element = document.getElementById(elementId);
 	element && element.remove();
 }

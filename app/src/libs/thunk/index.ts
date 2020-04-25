@@ -1,15 +1,12 @@
-type ExtraThunk = { (params: {} ):void };
 type ExtraParams = [];
 type ExtraDive = boolean;
 
-export const pseudoThunk = async (extra:ExtraThunk, params: ExtraParams, dive: ExtraDive)  => {
-    let data;
+export const pseudoThunk = async (extra:any, params: ExtraParams, dive?: ExtraDive)  => {
+    if (typeof extra === 'function') {
+        let data = await extra(params);
 
-    typeof extra === 'function'
-        ? (data = await extra(params))
-        : (data = extra);
+        if (dive) return { settings: data };
 
-    if (dive) return { settings: data };
-
-    return data;
+        return data;
+    }
 };

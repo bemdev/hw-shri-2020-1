@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { Router } from 'express';
+import { Router, Request } from 'express';
 
 import { matchRoutes } from './libs/router';
 import { pseudoThunk } from './libs/thunk';
@@ -12,10 +12,18 @@ import Switch from './components/Switch/Switch';
 import pageTemplate from '../../config/template';
 import store from './store';
 
-export default function createMiddleware({ assets }) {
-    async function renderHtml(req, res) {
-        const { settings, data } = matchRoutes(routes, req.url);
-        let serverData;
+type MiddlewareAssets = { main: { js: string, css: string } };
+type RenderRequest = { params: [], url: string, buildId?: string };
+type RenderResponse = {
+    send(page: any): void;
+    redirect(url: string): void;
+};
+
+export default function createMiddleware({ assets }: { assets: MiddlewareAssets }) {
+    async function renderHtml(req:RenderRequest, res: RenderResponse) {
+        const { data, settings } = matchRoutes(routes, req.url);
+
+        let serverData: any;
 
         serverData = await Promise.all([
             pseudoThunk(data, req.params),
@@ -24,7 +32,7 @@ export default function createMiddleware({ assets }) {
 
         serverData = {
             ...serverData[0],
-            ...serverData[1],
+            ...serverData[1]
         };
 
         //if we no have settings go to set
@@ -46,8 +54,8 @@ export default function createMiddleware({ assets }) {
 
     let appRouter = Router();
 
-    appRouter.get(routes.map(r => r.path), (req, res) => {
-        renderHtml(req, res).then(page => res.send(page));
+    appRouter.get(routes.map(r => r.route), (req: any, res: RenderResponse) => {
+        renderHtml(req, res).then((page) => res.send(page));
     });
 
     return appRouter;

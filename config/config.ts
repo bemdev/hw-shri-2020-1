@@ -51,7 +51,7 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
         webpack: {
             name: target,
             target: 'node',
-            entry: join(src, target + '.ts'),
+            entry: join(src, target + '.tsx'),
             devtool: IS_DEVELOPMENT ? 'cheap-module-eval-source-map' : false,
             mode: NODE_ENV,
             // watch: IS_DEVELOPMENT,
@@ -89,7 +89,8 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
                         },
                     },
                     {
-                        test: /\.tsx?$/,
+                        test: /\.ts?|.tsx?/,
+                        exclude: /node_modules/,
                         loader: 'awesome-typescript-loader',
                     },
                 ],

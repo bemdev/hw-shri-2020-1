@@ -1,4 +1,4 @@
-export default ({ css, js, body, data }: { css:string, js:string, body:string, data: [] }) => {
+export default ({ css, js, body, data }: { css:string, js:string, body:string, data: {} }) => {
 	return `
     <!DOCTYPE html>
     <html lang="ru">

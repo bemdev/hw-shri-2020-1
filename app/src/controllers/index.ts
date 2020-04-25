@@ -2,19 +2,19 @@ import axios from 'axios';
 
 export const getBuildList = () => {
     return axios
-        .get('/api/builds/list?limit=25')
+        .get('http://localhost:3000/api/builds/list?limit=25&offset=0')
         .then(response => response.data);
 };
 
 export const getSettings = () => {
     return axios
-        .get('/api/settings')
+        .get('http://localhost:3000/api/settings')
         .then(response => response.data);
 };
 
 export const saveSettings = (settings: Settings)=> {
     const { repoName, mainBranch, buildCommand, period } = settings;
-    return fetch('/api/settings', {
+    return fetch('http://localhost:3000/api/settings', {
         mode: 'cors',
         method: 'POST',
         headers: {
@@ -31,7 +31,7 @@ export const saveSettings = (settings: Settings)=> {
 
 export const getBuildSingleWithLog = async (buildId: Build) => {
     const build = await axios
-        .get('/api/builds/{buildId}?buildId=' + buildId)
+        .get('http://localhost:3000/api/builds/{buildId}?buildId=' + buildId)
         .then(response => response.data);
 
     if (!build.data) return [];
