@@ -40,13 +40,13 @@ const cacheMiddleware = (duration:number)=> {
 const initializeEntrypoints = (app:Application) => {
     app.get('/api/builds/list', getBuildList);
     app.get('/api/builds/:buildId', getBuildById);
-    app.get('/api/builds/:buildId/logs', cacheMiddleware(15), getBuildLogs);
+    app.get('/api/builds/:buildId/logs', cacheMiddleware(30), getBuildLogs);
 
     app.post('/api/build/request', addBuildToTurn);
     app.post('/api/build/cancel', cancelBuild);
 
     app.route('/api/settings')
-        .get(cacheMiddleware(1), getSettings)
+        .get(getSettings)
         .post(saveSettings)
         .delete(removeSettings);
 };  
