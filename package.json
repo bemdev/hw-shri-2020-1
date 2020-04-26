@@ -43,7 +43,6 @@
         "@types/uglifyjs-webpack-plugin": "^1.1.0",
         "@types/webpack": "^4.41.12",
         "autoprefixer": "^9.7.5",
-        "awesome-typescript-loader": "^5.2.1",
         "axios-retry": "^3.1.8",
         "babel-jest": "^25.3.0",
         "babel-loader": "^8.0.6",
@@ -81,14 +80,14 @@
         "test:h": "hermione",
         "test:watch": "jest --watch",
         "test:coverage": "jest --collectCoverage",
-        "start": "npm-run-all -p ssr-prod build-agent",
+
+        "start": "npm-run-all -p ssr-prod docker-start",
         "ssr-dev": "TS_NODE_FILES=1 nodemon server/index.ts --ignore ./public/",
-        "ssr-prod": "NODE_ENV=production node --icu-data-dir=node_modules/full-icu server/index.js",
-        "build-server": "nodemon --ignore ./repos/ ./build-server/index.js",
-        "build-agent": "nodemon --ignore ./repos/ ./build-agent/index.js",
-        "build-agent-2": "nodemon --ignore ./repos/ ./build-agent-2/index.js",
-        "make-server": "webpack-cli --config ./config/server.config.js",
-        "make-client": "webpack-cli --config ./config/client.config.js",
+        "ssr-prod": "TS_NODE_FILES=1 NODE_ENV=production node -r ts-node/register server/index.ts",
+
+        "make-server": "webpack-cli --config ./config/server.config.ts",
+        "make-client": "webpack-cli --config ./config/client.config.ts",
+
         "docker-start": "docker-compose up -d",
         "docker-stop": "docker-compose down"
     },

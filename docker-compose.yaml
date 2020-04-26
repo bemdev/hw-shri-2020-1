@@ -10,36 +10,22 @@ services:
     agent:
         restart: always
         network_mode: host
+        volumes:
+            - ./repos:/repos
         depends_on:
             - server
         build: 
             context: ./build-agent/
         environment: 
             - PORT=3002
-    # agent2:
-    #     restart: always
-    #     network_mode: host
-    #     depends_on:
-    #         - server
-    #     build: 
-    #         context: ./build-agent/
-    #     environment: 
-    #         - PORT=3004
-    # agent3:
-    #     restart: always
-    #     network_mode: host
-    #     depends_on:
-    #         - server
-    #     build: 
-    #         context: ./build-agent/
-    #     environment: 
-    #         - PORT=3005
-    # agent4:
-    #     restart: always
-    #     network_mode: host
-    #     depends_on:
-    #         - server
-    #     build: 
-    #         context: ./build-agent/
-    #     environment: 
-    #         - PORT=3006
+    agent2:
+        restart: always
+        network_mode: host
+        volumes:
+            - ./repos:/repos
+        depends_on:
+            - server
+        build: 
+            context: ./build-agent/
+        environment: 
+            - PORT=3004
