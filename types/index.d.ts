@@ -1,9 +1,11 @@
 interface Settings {
-    id: string;
+    id?: string;
     repoName: string;
     buildCommand: string;
     mainBranch: string;
-    period: number;
+    period: string;
+    pathToRepo?: any;
+    commits?: any;
 }
 
 interface Build {
@@ -16,7 +18,8 @@ interface Build {
     authorName: string;
     status: string;
     start: string;
-    duration: number;
+    duration: string;
+    log: string;
 }
 
 declare class WebpackLoggerPlugin {
@@ -25,4 +28,16 @@ declare class WebpackLoggerPlugin {
 
 declare module 'webpack-logger-plugin' {
     export = WebpackLoggerPlugin;
+}
+
+declare class Convert {
+    constructor(
+        {fg, newline, escapeXML} : { fg: string, newline: boolean, escapeXML: boolean}
+    )
+
+	[text: string]: any;
+}
+
+declare module 'ansi-to-html' {
+    export = Convert
 }
