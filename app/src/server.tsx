@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { Router, Request } from 'express';
+import { Router } from 'express';
 
 import { matchRoutes } from './libs/router';
 import { pseudoThunk } from './libs/thunk';
@@ -54,7 +54,7 @@ export default function createMiddleware({ assets }: { assets: MiddlewareAssets 
 
     let appRouter = Router();
 
-    appRouter.get(routes.map(r => r.route), (req: any, res: RenderResponse) => {
+    appRouter.get(routes.map(r => r.path), (req: any, res: RenderResponse) => {
         renderHtml(req, res).then((page) => res.send(page));
     });
 
