@@ -12,7 +12,7 @@ import {
     removeSettings,
 } from '../controllers';
 
-type cacheResponseType = { send: (cache: []) => void, sendResponse(body:[]): void };
+type cacheResponseType = { send: (cache: []) => void, sendResponse?(body:[]): void };
 type requestCache = { originalUrl?: string,  url: string };
 
 //Cacheware - if u want change memory cache but he removable
@@ -26,9 +26,10 @@ const cacheMiddleware = (duration:number)=> {
             res.send(cachedBody);
             return;
         } else {
-            res.send = (body: []) => {
+            res.sendResponse = res.send;
+            res.send = body => {
                 mcache.put(key, body, duration * 60000);
-                res.sendResponse(body);
+                res.sendResponse && res.sendResponse(body);
             };
         }
 
@@ -39,15 +40,15 @@ const cacheMiddleware = (duration:number)=> {
 const initializeEntrypoints = (app:Application) => {
     app.get('/api/builds/list', getBuildList);
     app.get('/api/builds/:buildId', getBuildById);
-    app.get('/api/builds/:buildId/logs', getBuildLogs); //cacheMiddleware(15)
+    app.get('/api/builds/:buildId/logs', cacheMiddleware(15), getBuildLogs);
 
     app.post('/api/build/request', addBuildToTurn);
     app.post('/api/build/cancel', cancelBuild);
 
     app.route('/api/settings')
-        .get(getSettings)
+        .get(cacheMiddleware(1), getSettings)
         .post(saveSettings)
         .delete(removeSettings);
-};
+};  
 
 export default initializeEntrypoints;

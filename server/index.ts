@@ -11,7 +11,6 @@ import statsToAssets from './helpers/'
 
 const app = express();
 
-
 type CrossRequest = {};
 type CrossResponse = { header(access: string, value: string): string } | Response;
 type CrossNext = NextFunction;

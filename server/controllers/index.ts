@@ -2,6 +2,8 @@ import {
     get,
     post,
     remove,
+    cloneRepo,
+    checkRepo
 } from '../helpers';
 
 type buildListType = { query: { limit: number; offset: number; } };
@@ -53,10 +55,10 @@ export function getBuildLogs(req: buildType, res:responseBuild) {
 }
 
 //Add build to turn by req.body
-export function addBuildToTurn(req: { body: [] }, res:responseBuild) {
+export function addBuildToTurn(req: { body: Settings | any }, res?:responseBuild) {
     post('https://hw.shri.yandex/api/build/request', req.body) //need fix this but it work
         .then(() => {
-            res.send('Build waiting');
+            res && res.send('Build waiting');
         })
         .catch(err => {
             if (err) {
@@ -79,8 +81,16 @@ export function cancelBuild(build: { id: string } ) {
 export function getSettings(req: any, res:responseBuild) {
     return get('https://hw.shri.yandex/api/conf')
         .then(({ data }) => {
-            if (res) return res.send(data);
-            return data;
+            return cloneRepo(data.data)
+                .then(checkRepo)
+                .then((commits: any) => {
+                    const dataToSend:any = { data: commits };
+                    if (res) {
+                        res.send(dataToSend);
+                    } else {
+                        return dataToSend;
+                    }
+                });
         })
         .catch(err => {
             if (err) res.send([]);
@@ -88,19 +98,24 @@ export function getSettings(req: any, res:responseBuild) {
 }
 
 //Multi save settings - clone check and add to turn - mb ref this
-export function saveSettings(req: { body: [] }, res:responseBuild) {
+export function saveSettings(req: { body: Settings }, res:responseBuild) {
     post('https://hw.shri.yandex/api/conf', req.body)
-        .then(({ data }) => {
-            // const firstCommit = data.commits[0]; //fix this [0][2]
-            // addBuildToTurn({
-            //     body: {
-            //         commitMessage: firstCommit[3],
-            //         commitHash: firstCommit[0],
-            //         branchName: infoCommits.mainBranch,
-            //         authorName: firstCommit[1],
-            //     },
-            // });
-            res.send('need commits'); //infoCommits
+        .then(() => {
+            res.send('Save ok');
+            return cloneRepo(req.body)
+                .then(checkRepo)
+                .then(infoCommits => {
+                    const firstCommit = infoCommits.commits[0]; //fix this [0][2]
+                    addBuildToTurn({
+                        body: {
+                            commitMessage: firstCommit[3],
+                            commitHash: firstCommit[0],
+                            branchName: infoCommits.mainBranch,
+                            authorName: firstCommit[1],
+                        },
+                    });
+                    res.send('Save settings');
+                });
         })
         .catch(err => {
             if (err) throw err;
