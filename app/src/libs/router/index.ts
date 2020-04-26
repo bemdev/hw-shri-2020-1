@@ -1,20 +1,24 @@
+import { matchPath } from "react-router-dom";
+
 interface Route {
-    route: string;
+    path: string;
     view: string;
-    isExact?: true;
+    isExact?: boolean;
     settings?(): void;
-    data?(): {};
+    data(): void;
+    params?: {};
 }
 
 type RoutesEachType = { some?(route: Route): void } | any;
 type RoutesPathnameType = string;
 type BranchType = { push({}): void[], length: any, settings: [], data: [], view: [] } | any;
 
-export function matchRoutes(routes:RoutesEachType, pathname: RoutesPathnameType, branch: BranchType = []): BranchType {
+export function matchRoutes(routes:RoutesEachType, pathname: RoutesPathnameType, branch: BranchType = []): Route {
     routes.some && routes.some((route: Route) => {
-        if (pathname === route.route) {
-            branch.push({ ...route });
+        const match = route.path ? matchPath(pathname, route) : branch.length;
+        if (match) {
+            branch = { ...route, params: match.params};
         }
     });
-    return branch[0];
+    return branch;
 }

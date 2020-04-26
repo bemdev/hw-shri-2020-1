@@ -5,7 +5,7 @@ export const pseudoThunk = async (extra:any, params: ExtraParams, dive?: ExtraDi
     if (typeof extra === 'function') {
         let data = await extra(params);
 
-        if (dive) return { settings: data };
+        if (dive) return { settings: data.data };
 
         return data;
     }
