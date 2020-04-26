@@ -44,6 +44,7 @@
         "@types/webpack": "^4.41.12",
         "autoprefixer": "^9.7.5",
         "awesome-typescript-loader": "^5.2.1",
+        "axios-retry": "^3.1.8",
         "babel-jest": "^25.3.0",
         "babel-loader": "^8.0.6",
         "chai": "^4.2.0",
