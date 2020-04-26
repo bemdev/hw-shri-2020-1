@@ -69,29 +69,18 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
 
             resolve: {
                 modules: ['node_modules', 'src/components'],
-                extensions: ['.ts', '.tsx', '.js', '.jsx', ],
+                extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
             },
 
             module: {
                 rules: [
                     {
-                        test: /\.js?|.jsx?/,
-                        exclude: /node_modules/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: [
-                                    '@babel/preset-env',
-                                    '@babel/preset-react',
-                                ],
-                                plugins: ['@babel/plugin-transform-runtime'],
-                            },
-                        },
-                    },
-                    {
                         test: /\.ts?|.tsx?/,
                         exclude: /node_modules/,
-                        loader: 'awesome-typescript-loader',
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        }
                     },
                 ],
             },
