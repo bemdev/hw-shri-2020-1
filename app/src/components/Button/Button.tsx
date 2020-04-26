@@ -1,12 +1,25 @@
 import * as React from 'react';
-import cn from '../../libs/names/index.js';
+import cn from '../../libs/names/index';
 
 import './button.css';
 
-import Icon from '../Icon/Icon.js';
-import Text from '../Text/Text.js';
+import Icon from '../Icon/Icon';
+import Text from '../Text/Text';
 
-const Button = ({
+export interface ButtonProps {
+    type?: "button" | "submit" | "reset";
+    size?: string;
+    hasIcon?: string;
+    text?: string;
+    view?: string;
+    width?: string;
+    disabled?: boolean;
+    onClick?(e: any): void;
+    variant?: string;
+    href?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({
     type,
     size,
     hasIcon,
@@ -20,9 +33,9 @@ const Button = ({
 }) => {
     const blockName = cn('button')({
         size: size,
-        view: view ? view : null,
-        width: width ? width : null,
-        with: hasIcon ? 'icon' : null,
+        view: view,
+        width: width,
+        hasIcon: hasIcon,
         variant: variant,
     });
     const elemName = cn('button', 'text')();
@@ -34,7 +47,7 @@ const Button = ({
                 <a
                     href={href}
                     type={type}
-                    disabled={disabled}
+                    // disabled={disabled}
                     onClick={onClick}
                     className={`${blockName} ${theme} `}>
                     {hasIcon && <Icon fa={hasIcon} />}

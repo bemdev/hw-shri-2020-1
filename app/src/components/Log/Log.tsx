@@ -10,7 +10,11 @@ const convert = new Convert({
 	escapeXML: true,
 });
 
-const Log = ({ text }) => {
+export interface LogProps {
+	text?: any;
+}
+
+const Log: React.FC<LogProps> = ({ text }) => {
 	return (
 		<div
 			className={cn('log')()}

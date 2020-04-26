@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
-import cn from '../../libs/names/index.js';
+import cn from '../../libs/names/index';
 import { saveSettings, buildRequest } from '../../controllers';
 
 import './form.css';
 
-import Button from '../Button/Button.js';
-import Text from '../Text/Text.js';
-import Input from '../Input/Input.js';
+import Button from '../Button/Button';
+import Text from '../Text/Text';
+import Input from '../Input/Input';
+
+export interface FormProps {
+    items?: { commitHash: string } | any;
+    type?: string;
+    settings?: any;
+    modalClose?(): void;
+}
 
 import './form.css';
 
-const Form = ({ items, type, settings, modalClose }) => {
+const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
     const [values, setValues] = useState({
         commitHash: '',
         repoName: '',
@@ -21,30 +28,30 @@ const Form = ({ items, type, settings, modalClose }) => {
 
     const [disabled, setDisabled] = useState(false);
 
-    const handleChange = e => {
+    const handleChange = (e:any) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = e => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
-
-    const doStart = e => {
-        buildRequest(settings, values.commitHash).then(res => modalClose());
+    
+    const doStart = () => {
+        buildRequest(settings, values.commitHash).then(() => modalClose && modalClose());
     };
 
     const doStartRebuild = () => {
-        buildRequest(settings, items.commitHash).then(res => modalClose());
+        buildRequest(settings, items.commitHash).then(() => modalClose && modalClose());
     };
 
-    const setSettings = e => {
+    const setSettings = () => {
         setDisabled(true);
         saveSettings({ ...values })
-            .then(result => {
+            .then((result: any) => {
                 setDisabled(false);
                 window.location.href = '/history';
             })
-            .catch(err => console.log(err));
+            .catch((err: {}) => console.log(err));
     };
 
     switch (type) {
@@ -136,11 +143,11 @@ const Form = ({ items, type, settings, modalClose }) => {
                         onChange={handleChange}
                     />
                     <Input
-                        placeholder={10}
+                        placeholder={'10'}
                         onChange={handleChange}
                         name="period"
                         value={values.period}
-                        with={'add-ons'}
+                        addons={true}
                     />
                     <Button
                         onClick={setSettings}

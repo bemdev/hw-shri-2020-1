@@ -2,7 +2,12 @@ import * as React from 'react';
 
 import './link.css';
 
-const Link = ({ href, title }) => {
+export interface LinkProps {
+	href: string;
+	title: string;
+}
+
+const Link: React.FC<LinkProps> = ({ href, title }) => {
 	return (
 		<a href={href} className='Link'>
 			{title}

@@ -1,9 +1,15 @@
 import * as React from 'react';
-import cn from '../../libs/names/index.js';
+import cn from '../../libs/names/index';
 
 import './text.css';
 
-const Text = ({ content, size, type }) => {
+export interface TextProps {
+	content: string;
+	size?: string;
+	type?: string;
+}
+
+const Text: React.FC<TextProps> = ({ content, size, type }) => {
 	const blockName = cn('text')({ size: size, type: type });
 	switch (type) {
 		case 'p':

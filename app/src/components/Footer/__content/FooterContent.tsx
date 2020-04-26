@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Menu from '../../Menu/Menu.js';
-import Copyright from '../../Copyright/Copyright.js';
+import Menu from '../../Menu/Menu';
+import Copyright from '../../Copyright/Copyright';
 
 import './footer__content.css';
 

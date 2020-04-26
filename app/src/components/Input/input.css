@@ -28,13 +28,13 @@
 	width: 100%;
 }
 
-.input_with_add-ons {
+.input_addons {
 	display: flex;
 	align-items: center;
 	margin: 0 0 24px 0;
 }
 
-.input_with_add-ons .input__control {
+.input_addons .input__control {
 	width: 45px;
 	text-align: right;
 	margin: 10px;
@@ -46,5 +46,3 @@
 @import url('./_size/input_size_l.css');
 @import url('./_size/input_size_xl.css');
 @import url('./_size/input_size_xxl.css');
-
-

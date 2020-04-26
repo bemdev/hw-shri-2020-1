@@ -1,13 +1,19 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import cn from '../../libs/names/index.js';
+import { connect, MapDispatchToProps } from 'react-redux';
+import cn from '../../libs/names/index';
 
 import './modal.css';
 
-const Modal = ({ active, content, closeModal }) => {
+export interface ModalProps {
+	active: boolean;
+	content: string;
+	closeModal(): string;
+}
+
+const Modal: React.FC<ModalProps> = ({ active, content, closeModal }) => {
 	const blockName = cn('modal')({ active: active });
 
-	const handleClick = (e) => {
+	const handleClick = (e:any) => {
 		if (e.target.classList[0] === 'modal') {
 			closeModal();
 		}
@@ -20,13 +26,13 @@ const Modal = ({ active, content, closeModal }) => {
 	);
 };
 
-const mapStateToProps = (state = []) => {
+const mapStateToProps = (state:any = []) => {
 	return {
 		content: state.modal.content,
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch:any) => {
 	return {
 		closeModal: () =>
 			dispatch({

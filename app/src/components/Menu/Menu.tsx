@@ -1,10 +1,14 @@
 import * as React from 'react';
-import Link from '../Link/Link.js';
+import Link from '../Link/Link';
 
 import './menu.css';
 import './__item/menu__item.css';
 
-const Menu = ({ items }) => {
+export interface MenuProps {
+	items: { href: string, title: string }[];
+}
+
+const Menu: React.FC<MenuProps> = ({ items }) => {
 	return (
 		<ul className='Menu'>
 			{items && items.map((item, index) => {

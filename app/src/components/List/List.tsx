@@ -1,11 +1,16 @@
 import * as React from 'react';
-import cn from '../../libs/names/index.js';
+import cn from '../../libs/names/index';
 
-import Card from '../Card/Card.js';
+import Card from '../Card/Card';
 
 import './list.css';
 
-const List = ({ items, children }) => {
+export interface ListProps {
+	items: [];
+	children?: any;
+}
+
+const List: React.FC<ListProps> = ({ items, children }) => {
 	return (
 		<div className={cn('list')()}>
 			{items && items.map((item, index) => {

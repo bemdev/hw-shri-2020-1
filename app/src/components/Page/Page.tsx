@@ -1,18 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import cn from '../../libs/names/index.js';
+import { connect, MapStateToProps } from 'react-redux';
+import cn from '../../libs/names/index';
 
-import Header from '../Header/Header.js';
-import Footer from '../Footer/Footer.js';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
-import Grid from '../Grid/Grid.js';
-import Button from '../Button/Button.js';
-import Icon from '../Icon/Icon.js';
-import Text from '../Text/Text.js';
-import History from '../History/History.js';
-import Form from '../Form/Form.js';
-import Title from '../Title/Title.js';
-import Modal from '../Modal/Modal.js';
+import Grid from '../Grid/Grid';
+import Button from '../Button/Button';
+import Icon from '../Icon/Icon';
+import Text from '../Text/Text';
+import History from '../History/History';
+import Form from '../Form/Form';
+import Title from '../Title/Title';
+import Modal from '../Modal/Modal';
 
 import './page.css';
 
@@ -23,7 +23,17 @@ const Theme = cn('theme')({
     color: 'project-default',
 });
 
-const Page = ({
+export interface PageProps {
+    view: string;
+    settings: [];
+    data: [];
+    children?: string;
+    modal: { active: boolean };
+    modalToggle(component: any): void;
+    modalClose(): void;
+}
+
+const Page: React.FC<PageProps> = ({
     view,
     settings,
     data,
@@ -40,14 +50,11 @@ const Page = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal.active} />
-                    <Header href='/history' title={settings}>
+                    <Header color='default' href='/history' title={settings}>
                         <Button
                             onClick={() => {
                                 modalToggle(
-                                    <Form
-                                        settings={settings}
-                                        modalClose={modalClose}
-                                    />,
+                                    <Form settings={settings} modalClose={modalClose} />,
                                 );
                             }}
                             size="l"
@@ -119,7 +126,7 @@ const Page = ({
         case 'settings':
             return (
                 <div className={blockName}>
-                    <Header href='/' title={settings} />
+                    <Header href='/' title={settings} color='default' />
                     <section>
                         <div className="layout">
                             <Title
@@ -176,7 +183,7 @@ const Page = ({
         default:
             return (
                 <div className={blockName}>
-                    <Header href='/' />
+                    <Header href='/' title='CI Server' color='default' />
                     {children}
                     <Footer />
                 </div>
@@ -184,7 +191,7 @@ const Page = ({
     }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
         modal: state.modal,
         data: state.data,
@@ -192,9 +199,9 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch:any) => {
     return {
-        modalToggle: component =>
+        modalToggle: (component: React.Component) =>
             dispatch({
                 type: 'MODAL_TOGGLE',
                 payload: {
@@ -202,7 +209,7 @@ const mapDispatchToProps = dispatch => {
                     content: component,
                 },
             }),
-        modalClose: component =>
+        modalClose: () =>
             dispatch({
                 type: 'MODAL_TOGGLE',
                 payload: {
