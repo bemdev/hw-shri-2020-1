@@ -9,10 +9,12 @@ export const getBuildList = () => {
 export const getSettings = () => {
     return axios
         .get('http://localhost:3000/api/settings')
-        .then(response => response.data);
+        .then(({ data }) => {
+            return data
+        });
 };
 
-export const saveSettings = (settings: Settings)=> {
+export const saveSettings = (settings: Settings) => {
     const { repoName, mainBranch, buildCommand, period } = settings;
     return fetch('http://localhost:3000/api/settings', {
         mode: 'cors',
@@ -32,7 +34,8 @@ export const saveSettings = (settings: Settings)=> {
 export const getBuildSingleWithLog = async (buildId: Build) => {
     const build = await axios
         .get('http://localhost:3000/api/builds/{buildId}?buildId=' + buildId)
-        .then(response => response.data);
+        .then(response => response.data)
+        .catch((err: {}) => console.log(err));
 
     if (!build.data) return [];
 
@@ -43,21 +46,22 @@ export const getBuildSingleWithLog = async (buildId: Build) => {
 export const getBuildLog = (buildId: Build) => {
     return axios
         .get(
-            '/api/builds/{buildId}/logs?buildId=' +
+            'http://localhost:3000/api/builds/{buildId}/logs?buildId=' +
                 buildId,
         )
-        .then(response => response.data);
+        .then(response => response.data)
+        .catch((err: {}) => console.log(err));
 };
 
-type BuildParamsType = { commits: [], mainBranch: string}
+type BuildParamsType = { commits: [], mainBranch: string, repoName: string }
 
 export const buildRequest = (buildParams: BuildParamsType, hash: string) => {
     return new Promise(resolve => {
-        const { commits, mainBranch } = buildParams;
+        const { commits, mainBranch, repoName } = buildParams;
 
         return commits.some((commit: never) => {
             if (commit[0] === hash) {
-                fetch('/api/build/request', {
+                fetch('http://localhost:3000/api/build/request', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8',
