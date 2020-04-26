@@ -6,7 +6,7 @@ import {
 
 const routes = [
     {
-        route: '/',
+        path: '/',
         view: 'index',
         isExact: true,
         settings: async () => {
@@ -19,19 +19,25 @@ const routes = [
         data: [],
     },
     {
-        route: '/settings',
+        path: '/settings',
         view: 'settings',
-        settings: getSettings,
+        settings: async () => {
+            return {
+                data: {
+                    repoName: 'School CI Server',
+                },
+            };
+        },
         data: [],
     },
     {
-        route: '/history',
+        path: '/history',
         view: 'history',
         settings: getSettings,
         data: getBuildList,
     },
     {
-        route: '/detail/:buildId/log',
+        path: '/detail/:buildId/log',
         view: 'detail-log',
         settings: getSettings,
         data: ({ buildId }: { buildId: Build }) => {
