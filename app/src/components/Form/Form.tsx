@@ -18,13 +18,16 @@ export interface FormProps {
 import './form.css';
 
 const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
-    const [values, setValues] = useState({
+
+    const initValues = {
         commitHash: '',
         repoName: '',
         buildCommand: '',
         mainBranch: '',
         period: '',
-    });
+    };
+
+    const [values, setValues] = useState(initValues);
 
     const [disabled, setDisabled] = useState(false);
 
@@ -32,10 +35,14 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
+    const clear = (ref:any) => {
+        setValues({...values, [ref.current.name]: ''});
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
-    
+
     const doStart = () => {
         buildRequest(settings, values.commitHash).then(() => modalClose && modalClose());
     };
@@ -69,7 +76,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         width="full"
                         required={true}
                         onChange={handleChange}
-                        has={'close'}
+                        has={clear}
                     />
                     <Button
                         onClick={doStart}
@@ -130,7 +137,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         label="Build command"
                         name="buildCommand"
                         width="full"
-                        has={'close'}
+                        has={clear}
                         onChange={handleChange}
                     />
                     <Input
@@ -139,7 +146,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         value={values.mainBranch}
                         label="Main branch"
                         width="full"
-                        has={'close'}
+                        has={clear}
                         onChange={handleChange}
                     />
                     <Input

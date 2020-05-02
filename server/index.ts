@@ -24,18 +24,23 @@ app.use(express.static(resolve(__dirname, '../public/client/')));
 import config from '../config/config';
 import clientConfig from '../config/client.config';
 import serverConfig from '../config/server.config';
+import workerConfig from '../config/worker.config';
 
 //Create var to assets
 let clientAssetsMap: {};
 let serverAssetsMap: { main?: { js: string } };
 
 //Start dua compilers
-const compilers = webpack([clientConfig, serverConfig]);
+const compilers = webpack([
+    serverConfig,
+    clientConfig,
+    workerConfig
+]);
 
 //Wait webpack hooks done and save assets
 compilers.hooks.done.tap('Dev Server', (stats: any) => { //WTF Stat ? fix this
-    clientAssetsMap = statsToAssets(stats.stats[0].toJson());
-    serverAssetsMap = statsToAssets(stats.stats[1].toJson());
+    serverAssetsMap = statsToAssets(stats.stats[0].toJson());
+    clientAssetsMap = statsToAssets(stats.stats[1].toJson());
 });
 
 //Swagger docs
@@ -66,4 +71,10 @@ compilers.watch({ aggregateTimeout: 0 }, (err: {}) => {
     app.listen(config().port, () => {
         console.log(`Server started at http://localhost:${config().port}`);
     });
+});
+
+
+//Kill old process - nodemon restart server on port again
+process.once('SIGUSR2', function () {
+    process.kill(process.pid, 'SIGUSR2');
 });

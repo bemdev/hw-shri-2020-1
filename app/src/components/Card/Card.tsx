@@ -143,7 +143,7 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                                     <div className={cn('card', 'subtext')()}>
                                         <Icon fa='code-commit' />
                                         <Text content={item.branchName} />
-                                        <a href={`/detail/${item.id}/log`}>{item.commitHash}</a>
+                                        <Text content={item.commitHash} />
                                         <Icon fa='user' />
                                         <Text content={item.authorName} />
                                     </div>

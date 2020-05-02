@@ -9,13 +9,17 @@ const mockStore = configureStore([]);
 
 configure({ adapter: new Adapter() });
 
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
-global.React = React;
-global.mockStore = mockStore;
+let context:any = global;
+
+context.shallow = shallow;
+context.render = render;
+context.mount = mount;
+context.React = React;
+context.mockStore = mockStore;
+
+global = { ...context };
 
 // Обрушим тест при любой ошибке
-console.error = message => {
+console.error = (message: string) => {
     throw new Error(message);
 };
