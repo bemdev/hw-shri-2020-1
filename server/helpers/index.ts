@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 import fs from 'fs';
 import path from 'path';
@@ -21,7 +21,7 @@ const options = {
 };
 
 //Some wrappers axios - get - post - remove
-export function get(url:string) {
+export function get(url: string) {
     return axios.get(url, options);
 }
 
@@ -65,7 +65,7 @@ export function cloneRepo(settings: Settings): Promise<Settings> {
 //git reflog --format='%h|%an|%s|%D' | grep a7a2953 -m 1 //%h,%an,%ai,%s
 export function checkRepo(repo: Settings): Promise<Settings> {
     return new Promise(resolve => {
-        const commits:any = [];
+        const commits: any = [];
 
         const gpull = spawn('git', ['-C', repo.pathToRepo, 'pull']);
         gpull.on('close', () => {
@@ -77,14 +77,16 @@ export function checkRepo(repo: Settings): Promise<Settings> {
                 '--format=%h,%an,%ai,%s',
             ]);
 
-            gl.stdout.on('data', (data:any) => {
+            gl.stdout.on('data', (data: any) => {
                 commits.push(String(data));
             });
 
             gl.on('close', () => {
                 resolve({
                     ...repo,
-                    commits: commits.map((commitLine: string) => commitLine.split(',')),
+                    commits: commits.map((commitLine: string) =>
+                        commitLine.split(','),
+                    ),
                 });
             });
         });
@@ -92,13 +94,13 @@ export function checkRepo(repo: Settings): Promise<Settings> {
 }
 
 export default function statsToAssets({ entrypoints }: { entrypoints: any }) {
-    return Object.keys(entrypoints).reduce((map:any, key:any) => {
+    return Object.keys(entrypoints).reduce((map: any, key: any) => {
         if (!map[key]) {
             map[key] = {};
         }
 
         entrypoints[key].assets.forEach((file: string) => {
-            let ext:any = file.split('.').pop();
+            let ext: any = file.split('.').pop();
 
             if (!map[key][ext]) {
                 map[key][ext] = file;
