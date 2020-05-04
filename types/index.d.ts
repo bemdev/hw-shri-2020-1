@@ -22,12 +22,12 @@ interface Build {
     log: string;
 }
 
-interface Config {
+interface Route {
     path: string;
     view: string;
-    isExact: boolean;
+    isExact?: boolean;
     settings(): void;
-    data: [];
+    data(args: { buildId?: Build }): void;
 }
 
 interface RefObject<T> {
