@@ -9,11 +9,14 @@ import store from './store';
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            // Registration was successful
-        }, function(err) {
-            // registration failed :(
-        });
+        navigator.serviceWorker.register('/sw.js').then(
+            function(registration) {
+                // Registration was successful
+            },
+            function(err) {
+                // registration failed :(
+            },
+        );
     });
 }
 
@@ -26,7 +29,7 @@ const restoredData = (function clientRestoreData() {
     }
 })();
 
-function removeElement(elementId:string) {
+function removeElement(elementId: string) {
     var element = document.getElementById(elementId);
     element && element.remove();
 }
@@ -37,5 +40,5 @@ hydrate(
     <Provider store={store(restoredData)}>
         <Switch config={routes} href={window.location.pathname} />
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('root'),
 );

@@ -4,7 +4,7 @@ import {
     getBuildSingleWithLog,
 } from '../controllers';
 
-const routes = [
+const routes: Route[] = [
     {
         path: '/',
         view: 'index',
@@ -16,7 +16,7 @@ const routes = [
                 },
             };
         },
-        data: [],
+        data: () => [],
     },
     {
         path: '/settings',
@@ -28,7 +28,7 @@ const routes = [
                 },
             };
         },
-        data: [],
+        data: () => [],
     },
     {
         path: '/history',
