@@ -3,6 +3,7 @@ export const CACHE_NAME = 'shri-ci-v1';
 import { update, fromCacheOrNetwork } from './helpers';
 
 self.addEventListener('install', function(event:any) {
+    //Service worker installed
     self.skipWaiting();
 });
 
@@ -25,6 +26,7 @@ self.addEventListener('activate', function(event: any) {
 });
 
 self.addEventListener('fetch', function(event:any) {
+    //Server worker fetch
     event.respondWith(fromCacheOrNetwork(event.request));
     event.waitUntil(update(event.request));
 });
