@@ -22,8 +22,21 @@ interface Build {
     log: string;
 }
 
+interface Config {
+    path: string;
+    view: string;
+    isExact: boolean;
+    settings(): void;
+    data: [];
+}
+
+interface RefObject<T> {
+    // immutable
+    readonly current: T | null;
+}
+
 declare class WebpackLoggerPlugin {
-    constructor(opts?: {})
+    constructor(opts?: {});
 }
 
 declare module 'webpack-logger-plugin' {
@@ -31,15 +44,21 @@ declare module 'webpack-logger-plugin' {
 }
 
 declare class Convert {
-    constructor(
-        {fg, newline, escapeXML} : { fg: string, newline: boolean, escapeXML: boolean}
-    )
+    constructor({
+        fg,
+        newline,
+        escapeXML,
+    }: {
+        fg: string;
+        newline: boolean;
+        escapeXML: boolean;
+    });
 
-	[text: string]: any;
+    [text: string]: any;
 }
 
 declare module 'ansi-to-html' {
-    export = Convert
+    export = Convert;
 }
 
 interface Navigator {
@@ -63,7 +82,10 @@ interface ServiceWorkerContainer {
     ready: Promise<ServiceWorkerRegistration>;
     getRegistration(scope?: string): Promise<ServiceWorkerRegistration>;
     getRegistrations(): Promise<Array<ServiceWorkerRegistration>>;
-    register(url: string, options?: ServiceWorkerRegistrationOptions): Promise<ServiceWorkerRegistration>;
+    register(
+        url: string,
+        options?: ServiceWorkerRegistrationOptions,
+    ): Promise<ServiceWorkerRegistration>;
 }
 
 interface ServiceWorkerNotificationOptions {
@@ -77,7 +99,9 @@ interface ServiceWorkerRegistration {
     pushManager: PushManager;
     scope: string;
     waiting?: ServiceWorker;
-    getNotifications(options?: ServiceWorkerNotificationOptions): Promise<Array<Notification>>;
+    getNotifications(
+        options?: ServiceWorkerNotificationOptions,
+    ): Promise<Array<Notification>>;
     update(): void;
     unregister(): Promise<boolean>;
 }
@@ -86,17 +110,28 @@ interface ServiceWorkerRegistrationOptions {
     scope?: string;
 }
 
-type ServiceWorkerState = "installing" | "installed" | "activating" | "activated" | "redundant";
+type ServiceWorkerState =
+    | 'installing'
+    | 'installed'
+    | 'activating'
+    | 'activated'
+    | 'redundant';
 
 // CacheStorage API
 interface Cache {
     add(request: Request): Promise<void>;
     addAll(requestArray: Array<Request>): Promise<void>;
     'delete'(request: Request, options?: CacheStorageOptions): Promise<boolean>;
-    keys(request?: Request, options?: CacheStorageOptions): Promise<Array<string>>;
+    keys(
+        request?: Request,
+        options?: CacheStorageOptions,
+    ): Promise<Array<string>>;
     match(request: Request, options?: CacheStorageOptions): Promise<Response>;
-    matchAll(request: Request, options?: CacheStorageOptions): Promise<Array<Response>>;
-    put(request: Request|string, response: Response): Promise<void>;
+    matchAll(
+        request: Request,
+        options?: CacheStorageOptions,
+    ): Promise<Array<Response>>;
+    put(request: Request | string, response: Response): Promise<void>;
 }
 
 interface CacheStorage {
@@ -140,17 +175,16 @@ interface WindowClient {
     navigate(url: string): Promise<WindowClient>;
 }
 
-type ClientFrameType = "auxiliary" | "top-level" | "nested" | "none";
-type ClientMatchTypes = "window" | "worker" | "sharedworker" | "all";
-type WindowClientState = "hidden" | "visible" | "prerender" | "unloaded";
+type ClientFrameType = 'auxiliary' | 'top-level' | 'nested' | 'none';
+type ClientMatchTypes = 'window' | 'worker' | 'sharedworker' | 'all';
+type WindowClientState = 'hidden' | 'visible' | 'prerender' | 'unloaded';
 
 // Events
 interface InstallEvent extends ExtendableEvent {
     activeWorker: ServiceWorker;
 }
 
-interface ActivateEvent extends ExtendableEvent {
-}
+interface ActivateEvent extends ExtendableEvent {}
 
 // Fetch API
 interface Body {
@@ -165,11 +199,11 @@ interface Body {
 interface FetchEvent extends ExtendableEvent {
     clientId: string;
     request: Request;
-    respondWith(response: Promise<Response>|Response): Promise<Response>;
+    respondWith(response: Promise<Response> | Response): Promise<Response>;
 }
 
 interface Headers {
-    new(init?: any): Headers;
+    new (init?: any): Headers;
     append(name: string, value: string): void;
     'delete'(name: string): void;
     entries(): Array<Array<string>>;
@@ -182,17 +216,20 @@ interface Headers {
 }
 
 interface Request extends Body {
-    new(url: string, init?: {
-        method?: string,
-        url?: string,
-        referrer?: string,
-        mode?: RequestMode,
-        credentials?: RequestCredentials,
-        redirect?: RequestRedirect,
-        integrity?: string,
-        cache?: RequestCache,
-        headers?: Headers
-    }): Request;
+    new (
+        url: string,
+        init?: {
+            method?: string;
+            url?: string;
+            referrer?: string;
+            mode?: RequestMode;
+            credentials?: RequestCredentials;
+            redirect?: RequestRedirect;
+            integrity?: string;
+            cache?: RequestCache;
+            headers?: Headers;
+        },
+    ): Request;
     cache: RequestCache;
     credentials: RequestCredentials;
     headers: Headers;
@@ -207,12 +244,15 @@ interface Request extends Body {
 }
 
 interface Response extends Body {
-    new(url: string): Response;
-    new(body: Blob|BufferSource|FormData|String, init: {
-        status?: number,
-        statusText?: string,
-        headers?: Headers|{ [k: string]: string }
-    }): Response;
+    new (url: string): Response;
+    new (
+        body: Blob | BufferSource | FormData | String,
+        init: {
+            status?: number;
+            statusText?: string;
+            headers?: Headers | { [k: string]: string };
+        },
+    ): Response;
     headers: Headers;
     ok: boolean;
     redirected: boolean;
@@ -294,5 +334,5 @@ declare var onpushsubscriptionchange: () => any;
 declare var onsync: (event?: SyncEvent) => any;
 declare var registration: ServiceWorkerRegistration;
 
-declare function fetch(request: Request|string): Promise<Response>;
+declare function fetch(request: Request | string): Promise<Response>;
 declare function skipWaiting(): void;
