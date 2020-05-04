@@ -1,21 +1,21 @@
-import {
-    get,
-    post,
-    remove,
-    cloneRepo,
-    checkRepo
-} from '../helpers';
+import { Request, Response } from 'express';
 
-type buildListType = { query: { limit: number; offset: number; } };
-type responseBuild = { send: (data: [] | string) => void; };
-type buildType = { query: { buildId: string } };
+import { get, post, remove, cloneRepo, checkRepo } from '../helpers';
+
+type TRequestQuery = { buildId: string };
+type TRequestQueryList = { limit: number; offset: number };
 
 //Get a list of all builds
-export function getBuildList(req: buildListType, res:responseBuild)  {
+export function getBuildList(
+    req: Request<{}, {}, TRequestQueryList>,
+    res: Response,
+) {
     return new Promise(resolve => {
         const { limit, offset } = req.query;
 
-        get(`https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${offset}`)
+        get(
+            `https://hw.shri.yandex/api/build/list?limit=${limit}&offset=${offset}`,
+        )
             .then(response => {
                 if (res) {
                     res.send(response.data);
@@ -24,14 +24,17 @@ export function getBuildList(req: buildListType, res:responseBuild)  {
                 }
             })
             .catch(err => {
-                console.log(err.response.status)
+                console.log(err.response.status);
                 if (err) res.send([]);
             });
     });
 }
 
 //Get a build by id
-export function getBuildById(req: buildType, res:responseBuild) {
+export function getBuildById(
+    req: Request<{}, {}, TRequestQuery>,
+    res: Response,
+) {
     const { buildId } = req.query;
     get(`https://hw.shri.yandex/api/build/details?buildId=${buildId}`)
         .then(response => {
@@ -43,7 +46,10 @@ export function getBuildById(req: buildType, res:responseBuild) {
 }
 
 //Get build full log of remote repo make
-export function getBuildLogs(req: buildType, res:responseBuild) {
+export function getBuildLogs(
+    req: Request<{}, {}, TRequestQuery>,
+    res: Response,
+) {
     const { buildId } = req.query;
     get(`https://hw.shri.yandex/api/build/log?buildId=${buildId}`)
         .then(response => {
@@ -55,8 +61,8 @@ export function getBuildLogs(req: buildType, res:responseBuild) {
 }
 
 //Add build to turn by req.body
-export function addBuildToTurn(req: { body: Settings | any }, res?:responseBuild) {
-    post('https://hw.shri.yandex/api/build/request', req.body) //need fix this but it work
+export function addBuildToTurn(req: { body: Settings | any }, res?: Response) {
+    post('https://hw.shri.yandex/api/build/request', req.body)
         .then(() => {
             res && res.send('Build waiting');
         })
@@ -68,7 +74,7 @@ export function addBuildToTurn(req: { body: Settings | any }, res?:responseBuild
 }
 
 //Cancel build by ID with any status
-export function cancelBuild(build: { id: string } ) {
+export function cancelBuild(build: { id: string }) {
     //return 500 error ? dont cancel build plz
     post('https://hw.shri.yandex/api/build/cancel', {
         buildId: build.id,
@@ -78,13 +84,13 @@ export function cancelBuild(build: { id: string } ) {
 }
 
 //Multi get setting profile - clone and check repo
-export function getSettings(req: any, res:responseBuild) {
+export function getSettings(req: Request<{}, {}, Settings>, res: Response) {
     return get('https://hw.shri.yandex/api/conf')
         .then(({ data }) => {
             return cloneRepo(data.data)
                 .then(checkRepo)
                 .then((commits: any) => {
-                    const dataToSend:any = { data: commits };
+                    const dataToSend: any = { data: commits };
                     if (res) {
                         res.send(dataToSend);
                     } else {
@@ -98,7 +104,7 @@ export function getSettings(req: any, res:responseBuild) {
 }
 
 //Multi save settings - clone check and add to turn - mb ref this
-export function saveSettings(req: { body: Settings }, res:responseBuild) {
+export function saveSettings(req: { body: Settings }, res: Response) {
     post('https://hw.shri.yandex/api/conf', req.body)
         .then(() => {
             res.send('Save ok');
@@ -123,7 +129,7 @@ export function saveSettings(req: { body: Settings }, res:responseBuild) {
 }
 
 //Remove settings profile - delete all build history
-export function removeSettings(req:any, res:responseBuild) {
+export function removeSettings(req: Request, res: Response) {
     remove('https://hw.shri.yandex/api/conf')
         .then(() => res.send('Setting remove.'))
         .catch(err => {

@@ -7,11 +7,9 @@ export const getBuildList = () => {
 };
 
 export const getSettings = () => {
-    return axios
-        .get('http://localhost:3000/api/settings')
-        .then(({ data }) => {
-            return data
-        });
+    return axios.get('http://localhost:3000/api/settings').then(({ data }) => {
+        return data;
+    });
 };
 
 export const saveSettings = (settings: Settings) => {
@@ -53,9 +51,7 @@ export const getBuildLog = (buildId: Build) => {
         .catch((err: {}) => console.log(err));
 };
 
-type BuildParamsType = { commits: [], mainBranch: string, repoName: string }
-
-export const buildRequest = (buildParams: BuildParamsType, hash: string) => {
+export const buildRequest = (buildParams: Settings, hash: string) => {
     return new Promise(resolve => {
         const { commits, mainBranch, repoName } = buildParams;
 
