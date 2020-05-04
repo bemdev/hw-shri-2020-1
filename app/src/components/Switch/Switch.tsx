@@ -4,7 +4,7 @@ import { matchRoutes } from '../../libs/router';
 
 export interface SwitchProps {
     href: string;
-    config: {};
+    config: Config;
 }
 
 const Switch: React.FC<SwitchProps> = ({ href, config }) => {

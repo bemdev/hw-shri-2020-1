@@ -14,7 +14,7 @@ export interface ButtonProps {
     view?: string;
     width?: string;
     disabled?: boolean;
-    onClick?(e: any): void;
+    onClick?: React.MouseEventHandler;
     variant?: string;
     href?: string;
 }

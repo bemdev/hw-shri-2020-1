@@ -10,7 +10,6 @@ import './card.css';
 
 export interface CardProps {
     item: Build;
-    children?: any;
     view?: string;
 }
 
@@ -35,7 +34,7 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                 break;
         }
     } else {
-        item.status = 'Waiting'
+        item.status = 'Waiting';
     }
 
     //fix NaN
@@ -61,48 +60,47 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
         <>
             {view !== 'full' ? (
                 <div className={cn('card')({ view: view, border: 'all' })}>
-                    <a href={`/detail/${item.id}/log`} className={cn('card', 'content')()}>
+                    <a
+                        href={`/detail/${item.id}/log`}
+                        className={cn('card', 'content')()}>
                         <div className={cn('card', 'status')({ type: types })}>
                             <Icon fa={types} />
                         </div>
                         <div className={cn('card', 'description')()}>
                             <div className={cn('card', 'text')()}>
                                 <div
-                                    className={cn(
-                                        'card',
-                                        'status'
-                                    )({
+                                    className={cn('card', 'status')({
                                         view: 'text',
                                         type: types,
-                                    })}
-                                >
+                                    })}>
                                     #{item.buildNumber}
                                 </div>
-                                <div className={cn('card', 'text')()}>{item.commitMessage}</div>
+                                <div className={cn('card', 'text')()}>
+                                    {item.commitMessage}
+                                </div>
                             </div>
                             <div className={cn('card', 'subtext')()}>
-                                <Icon fa='code-commit' />
+                                <Icon fa="code-commit" />
                                 <Text content={item.branchName} />
                                 <Text content={item.commitHash} />
-                                <Icon fa='user' />
+                                <Icon fa="user" />
                                 <Text content={item.authorName} />
                             </div>
                         </div>
                         {item.start && (
                             <div className={cn('card', 'info')()}>
                                 <div className={cn('card', 'date')()}>
-                                    <Icon fa='calendar' />
+                                    <Icon fa="calendar" />
                                     <Text
-                                        size='m'
-                                        content={new Date(item.start).toLocaleString(
-                                            'ru',
-                                            timeOptions
-                                        )}
+                                        size="m"
+                                        content={new Date(
+                                            item.start,
+                                        ).toLocaleString('ru', timeOptions)}
                                     />
                                 </div>
                                 <div className={cn('card', 'time')()}>
-                                    <Icon fa='clock' />
-                                    <Text size='m' content={item.duration} />
+                                    <Icon fa="clock" />
+                                    <Text size="m" content={item.duration} />
                                 </div>
                             </div>
                         )}
@@ -114,26 +112,18 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                         {item.buildNumber ? (
                             <>
                                 <div
-                                    className={cn(
-                                        'card',
-                                        'status'
-                                    )({
+                                    className={cn('card', 'status')({
                                         type: types,
-                                    })}
-                                >
+                                    })}>
                                     <Icon fa={types} />
                                 </div>
                                 <div className={cn('card', 'description')()}>
                                     <div className={cn('card', 'text')()}>
                                         <div
-                                            className={cn(
-                                                'card',
-                                                'status'
-                                            )({
+                                            className={cn('card', 'status')({
                                                 view: 'text',
                                                 type: types,
-                                            })}
-                                        >
+                                            })}>
                                             #{item.buildNumber}
                                         </div>
                                         <div className={cn('card', 'text')()}>
@@ -141,27 +131,40 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                                         </div>
                                     </div>
                                     <div className={cn('card', 'subtext')()}>
-                                        <Icon fa='code-commit' />
+                                        <Icon fa="code-commit" />
                                         <Text content={item.branchName} />
                                         <Text content={item.commitHash} />
-                                        <Icon fa='user' />
+                                        <Icon fa="user" />
                                         <Text content={item.authorName} />
                                     </div>
                                     {item.start && (
                                         <div className={cn('card', 'info')()}>
-                                            <div className={cn('card', 'date')()}>
-                                                <Icon fa='calendar' />
+                                            <div
+                                                className={cn(
+                                                    'card',
+                                                    'date',
+                                                )()}>
+                                                <Icon fa="calendar" />
                                                 <Text
-                                                    size='m'
-                                                    content={new Date(item.start).toLocaleString(
+                                                    size="m"
+                                                    content={new Date(
+                                                        item.start,
+                                                    ).toLocaleString(
                                                         'ru',
-                                                        timeOptions
+                                                        timeOptions,
                                                     )}
                                                 />
                                             </div>
-                                            <div className={cn('card', 'time')()}>
-                                                <Icon fa='clock' />
-                                                <Text size='m' content={item.duration} />
+                                            <div
+                                                className={cn(
+                                                    'card',
+                                                    'time',
+                                                )()}>
+                                                <Icon fa="clock" />
+                                                <Text
+                                                    size="m"
+                                                    content={item.duration}
+                                                />
                                             </div>
                                         </div>
                                     )}

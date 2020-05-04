@@ -9,16 +9,15 @@ import Text from '../Text/Text';
 import Input from '../Input/Input';
 
 export interface FormProps {
-    items?: { commitHash: string } | any;
+    items?: Build;
     type?: string;
-    settings?: any;
-    modalClose?(): void;
+    settings: Settings;
+    modalClose(): void;
 }
 
 import './form.css';
 
 const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
-
     const initValues = {
         commitHash: '',
         repoName: '',
@@ -31,12 +30,12 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
 
     const [disabled, setDisabled] = useState(false);
 
-    const handleChange = (e:any) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setValues({ ...values, [e.currentTarget.name]: e.currentTarget.value });
     };
 
-    const clear = (ref:any) => {
-        setValues({...values, [ref.current.name]: ''});
+    const clear = (ref: RefObject<HTMLInputElement>) => {
+        ref.current && setValues({ ...values, [ref.current.name]: '' });
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,17 +43,19 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
     };
 
     const doStart = () => {
-        buildRequest(settings, values.commitHash).then(() => modalClose && modalClose());
+        buildRequest(settings, values.commitHash).then(() => modalClose());
     };
 
     const doStartRebuild = () => {
-        buildRequest(settings, items.commitHash).then(() => modalClose && modalClose());
+        if (items) {
+            buildRequest(settings, items.commitHash).then(() => modalClose());
+        }
     };
 
     const setSettings = () => {
         setDisabled(true);
         saveSettings({ ...values })
-            .then((result: any) => {
+            .then(() => {
                 setDisabled(false);
                 window.location.href = '/history';
             })

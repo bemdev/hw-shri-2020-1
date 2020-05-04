@@ -25,11 +25,11 @@ const Theme = cn('theme')({
 
 export interface PageProps {
     view: string;
-    settings: [];
-    data: [];
+    settings: Settings;
+    data: Build;
     children?: string;
     modal: { active: boolean };
-    modalToggle(component: any): void;
+    modalToggle(component: React.ReactNode): void;
     modalClose(): void;
 }
 
@@ -42,7 +42,6 @@ const Page: React.FC<PageProps> = ({
     modal,
     children,
 }) => {
-
     const blockName = cn('page')({ view: view }) + ` ${Theme}`;
 
     switch (view) {
@@ -50,11 +49,14 @@ const Page: React.FC<PageProps> = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal.active} />
-                    <Header color='default' href='/history' title={settings}>
+                    <Header color="default" href="/history" title={settings}>
                         <Button
                             onClick={() => {
                                 modalToggle(
-                                    <Form settings={settings} modalClose={modalClose} />,
+                                    <Form
+                                        settings={settings}
+                                        modalClose={modalClose}
+                                    />,
                                 );
                             }}
                             size="l"
@@ -87,7 +89,7 @@ const Page: React.FC<PageProps> = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal && modal.active} />
-                    <Header href='/history' title={settings} color="default">
+                    <Header href="/history" title={settings} color="default">
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -126,14 +128,17 @@ const Page: React.FC<PageProps> = ({
         case 'settings':
             return (
                 <div className={blockName}>
-                    <Header href='/' title={settings} color='default' />
+                    <Header href="/" title={settings} color="default" />
                     <section>
                         <div className="layout">
                             <Title
                                 text="Settings"
                                 subtitle="Configure repository connection and synchronization settings"
                             />
-                            <Form settings={settings} />
+                            <Form
+                                settings={settings}
+                                modalClose={() => false} //if we no have modal this fix modalClose?: type
+                            />
                         </div>
                     </section>
                     <Footer />
@@ -143,7 +148,7 @@ const Page: React.FC<PageProps> = ({
             return (
                 <div className={blockName}>
                     <Modal active={modal && modal.active} />
-                    <Header href='/history' title={settings} color="default">
+                    <Header href="/history" title={settings} color="default">
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -183,7 +188,7 @@ const Page: React.FC<PageProps> = ({
         default:
             return (
                 <div className={blockName}>
-                    <Header href='/' title='CI Server' color='default' />
+                    <Header href="/" title={settings} color="default" />
                     {children}
                     <Footer />
                 </div>
@@ -199,7 +204,7 @@ const mapStateToProps = (state: any) => {
     };
 };
 
-const mapDispatchToProps = (dispatch:any) => {
+const mapDispatchToProps = (dispatch: any) => {
     return {
         modalToggle: (component: React.Component) =>
             dispatch({
