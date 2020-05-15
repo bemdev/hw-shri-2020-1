@@ -1,8 +1,14 @@
 .header__control {
-	display: flex;
-	justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
+.header__control .button {
+    display: flex;
+    align-items: center;
+}
+
+
 .header__control .button:first-child {
-	margin: 0 10px 0 0;
+    margin: 0 10px 0 0;
 }
