@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import cn from '../../libs/names';
 
+import { useTranslation } from 'react-i18next';
+
 import './input.css';
 
 export interface InputProps {
@@ -27,6 +29,7 @@ const Input: React.FC<InputProps> = ({
     onChange,
 }) => {
     const inputRef: RefObject<HTMLInputElement> = useRef(null);
+    const { t } = useTranslation();
 
     return (
         <div
@@ -37,7 +40,7 @@ const Input: React.FC<InputProps> = ({
             })}>
             {addons ? (
                 <>
-                    <div className={cn('input', 'addon')()}>Synchronize</div>
+                    <div className={cn('input', 'addon')()}>{t('synchro')}</div>
                     <input
                         ref={inputRef}
                         onChange={onChange}
@@ -49,7 +52,9 @@ const Input: React.FC<InputProps> = ({
                             required: required,
                         })}
                     />
-                    <div className={cn('input', 'addon')()}>minutes</div>
+                    <div className={cn('input', 'addon')()}>
+                        {t('min', { count: Number(value) })}
+                    </div>
                 </>
             ) : (
                 <>

@@ -14,6 +14,8 @@ import Form from '../Form/Form';
 import Title from '../Title/Title';
 import Modal from '../Modal/Modal';
 
+import { useTranslation } from 'react-i18next';
+
 import './page.css';
 
 const Theme = cn('theme')({
@@ -43,13 +45,17 @@ const Page: React.FC<PageProps> = ({
     children,
 }) => {
     const blockName = cn('page')({ view: view }) + ` ${Theme}`;
+    const { t } = useTranslation();
 
     switch (view) {
         case 'index':
             return (
                 <div className={blockName}>
                     <Modal active={modal.active} />
-                    <Header color="default" href="/history" title={settings}>
+                    <Header
+                        color="default"
+                        href="/history"
+                        title={{ repoName: t('pageTitle') }}>
                         <Button
                             onClick={() => {
                                 modalToggle(
@@ -61,7 +67,7 @@ const Page: React.FC<PageProps> = ({
                             }}
                             size="l"
                             hasIcon="cogs"
-                            text="Settings"
+                            text={t('settings')}
                         />
                     </Header>
                     <section>
@@ -70,7 +76,7 @@ const Page: React.FC<PageProps> = ({
                             <Text
                                 type="p"
                                 size="l"
-                                content="Configure repository connection and synchronization settings"
+                                content={t('previewText')}
                             />
                             <Button
                                 variant="link"
@@ -78,7 +84,7 @@ const Page: React.FC<PageProps> = ({
                                 width="full"
                                 size="xl"
                                 view="active"
-                                text="Open settings"
+                                text={t('openSettingsButton')}
                             />
                         </Grid>
                     </section>
@@ -102,7 +108,7 @@ const Page: React.FC<PageProps> = ({
                             }}
                             size="l"
                             hasIcon="play"
-                            text="Run build"
+                            text={t('runBuild')}
                         />
                         <Button
                             onClick={() => {
@@ -128,12 +134,16 @@ const Page: React.FC<PageProps> = ({
         case 'settings':
             return (
                 <div className={blockName}>
-                    <Header href="/" title={settings} color="default" />
+                    <Header
+                        href="/"
+                        title={{ repoName: t('pageTitle') }}
+                        color="default"
+                    />
                     <section>
                         <div className="layout">
                             <Title
-                                text="Settings"
-                                subtitle="Configure repository connection and synchronization settings"
+                                text={t('settings')}
+                                subtitle={t('previewText')}
                             />
                             <Form
                                 settings={settings}
@@ -162,7 +172,7 @@ const Page: React.FC<PageProps> = ({
                             }}
                             size="l"
                             hasIcon="rebuild"
-                            text="Rebuild"
+                            text={t('reBuild')}
                         />
                         <Button
                             onClick={() => {

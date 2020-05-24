@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import cn from '../../libs/names/index';
 import { saveSettings, buildRequest } from '../../controllers';
 
+import { useTranslation } from 'react-i18next';
+
 import './form.css';
 
 import Button from '../Button/Button';
@@ -18,6 +20,8 @@ export interface FormProps {
 import './form.css';
 
 const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
+    const { t } = useTranslation();
+
     const initValues = {
         commitHash: '',
         repoName: '',
@@ -68,11 +72,11 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                 <form
                     onSubmit={handleSubmit}
                     className={cn('form')({ type: type })}>
-                    <Text size="xxl" content="New Build" />
+                    <Text size="xxl" content={t('newBuild')} />
                     <Input
-                        placeholder="Commit hash"
+                        placeholder={t('commitHashLabel')}
                         value={values.commitHash}
-                        label="Enter the commit hash which you want to build."
+                        label={t('commitHash')}
                         name="commitHash"
                         width="full"
                         required={true}
@@ -84,13 +88,13 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         disabled={disabled}
                         size="xl"
                         view="active"
-                        text="Run build"
+                        text={t('runBuild')}
                     />
                     <Button
                         onClick={modalClose}
                         disabled={disabled}
                         size="xl"
-                        text="Cancel"
+                        text={t('cancel')}
                     />
                 </form>
             );
@@ -100,22 +104,19 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                 <form
                     onSubmit={handleSubmit}
                     className={cn('form')({ type: type })}>
-                    <Text
-                        size="xxl"
-                        content="Do you really want to run rebuild?"
-                    />
+                    <Text size="xxl" content={t('reBuildText')} />
                     <Button
                         onClick={doStartRebuild}
                         disabled={disabled}
                         size="xl"
                         view="active"
-                        text="Rebuild"
+                        text={t('reBuild')}
                     />
                     <Button
                         onClick={modalClose}
                         disabled={disabled}
                         size="xl"
-                        text="Cancel"
+                        text={t('cancel')}
                     />
                 </form>
             );
@@ -125,7 +126,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                 <form onSubmit={handleSubmit} className={cn('form')()}>
                     <Input
                         placeholder="bemdev/ci-server"
-                        label="GitHub repository"
+                        label={t('gitHubRepo')}
                         value={values.repoName}
                         name="repoName"
                         width="full"
@@ -135,7 +136,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                     <Input
                         placeholder="yarn dev"
                         value={values.buildCommand}
-                        label="Build command"
+                        label={t('buildCommand')}
                         name="buildCommand"
                         width="full"
                         has={clear}
@@ -145,7 +146,7 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         placeholder="master"
                         name="mainBranch"
                         value={values.mainBranch}
-                        label="Main branch"
+                        label={t('mainBranch')}
                         width="full"
                         has={clear}
                         onChange={handleChange}
@@ -163,13 +164,13 @@ const Form: React.FC<FormProps> = ({ items, type, settings, modalClose }) => {
                         disabled={disabled}
                         size="xl"
                         view="active"
-                        text="Save settings"
+                        text={t('saveSettingsButton')}
                     />
                     <Button
                         onClick={() => {}}
                         disabled={disabled}
                         size="xl"
-                        text="Cancel settings"
+                        text={t('cancelSettingsButton')}
                     />
                 </form>
             );

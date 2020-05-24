@@ -12,9 +12,10 @@ export default function commonConfig() {
         port: 3000,
         publicPath: '/assets/',
     };
-};
+}
 
-export function createTarget(target: string):any { //WTG CONFIGURE ? Configuration ? root ?
+export function createTarget(target: string): any {
+    //WTG CONFIGURE ? Configuration ? root ?
 
     let { publicPath } = commonConfig();
 
@@ -38,8 +39,8 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
      */
     let name = IS_DEVELOPMENT ? '[name].js' : '[hash:16].js';
 
-    // let IS_SERVER = target === 'server';
-    // let IS_CLIENT = target === 'client';
+    let IS_SERVER = target === 'server';
+    let IS_CLIENT = target === 'client';
 
     return {
         root,
@@ -79,20 +80,22 @@ export function createTarget(target: string):any { //WTG CONFIGURE ? Configurati
                         exclude: /node_modules/,
                         loader: 'ts-loader',
                         options: {
-                            transpileOnly: true
-                        }
+                            transpileOnly: true,
+                        },
                     },
                 ],
             },
 
             plugins: [
                 //if we need define how check side uncomment this
-                // new webpack.DefinePlugin({
-                // 	IS_SERVER: JSON.stringify(IS_SERVER),
-                // 	IS_CLIENT: JSON.stringify(IS_CLIENT),
-                // 	'typeof window': JSON.stringify(IS_CLIENT ? 'object' : 'undefined'),
-                // 	'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-                // }),
+                new webpack.DefinePlugin({
+                    IS_SERVER: JSON.stringify(IS_SERVER),
+                    IS_CLIENT: JSON.stringify(IS_CLIENT),
+                    'typeof window': JSON.stringify(
+                        IS_CLIENT ? 'object' : 'undefined',
+                    ),
+                    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
+                }),
 
                 new webpack.NoEmitOnErrorsPlugin(),
 
