@@ -7,6 +7,8 @@ import Switch from './components/Switch/Switch';
 
 import store from './store';
 
+import './components/i18n/i18n.ts';
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('/sw.js').then(

@@ -12,15 +12,21 @@ import Switch from './components/Switch/Switch';
 import pageTemplate from '../../config/template';
 import store from './store';
 
-type MiddlewareAssets = { main: { js: string, css: string } };
-type RenderRequest = { params: [], url: string, buildId?: string };
+import './components/i18n/i18n.ts';
+
+type MiddlewareAssets = { main: { js: string; css: string } };
+type RenderRequest = { params: []; url: string; buildId?: string };
 type RenderResponse = {
     send(page: any): void;
     redirect(url: string): void;
 };
 
-export default function createMiddleware({ assets }: { assets: MiddlewareAssets }) {
-    async function renderHtml(req:RenderRequest, res: RenderResponse) {
+export default function createMiddleware({
+    assets,
+}: {
+    assets: MiddlewareAssets;
+}) {
+    async function renderHtml(req: RenderRequest, res: RenderResponse) {
         const { data, settings } = matchRoutes(routes, req.url);
 
         let serverData: any;
@@ -32,7 +38,7 @@ export default function createMiddleware({ assets }: { assets: MiddlewareAssets 
 
         serverData = {
             ...serverData[0],
-            ...serverData[1]
+            ...serverData[1],
         };
 
         //if we no have settings go to set
@@ -55,7 +61,7 @@ export default function createMiddleware({ assets }: { assets: MiddlewareAssets 
     let appRouter = Router();
 
     appRouter.get(routes.map(r => r.path), (req: any, res: RenderResponse) => {
-        renderHtml(req, res).then((page) => res.send(page));
+        renderHtml(req, res).then(page => res.send(page));
     });
 
     return appRouter;
