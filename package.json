@@ -3,11 +3,7 @@
     "version": "2.0.1",
     "description": "(весна 2020, Москва)",
     "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
+        "production": [">0.2%", "not dead", "not op_mini all"],
         "development": [
             "last 1 chrome version",
             "last 1 firefox version",
@@ -61,12 +57,12 @@
         "full-icu": "^1.3.1",
         "hermione": "^3.1.0",
         "i18next": "^19.4.4",
-        "i18next-chained-backend": "^2.0.1",
-        "i18next-localstorage-backend": "^3.1.1",
+        "i18next-browser-languagedetector": "^4.2.0",
         "jest": "^25.3.0",
         "jest-transform-css": "^2.0.0",
         "memory-cache": "^0.2.0",
         "mini-css-extract-plugin": "^0.9.0",
+        "moment": "^2.26.0",
         "nodemon": "^2.0.2",
         "npm-run-all": "^4.1.5",
         "null-loader": "^3.0.0",
