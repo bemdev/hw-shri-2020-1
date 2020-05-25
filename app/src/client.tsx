@@ -9,18 +9,18 @@ import store from './store';
 
 import './components/i18n/i18n.ts';
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(
-            function(registration) {
-                // Registration was successful
-            },
-            function(err) {
-                // registration failed :(
-            },
-        );
-    });
-}
+// if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', function() {
+//         navigator.serviceWorker.register('/sw.js').then(
+//             function(registration) {
+//                 // Registration was successful
+//             },
+//             function(err) {
+//                 // registration failed :(
+//             },
+//         );
+//     });
+// }
 
 const restoredData = (function clientRestoreData() {
     let element = document.getElementById('data');

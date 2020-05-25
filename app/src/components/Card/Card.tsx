@@ -1,6 +1,8 @@
 import * as React from 'react';
 import cn from '../../libs/names/index';
 
+import { useTranslation } from 'react-i18next';
+
 import Icon from '../Icon/Icon';
 import Text from '../Text/Text';
 import Log from '../Log/Log';
@@ -15,6 +17,7 @@ export interface CardProps {
 
 const Card: React.FC<CardProps> = ({ item, view }) => {
     let types: string = 'warning';
+    const { t } = useTranslation();
 
     if (item.status) {
         switch (item.status) {
@@ -37,23 +40,18 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
         item.status = 'Waiting';
     }
 
-    //fix NaN
-    if (typeof item.duration !== 'string' && item.duration > 0) {
-        if (item.duration < 60000) {
-            //if no min get sec
-            item.duration = item.duration / 1000 + ' сек';
+    const getDuration = () => {
+        if (typeof item.duration !== 'string' && item.duration > 0) {
+            item.duration = item.duration / 1000 + ' ';
+            //if (item.duration < 60000) {
+            //    //if no min get sec
+            //} else {
+            //    item.duration = item.duration / 60000 + ' ';
+            //}
+            return item.duration;
         } else {
-            item.duration = item.duration / 60000 + ' мин';
+            return item.duration + t('durationSec');
         }
-    }
-
-    const timeOptions = {
-        month: 'short',
-        day: 'numeric',
-        timezone: 'UTC',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
     };
 
     return (
@@ -93,14 +91,14 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                                     <Icon fa="calendar" />
                                     <Text
                                         size="m"
-                                        content={new Date(
-                                            item.start,
-                                        ).toLocaleString('ru', timeOptions)}
+                                        content={t('dateBuild', {
+                                            date: new Date(item.start),
+                                        })}
                                     />
                                 </div>
                                 <div className={cn('card', 'time')()}>
                                     <Icon fa="clock" />
-                                    <Text size="m" content={item.duration} />
+                                    <Text size="m" content={getDuration()} />
                                 </div>
                             </div>
                         )}
@@ -147,12 +145,11 @@ const Card: React.FC<CardProps> = ({ item, view }) => {
                                                 <Icon fa="calendar" />
                                                 <Text
                                                     size="m"
-                                                    content={new Date(
-                                                        item.start,
-                                                    ).toLocaleString(
-                                                        'ru',
-                                                        timeOptions,
-                                                    )}
+                                                    content={t('dateBuild', {
+                                                        date: new Date(
+                                                            item.start,
+                                                        ),
+                                                    })}
                                                 />
                                             </div>
                                             <div
