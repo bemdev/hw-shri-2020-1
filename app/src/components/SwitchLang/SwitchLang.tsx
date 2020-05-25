@@ -7,15 +7,11 @@ export interface ISwitchLangProps {
 }
 
 const SwitchLang: React.FC<ISwitchLangProps> = ({ text, lang }) => {
-    const [clang, setClang] = useState(lang);
-
     const handleClick = () => {
-        if (clang === 'ru') {
+        if (i18next.language === 'ru') {
             i18next.changeLanguage('en');
-            setClang('en');
         } else {
             i18next.changeLanguage('ru');
-            setClang('ru');
         }
     };
 
